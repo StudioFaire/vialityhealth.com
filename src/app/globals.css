@@ -1,35 +1,45 @@
 @import "tailwindcss";
+@import "tw-animate-css";
 
-@theme {
-  --color-primary: #1a1a1a;
-  --color-primary-foreground: #ffffff;
-  --color-secondary: #6b7280;
-  --color-accent: #c8a96e;
-  --color-background: #fafaf8;
-  --color-foreground: #1a1a1a;
-  --color-muted: #f5f5f0;
-  --color-border: #e5e5e0;
-  --color-destructive: #ef4444;
-  --font-serif: "Georgia", "Times New Roman", serif;
-  --font-sans: "Inter", system-ui, -apple-system, sans-serif;
+@import "./styles/layout.css";
+@import "./styles/typography.css";
+@import "./styles/animations.css";
+@import "./styles/utilities.css";
+
+@plugin "@tailwindcss/typography";
+
+@source inline("lg:col-span-4");
+@source inline("lg:col-span-6");
+@source inline("lg:col-span-8");
+@source inline("lg:col-span-12");
+@source inline("border-border");
+@source inline("bg-card");
+@source inline("border-error");
+@source inline("bg-error/30");
+@source inline("border-success");
+@source inline("bg-success/30");
+@source inline("border-warning");
+@source inline("bg-warning/30");
+
+/* ── Focus styles ──────────────────────────────────────────── */
+
+a:focus-visible,
+input:focus-visible,
+button:focus-visible {
+  outline: 2px solid transparent;
+  outline-offset: 2px;
+  box-shadow:
+    0 0 0 4px var(--color-ring),
+    0 0 0 2px var(--color-background);
 }
 
-html {
-  scroll-behavior: smooth;
-}
-
-body {
-  font-family: var(--font-sans);
-  color: var(--color-foreground);
-  background-color: var(--color-background);
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-.hide-scrollbar {
-  -ms-overflow-style: none;
-  scrollbar-width: none;
-}
-.hide-scrollbar::-webkit-scrollbar {
-  display: none;
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }

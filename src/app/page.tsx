@@ -1,263 +1,200 @@
+"use client";
+
 import Link from "next/link";
-import { FlaskConical, ShieldCheck, FileCheck, Beaker } from "lucide-react";
-import { getAllProducts } from "@/lib/shopify";
-import { ProductCard } from "@/components/product/ProductCard";
-import type { ShopifyProduct } from "@/lib/shopify/types";
+import { motion } from "framer-motion";
+import { GrainOverlay } from "@/components/viality/GrainOverlay";
 
-export default async function HomePage() {
-  let products: ShopifyProduct[] = [];
-  try {
-    products = await getAllProducts(4);
-  } catch {
-    // Shopify not configured yet
-  }
-
+function VideoPanel({ src }: { src: string }) {
   return (
-    <div className="flex flex-col min-h-screen">
-      {/* Hero Section */}
-      <section className="relative h-[90vh] min-h-150 flex items-center justify-center overflow-hidden">
-        <div className="absolute inset-0 z-0">
-          <div className="absolute inset-0 bg-black/40 z-10" />
-          {/* Mobile / Tablet: double-helix only */}
-          {/* eslint-disable-next-line jsx-a11y/media-has-caption */}
-          <video
-            autoPlay
-            loop
-            muted
-            playsInline
-            className="absolute inset-0 w-full h-full object-cover lg:hidden"
-          >
-            <source src="/videos/double-helix.mp4" type="video/mp4" />
-          </video>
-          {/* Desktop: two videos side-by-side */}
-          {/* eslint-disable-next-line jsx-a11y/media-has-caption */}
-          <video
-            autoPlay
-            loop
-            muted
-            playsInline
-            className="absolute inset-0 w-1/2 h-full object-cover hidden lg:block"
-          >
-            <source src="/videos/double-helix.mp4" type="video/mp4" />
-          </video>
-          {/* eslint-disable-next-line jsx-a11y/media-has-caption */}
-          <video
-            autoPlay
-            loop
-            muted
-            playsInline
-            className="absolute top-0 right-0 w-1/2 h-full object-cover hidden lg:block"
-          >
-            <source src="/videos/man-running.mp4" type="video/mp4" />
-          </video>
+    <div className="relative flex-1 overflow-hidden">
+      {/* eslint-disable-next-line jsx-a11y/media-has-caption */}
+      <video
+        src={src}
+        autoPlay
+        loop
+        muted
+        playsInline
+        className="absolute inset-0 w-full h-full object-cover"
+      />
+      <div
+        className="absolute inset-0 pointer-events-none"
+        style={{
+          background:
+            "radial-gradient(ellipse 100% 100% at 50% 50%, transparent 45%, var(--color-video-overlay) 100%)",
+        }}
+      />
+      <div
+        className="absolute bottom-0 left-0 right-0 h-2/5 pointer-events-none"
+        style={{
+          background:
+            "linear-gradient(to top, var(--color-video-overlay-strong) 0%, transparent 100%)",
+        }}
+      />
+    </div>
+  );
+}
+
+export default function HomePage() {
+  return (
+    <>
+      {/* ── Hero ────────────────────────────────────────────── */}
+      <section className="relative h-screen w-full overflow-hidden">
+        {/* Desktop: two video panels side-by-side */}
+        <div className="hidden md:flex absolute inset-0">
+          <VideoPanel src="/videos/double-helix.mp4" />
+          <VideoPanel src="/videos/man-running.mp4" />
         </div>
 
-        <div className="relative z-20 text-center px-4 max-w-4xl mx-auto flex flex-col items-center">
-          <div className="mb-6 px-4 py-1 border border-white/30 rounded-full text-white/90 text-xs tracking-widest uppercase backdrop-blur-sm animate-in fade-in slide-in-from-bottom-4 duration-700">
+        {/* Mobile: single video */}
+        <div className="md:hidden absolute inset-0 bg-ink-well">
+          {/* eslint-disable-next-line jsx-a11y/media-has-caption */}
+          <video
+            src="/videos/double-helix.mp4"
+            autoPlay
+            loop
+            muted
+            playsInline
+            className="absolute inset-0 w-full h-full object-cover"
+          />
+          <div
+            className="absolute inset-0 pointer-events-none"
+            style={{
+              background:
+                "radial-gradient(ellipse 100% 100% at 50% 50%, transparent 40%, var(--color-video-overlay) 100%)",
+            }}
+          />
+          <div
+            className="absolute bottom-0 left-0 right-0 h-1/2 pointer-events-none"
+            style={{
+              background:
+                "linear-gradient(to top, var(--color-video-overlay-strong) 0%, transparent 100%)",
+            }}
+          />
+        </div>
+
+        <GrainOverlay />
+
+        <div className="relative z-20 flex flex-col items-center justify-center h-full text-center px-6">
+          <motion.p
+            className="text-lg font-sans font-light text-white mb-8"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 1.4, ease: "easeOut" }}
+          >
             99% Purity. Research Grade Peptides.
-          </div>
+          </motion.p>
 
-          <h1 className="text-5xl md:text-7xl lg:text-8xl text-white mb-6 leading-[1.1] animate-in fade-in slide-in-from-bottom-4 duration-700 delay-100">
-            where science
-            <br />
-            meets performance
-          </h1>
+          <motion.h1
+            className="logo text-7xl text-white"
+            initial={{ opacity: 0, y: 24 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1.2, ease: [0.25, 0.1, 0.25, 1] }}
+          >
+            viality
+          </motion.h1>
 
-          <p className="text-lg md:text-xl text-white/90 max-w-2xl mx-auto mb-10 font-light animate-in fade-in slide-in-from-bottom-4 duration-700 delay-200">
-            High quality peptides manufactured under rigorous standards.
-            Every detail disclosed, every claim supported by evidence.
-          </p>
+          <motion.p
+            className="text-lg font-sans font-light text-white mt-2 md:mt-4 max-w-xs"
+            initial={{ opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.55, duration: 1, ease: "easeOut" }}
+          >
+            where science meets performance
+          </motion.p>
 
-          <div className="flex flex-col sm:flex-row gap-4 animate-in fade-in slide-in-from-bottom-4 duration-700 delay-300">
+          <motion.div
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.9, duration: 0.9, ease: "easeOut" }}
+            className="mt-10 grid sm:grid-cols-2 gap-4"
+          >
             <Link
               href="/shop"
-              className="px-8 py-4 bg-white text-primary hover:bg-white/90 rounded-full font-medium tracking-wide uppercase text-sm transition-colors"
+              className="px-9 py-3.5 bg-primary-foreground text-ink text-xs uppercase tracking-widest hover:bg-primary-foreground/90 active:bg-primary-foreground/80 transition-colors duration-200"
             >
               Shop Now
             </Link>
             <Link
               href="/about"
-              className="px-8 py-4 bg-transparent border border-white text-white hover:bg-white/10 rounded-full font-medium tracking-wide uppercase text-sm transition-colors"
+              className="px-9 py-3.5 border border-primary-foreground/50 text-primary-foreground text-xs uppercase tracking-widest hover:border-primary-foreground hover:bg-primary-foreground/8 transition-all duration-200"
             >
               Our Philosophy
             </Link>
-          </div>
+          </motion.div>
         </div>
 
-        <div className="absolute bottom-10 left-1/2 -translate-x-1/2 z-20 text-white animate-bounce">
-          <div className="w-px h-16 bg-gradient-to-b from-white/0 via-white to-white/0 mx-auto" />
-        </div>
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 1.6, duration: 1 }}
+          className="absolute bottom-8 left-1/2 -translate-x-1/2 z-20 flex flex-col items-center gap-2"
+        >
+          <motion.div
+            animate={{ y: [0, 6, 0] }}
+            transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+            className="w-px h-10 bg-primary-foreground/30"
+          />
+          <span className="text-primary-foreground/30 text-xs uppercase tracking-widest">
+            scroll
+          </span>
+        </motion.div>
       </section>
 
-      {/* Trust Bar */}
-      <section className="bg-muted py-12 border-b border-border/50">
-        <div className="container mx-auto px-4">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
-            {[
-              { icon: FlaskConical, title: "Evidence-Led" },
-              { icon: ShieldCheck, title: "Third-Party Verified" },
-              { icon: FileCheck, title: "Batch Transparency" },
-              { icon: Beaker, title: "GMP Manufactured" },
-            ].map((benefit, idx) => (
-              <div key={idx} className="flex flex-col items-center text-center">
-                <div className="w-12 h-12 bg-white rounded-full flex items-center justify-center mb-4 shadow-sm text-secondary">
-                  <benefit.icon size={20} />
-                </div>
-                <h3 className="text-sm font-medium tracking-wide text-primary">
-                  {benefit.title}
-                </h3>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Featured Products */}
-      <section className="py-24 bg-background">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl text-primary mb-4">
-              The Collection
-            </h2>
-            <div className="w-16 h-px bg-accent mx-auto" />
-          </div>
-
-          {products.length > 0 ? (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 max-w-7xl mx-auto">
-              {products.map((product) => (
-                <ProductCard key={product.id} product={product} />
-              ))}
-            </div>
-          ) : (
-            <div className="text-center py-12">
-              <p className="text-foreground/60">
-                Products coming soon. Connect your Shopify store to see them
-                here.
-              </p>
-            </div>
-          )}
-
-          <div className="text-center mt-12">
-            <Link
-              href="/shop"
-              className="inline-flex items-center text-primary font-medium hover:text-secondary transition-colors uppercase tracking-widest text-sm"
-            >
-              Shop All
-              <span className="ml-2">&rarr;</span>
-            </Link>
-          </div>
-        </div>
-      </section>
-
-      {/* Brand Statement */}
-      <section className="bg-primary text-primary-foreground py-24 md:py-32 px-4 text-center">
-        <div className="container mx-auto max-w-4xl">
-          <h2 className="text-4xl md:text-5xl lg:text-6xl leading-tight">
-            A modern standard of vitality.
-          </h2>
-          <p className="text-primary-foreground/70 mt-6 text-lg max-w-2xl mx-auto">
-            Every detail disclosed, every claim supported by evidence.
-          </p>
-        </div>
-      </section>
-
-      {/* Principles */}
-      <section className="py-24 bg-background">
-        <div className="container mx-auto px-4 max-w-6xl">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl text-primary mb-4">
-              Three principles. No exceptions.
-            </h2>
-            <div className="w-16 h-px bg-accent mx-auto" />
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
+      {/* ── Trust Section ────────────────────────────────────── */}
+      <section className="py-24 px-6 bg-background">
+        <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
+          <div className="order-2 md:order-1 grid grid-cols-2 gap-x-8 gap-y-12">
             {[
               {
-                num: "01",
-                title: "Precision",
-                desc: "Every compound is selected through careful evaluation of peer-reviewed evidence. We work with formulation experts who understand that getting the dose, the form, and the bioavailability right is the difference between a supplement and a ritual that works.",
+                title: "Evidence-Led",
+                desc: "Each compound earns its place through peer-reviewed science, not wellness trends.",
               },
               {
-                num: "02",
-                title: "Purity",
-                desc: "Nothing enters our formulations without a reason, and nothing unnecessary is permitted to remain. No fillers, no colorants, no compromises. Every batch is independently tested before it reaches you.",
-              },
-              {
-                num: "03",
-                title: "Ritual",
-                desc: "A quieter standard of vitality begins with consistency. Viality is designed to become a moment — unhurried, intentional, daily. Not a chore. Not a trend. A permanent fixture of how you care for yourself.",
-              },
-            ].map((principle, idx) => (
-              <div key={idx} className="text-center">
-                <div className="text-accent text-5xl font-serif mb-4 opacity-40">
-                  {principle.num}
-                </div>
-                <h3 className="text-2xl font-serif text-primary mb-4">
-                  {principle.title}
-                </h3>
-                <p className="text-foreground/70 leading-relaxed">
-                  {principle.desc}
-                </p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Our Standards */}
-      <section className="py-24 bg-muted/50 border-y border-border/30">
-        <div className="container mx-auto px-4 max-w-6xl">
-          <div className="text-center mb-16">
-            <div className="text-secondary text-xs uppercase tracking-widest font-semibold mb-4">
-              Our Standards
-            </div>
-            <h2 className="text-4xl md:text-5xl text-primary mb-4">
-              The science is visible.
-            </h2>
-            <p className="text-foreground/60 max-w-xl mx-auto">
-              We operate with complete openness. Every claim we make is
-              verifiable.
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            {[
-              {
-                title: "Independent Lab Testing",
-                desc: "Every batch is third-party verified by an ISO-accredited laboratory for identity, potency, and purity. We don't ask you to take our word for it.",
-              },
-              {
-                title: "Traceable Sourcing",
-                desc: "Every raw material is sourced from verified, ethical suppliers with full traceability. We know where it comes from — and you should too.",
+                title: "Third-Party Verified",
+                desc: "Every batch is independently tested. Certificates of analysis, always available.",
               },
               {
                 title: "Batch Transparency",
-                desc: "Each product carries a batch number tied directly to its Certificate of Analysis. Clarity isn't a promise — it's a policy.",
+                desc: "Each product carries a batch number tied directly to its Certificate of Analysis.",
               },
               {
-                title: "No Proprietary Blends",
-                desc: "Every ingredient and its exact dose is declared. No hidden quantities, no blended obscurity. What you see is precisely what you receive.",
+                title: "GMP Manufactured",
+                desc: "Produced in a certified facility where consistency is non-negotiable.",
               },
-            ].map((standard, idx) => (
-              <div
-                key={idx}
-                className="bg-white p-8 rounded-2xl border border-border/40"
+            ].map((item, i) => (
+              <motion.div
+                key={item.title}
+                initial={{ opacity: 0 }}
+                whileInView={{ opacity: 1 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: i * 0.1 }}
+                className="flex flex-col gap-3"
               >
-                <h3 className="text-xl font-serif text-primary mb-3">
-                  {standard.title}
-                </h3>
-                <p className="text-foreground/70 leading-relaxed">
-                  {standard.desc}
+                <div className="size-7 border border-primary/15 flex items-center justify-center mb-2">
+                  <div className="size-1.5 bg-accent" />
+                </div>
+                <h4 className="text-xs uppercase tracking-widest font-semibold">
+                  {item.title}
+                </h4>
+                <p className="text-sm text-primary/55 leading-relaxed">
+                  {item.desc}
                 </p>
-              </div>
+              </motion.div>
             ))}
           </div>
 
-          <div className="text-center mt-12">
+          <div className="order-1 md:order-2">
+            <h2 className="font-serif uppercase font-light text-4xl mb-6">
+              our standards
+            </h2>
+            <p className="text-primary/65 mb-10 leading-relaxed max-w-md">
+              We operate with complete openness. Every claim we make is
+              verifiable. Every detail disclosed, every claim supported by
+              evidence.
+            </p>
             <Link
               href="/lab-reports"
-              className="inline-flex items-center px-8 py-3 border-2 border-primary text-primary rounded-full font-medium tracking-wide uppercase text-sm hover:bg-primary hover:text-white transition-colors"
+              className="px-8 py-4 bg-primary text-primary-foreground text-xs uppercase tracking-widest hover:bg-primary/88 transition-colors inline-block"
             >
               View Lab Reports
             </Link>
@@ -265,18 +202,139 @@ export default async function HomePage() {
         </div>
       </section>
 
-      {/* Newsletter */}
-      <section className="bg-primary text-primary-foreground py-24 px-4">
-        <div className="container mx-auto text-center max-w-3xl">
-          <h2 className="text-3xl md:text-4xl font-serif mb-6">
-            Join our newsletter
-          </h2>
-          <p className="text-primary-foreground/70 text-lg leading-relaxed mb-8">
-            The latest in peptides, biohacking, longevity and human
-            optimization.
-          </p>
+      {/* ── Philosophy ────────────────────────────────────── */}
+      <section className="py-36 px-6 bg-background">
+        <div className="max-w-4xl mx-auto text-center">
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-80px" }}
+            transition={{ duration: 0.9 }}
+            className="font-serif uppercase font-light text-2xl md:text-4xl leading-relaxed text-primary/90"
+          >
+            where science and discipline meet and neither is allowed to
+            compromise the other.
+          </motion.p>
+          <motion.div
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.3, duration: 0.8 }}
+            className="mt-12"
+          >
+            <Link
+              href="/about"
+              className="inline-block border-b border-primary/30 pb-1 text-xs uppercase tracking-widest hover:border-primary transition-colors"
+            >
+              Our Philosophy
+            </Link>
+          </motion.div>
         </div>
       </section>
-    </div>
+
+      {/* ── Featured Products ────────────────────────────── */}
+      <section className="py-24 px-6 bg-surface-warm">
+        <div className="max-w-7xl mx-auto">
+          <header className="flex justify-between items-end mb-8">
+            <h2 className="font-serif uppercase font-light text-4xl text-primary">
+              The Collection
+            </h2>
+            <Link
+              href="/shop"
+              className="text-xs uppercase tracking-widest hidden md:inline-block border-b border-transparent hover:border-primary/30 pb-1 transition-colors"
+            >
+              Shop All
+            </Link>
+          </header>
+
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-8">
+            {[
+              { title: "BPC-157", price: "$49.99", slug: "bpc-157-10mg" },
+              { title: "Retatrutide 10mg", price: "$130.00", slug: "retatrutide-10mg" },
+              { title: "NAD+ 500mg", price: "$90.00", slug: "nad-500mg" },
+              { title: "Semax 10mg", price: "$59.99", slug: "semax-10mg" },
+            ].map((product, i) => (
+              <motion.article
+                key={product.slug}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-50px" }}
+                transition={{ duration: 0.6, delay: i * 0.1 }}
+                className="group cursor-pointer md:last:hidden"
+              >
+                <Link href={`/products/${product.slug}`}>
+                  <div className="aspect-3/4 mb-6 bg-surface-placeholder relative overflow-hidden flex items-center justify-center">
+                    <div className="text-primary/20 font-serif uppercase font-light text-6xl tracking-wider">
+                      v
+                    </div>
+                  </div>
+                  <div className="flex flex-col gap-2">
+                    <div className="flex justify-between items-center">
+                      <h3 className="uppercase tracking-widest text-xs font-medium">
+                        {product.title}
+                      </h3>
+                      <span className="text-sm font-light">{product.price}</span>
+                    </div>
+                  </div>
+                </Link>
+              </motion.article>
+            ))}
+          </div>
+
+          <div className="mt-12 text-center md:hidden">
+            <Link
+              href="/shop"
+              className="inline-block border-b border-primary/30 pb-1 text-xs uppercase tracking-widest"
+            >
+              Shop All
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* ── Shipping Info ────────────────────────────────── */}
+      <section className="py-16 px-6 bg-surface-section border-t border-border/30">
+        <div className="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-3 gap-8 text-center">
+          {[
+            { label: "Complimentary Shipping", detail: "On all orders over $200" },
+            { label: "Batch Verified", detail: "Third-party COA available for every formulation" },
+            { label: "Research Use Only", detail: "Not for human or animal consumption" },
+          ].map((item) => (
+            <div key={item.label} className="flex flex-col gap-2">
+              <p className="text-xs uppercase tracking-widest font-semibold">
+                {item.label}
+              </p>
+              <p className="text-xs text-primary/50">{item.detail}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* ── Newsletter ────────────────────────────────────── */}
+      <section className="bg-primary text-primary-foreground py-16 px-6 text-center">
+        <div className="max-w-2xl mx-auto flex flex-col items-center">
+          <h2 className="font-sans uppercase text-balance text-4xl mb-4">
+            join our newsletter
+          </h2>
+          <p className="uppercase text-primary-foreground/65 mb-10 text-sm max-w-sm text-balance leading-relaxed">
+            the latest in peptides, biohacking, longevity and human optimization
+          </p>
+          <form className="w-full flex flex-col sm:flex-row gap-4 max-w-md">
+            <input
+              type="email"
+              placeholder="Email address"
+              className="flex-1 bg-transparent border-b border-primary-foreground/25 px-4 py-3 text-xs focus:outline-none focus:border-accent placeholder:text-primary-foreground/30 uppercase tracking-widest transition-colors"
+              required
+            />
+            <button
+              type="submit"
+              className="px-8 py-3 bg-accent text-accent-foreground text-xs uppercase tracking-widest hover:bg-accent/88 transition-colors"
+            >
+              Sign Up
+            </button>
+          </form>
+        </div>
+      </section>
+    </>
   );
 }

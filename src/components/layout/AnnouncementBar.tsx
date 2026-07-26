@@ -1,7 +1,17 @@
 export function AnnouncementBar() {
   return (
-    <div className="bg-primary text-primary-foreground text-center py-2 px-4 text-xs tracking-widest uppercase">
-      Free shipping on orders over $200
+    <div className="bg-primary text-primary-foreground overflow-hidden py-2">
+      <div className="flex whitespace-nowrap animate-marquee-banner">
+        {Array.from({ length: 6 }).map((_, i) => (
+          <span
+            key={i}
+            className="text-xs tracking-widest uppercase mx-8 flex items-center gap-3"
+          >
+            Free shipping on orders over $200
+            <span className="text-primary-foreground/30">•</span>
+          </span>
+        ))}
+      </div>
     </div>
   );
 }
