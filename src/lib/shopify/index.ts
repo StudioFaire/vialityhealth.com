@@ -65,9 +65,9 @@ export async function getCollectionByHandle(
   const cachedFn = unstable_cache(
     async () => {
       const { data } = await shopifyClient.request<{
-        collectionByHandle: ShopifyCollection | null;
+        collection: ShopifyCollection | null;
       }>(GetCollectionByHandleQuery, { variables: { handle, first } });
-      return assertData(data, "getCollectionByHandle").collectionByHandle;
+      return assertData(data, "getCollectionByHandle").collection;
     },
     ["shopify", "collection", handle],
     { revalidate: REVALIDATE_SECONDS, tags: ["shopify-collections"] }

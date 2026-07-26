@@ -85,8 +85,9 @@ export const GetProductByHandleQuery = /* GraphQL */ `
 `;
 
 export const GetCollectionByHandleQuery = /* GraphQL */ `
+  ${ProductFragment}
   query GetCollectionByHandle($handle: String!, $first: Int!) {
-    collectionByHandle(handle: $handle) {
+    collection(handle: $handle) {
       id
       title
       handle
