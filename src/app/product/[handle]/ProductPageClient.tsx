@@ -80,14 +80,14 @@ export function ProductPageClient({ product }: { product: ShopifyProduct }) {
     setOpenAccordion(openAccordion === id ? "" : id);
   };
 
-  const productType = product.productType || "Sea Moss";
+  const productType = product.productType;
 
   const accordions = [
     { id: "description", title: "Product Description", content: product.description },
-    { id: "ingredients", title: "Ingredients", content: "100% Wildcrafted Chondrus Crispus (Atlantic Sea Moss). No fillers, artificial flavors, colors, or preservatives." },
-    { id: "use", title: "Suggested Use", content: "Take 2 capsules daily with water, preferably with a meal. For best results, use consistently." },
-    { id: "quality", title: "Quality & Testing", content: "Sourced from the pristine waters of the Atlantic. Every batch is third-party tested for heavy metals, microbes, and purity." },
-    { id: "shipping", title: "Shipping & Returns", content: "Free standard shipping on all orders over $75. 30-day money-back guarantee if you are not completely satisfied." },
+    { id: "ingredients", title: "Ingredients", content: "Each compound is selected through careful evaluation of peer-reviewed evidence. No fillers, no colorants, no compromises. Every ingredient and its exact dose is declared." },
+    { id: "use", title: "Suggested Use", content: "Take as directed on packaging. Consult a qualified healthcare professional before beginning any new research protocol." },
+    { id: "quality", title: "Quality & Testing", content: "Every batch is third-party verified by an ISO-accredited laboratory for identity, potency, and purity. Each product carries a batch number tied directly to its Certificate of Analysis." },
+    { id: "shipping", title: "Shipping & Returns", content: "Free standard shipping on all orders over $200. 30-day money-back guarantee if you are not completely satisfied." },
   ];
 
   return (
@@ -137,8 +137,8 @@ export function ProductPageClient({ product }: { product: ShopifyProduct }) {
                     key={idx}
                     onClick={() => setSelectedImageIndex(idx)}
                     className={`relative w-20 h-20 rounded-lg overflow-hidden border-2 transition-colors ${idx === selectedImageIndex
-                        ? "border-primary"
-                        : "border-border/40 hover:border-primary/50"
+                      ? "border-primary"
+                      : "border-border/40 hover:border-primary/50"
                       }`}
                   >
                     <Image
@@ -199,8 +199,8 @@ export function ProductPageClient({ product }: { product: ShopifyProduct }) {
                         }))
                       }
                       className={`px-4 py-2 rounded-full text-sm font-medium transition-colors ${selectedOptions[option.name] === value
-                          ? "bg-primary text-white"
-                          : "bg-white border border-border/60 text-foreground/70 hover:border-primary/50"
+                        ? "bg-primary text-white"
+                        : "bg-white border border-border/60 text-foreground/70 hover:border-primary/50"
                         }`}
                     >
                       {value}
@@ -214,15 +214,15 @@ export function ProductPageClient({ product }: { product: ShopifyProduct }) {
             <div className="space-y-3 mb-8">
               <label
                 className={`flex items-center justify-between p-4 border rounded-xl cursor-pointer transition-all ${purchaseType === "one-time"
-                    ? "border-primary bg-primary/5 ring-1 ring-primary/20"
-                    : "border-border/60 bg-white hover:border-primary/40"
+                  ? "border-primary bg-primary/5 ring-1 ring-primary/20"
+                  : "border-border/60 bg-white hover:border-primary/40"
                   }`}
               >
                 <div className="flex items-center gap-3">
                   <div
                     className={`w-4 h-4 rounded-full border flex items-center justify-center ${purchaseType === "one-time"
-                        ? "border-primary"
-                        : "border-border"
+                      ? "border-primary"
+                      : "border-border"
                       }`}
                   >
                     {purchaseType === "one-time" && (
@@ -242,15 +242,15 @@ export function ProductPageClient({ product }: { product: ShopifyProduct }) {
 
               <label
                 className={`flex items-center justify-between p-4 border rounded-xl cursor-pointer transition-all ${purchaseType === "subscribe"
-                    ? "border-primary bg-primary/5 ring-1 ring-primary/20"
-                    : "border-border/60 bg-white hover:border-primary/40"
+                  ? "border-primary bg-primary/5 ring-1 ring-primary/20"
+                  : "border-border/60 bg-white hover:border-primary/40"
                   }`}
               >
                 <div className="flex items-center gap-3">
                   <div
                     className={`w-4 h-4 rounded-full border flex items-center justify-center ${purchaseType === "subscribe"
-                        ? "border-primary"
-                        : "border-border"
+                      ? "border-primary"
+                      : "border-border"
                       }`}
                   >
                     {purchaseType === "subscribe" && (
@@ -310,7 +310,7 @@ export function ProductPageClient({ product }: { product: ShopifyProduct }) {
               <div className="flex flex-col items-center text-center">
                 <Truck size={20} className="text-secondary mb-2" />
                 <span className="text-[10px] uppercase tracking-widest text-foreground/70">
-                  Free Shipping &gt;$75
+                  Free Shipping &gt;$200
                 </span>
               </div>
               <div className="flex flex-col items-center text-center">
@@ -344,8 +344,8 @@ export function ProductPageClient({ product }: { product: ShopifyProduct }) {
                     <ChevronDown
                       size={18}
                       className={`text-foreground/50 transition-transform duration-300 ${openAccordion === accordion.id
-                          ? "rotate-180 text-primary"
-                          : "group-hover:text-primary"
+                        ? "rotate-180 text-primary"
+                        : "group-hover:text-primary"
                         }`}
                     />
                   </button>
@@ -370,10 +370,12 @@ export function ProductPageClient({ product }: { product: ShopifyProduct }) {
 
             <p className="text-xs text-foreground/50 italic leading-relaxed">
               *These statements have not been evaluated by the Food and Drug
-              Administration. This product is not intended to diagnose, treat,
-              cure or prevent any disease. If you are pregnant, nursing, taking
-              medication, or have a medical condition, consult your physician
-              before using this product.
+              Administration. This product is intended strictly for laboratory
+              and research purposes only. Not intended for human consumption.
+              By completing your purchase, you confirm that you are at least 18
+              years of age, that this material will be handled responsibly, and
+              that it will be used solely for lawful research or analytical
+              purposes in accordance with all applicable regulations.
             </p>
           </div>
         </div>
@@ -383,10 +385,10 @@ export function ProductPageClient({ product }: { product: ShopifyProduct }) {
           <div className="pt-20 border-t border-border/40">
             <div className="text-center mb-12">
               <h2 className="text-3xl font-serif text-primary mb-4">
-                Complete your routine
+                Complete your collection
               </h2>
               <p className="text-foreground/60">
-                Pair with these carefully selected essentials.
+                Pair with these carefully selected research compounds.
               </p>
             </div>
 

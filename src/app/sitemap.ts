@@ -2,7 +2,7 @@ import type { MetadataRoute } from "next";
 import { getAllProducts } from "@/lib/shopify";
 
 const BASE_URL =
-  process.env.NEXT_PUBLIC_SITE_URL || "https://mossewellness.com";
+  process.env.NEXT_PUBLIC_SITE_URL || "https://vialityhealth.com";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const staticPages = [

@@ -51,7 +51,7 @@ export function ProductCard({ product }: { product: ShopifyProduct }) {
   const firstVariant = variants[0];
   const hasComparePrice =
     parseFloat(product.compareAtPriceRange.minVariantPrice.amount) > 0;
-  const productType = product.productType || "Sea Moss";
+  const productType = product.productType;
 
   const handleAdd = (e: React.MouseEvent) => {
     e.preventDefault();

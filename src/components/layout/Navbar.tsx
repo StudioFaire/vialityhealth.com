@@ -40,7 +40,7 @@ export function Navbar() {
             href="/"
             className="font-serif text-3xl font-bold tracking-tight text-primary"
           >
-            MOSSÉ
+            Viality
           </Link>
         </div>
 
@@ -99,7 +99,7 @@ export function Navbar() {
                 onClick={() => setIsMobileMenuOpen(false)}
                 className="font-serif text-2xl font-bold tracking-tight text-primary"
               >
-                MOSSÉ
+                Viality
               </Link>
               <button
                 onClick={() => setIsMobileMenuOpen(false)}
@@ -130,7 +130,7 @@ export function Navbar() {
                   onClick={() => setIsMobileMenuOpen(false)}
                   className="flex items-center justify-center w-full py-4 text-sm font-medium tracking-wide text-white bg-primary rounded-full uppercase"
                 >
-                  Shop Sea Moss
+                  Shop Now
                 </Link>
               </div>
             </nav>

@@ -6,7 +6,7 @@ import { ShopContent } from "./ShopContent";
 export const metadata = {
   title: "Shop",
   description:
-    "Browse our collection of wildcrafted Atlantic sea moss supplements — capsules, gel, blends, and bundles.",
+    "Browse our collection of research grade peptides — 99% purity, third-party verified, batch transparency.",
 };
 
 type Collection = { id: string; title: string; handle: string };

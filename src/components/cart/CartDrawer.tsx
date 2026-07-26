@@ -11,7 +11,7 @@ export function CartDrawer() {
   const { isCartOpen, setIsCartOpen, lines, cartCount, subtotal, updateQuantity, removeItem, checkout, isLoading } =
     useCart();
 
-  const freeShippingThreshold = 75;
+  const freeShippingThreshold = 200;
   const subtotalNum = parseFloat(subtotal);
   const awayFromFreeShipping = Math.max(0, freeShippingThreshold - subtotalNum);
   const progressPercent = Math.min(100, (subtotalNum / freeShippingThreshold) * 100);
@@ -174,7 +174,7 @@ export function CartDrawer() {
                   Your cart is empty
                 </h3>
                 <p className="text-foreground/60 mb-8 max-w-[250px]">
-                  Take the first step towards a simpler wellness routine.
+                  Explore our collection of research grade peptides.
                 </p>
                 <Link
                   href="/shop"

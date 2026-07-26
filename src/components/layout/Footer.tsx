@@ -30,11 +30,11 @@ export function Footer() {
               href="/"
               className="font-serif text-4xl font-bold tracking-tight mb-4 inline-block"
             >
-              MOSSÉ
+              Viality
             </Link>
             <p className="text-primary-foreground/80 max-w-sm text-sm leading-relaxed mb-6">
-              Minerals from the sea. Wellness for every day. We source the
-              finest wildcrafted Atlantic sea moss for your daily routine.
+              Wellness, refined. Research grade peptides. Every detail
+              disclosed, every claim supported by evidence.
             </p>
             <div className="flex items-center space-x-4">
               <a
@@ -74,26 +74,10 @@ export function Footer() {
               </li>
               <li>
                 <Link
-                  href="/shop?category=Capsules"
+                  href="/shop"
                   className="hover:opacity-70 transition-opacity"
                 >
-                  Capsules
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/shop?category=Gel"
-                  className="hover:opacity-70 transition-opacity"
-                >
-                  Sea Moss Gel
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/shop?category=Bundles"
-                  className="hover:opacity-70 transition-opacity"
-                >
-                  Bundles
+                  All Products
                 </Link>
               </li>
             </ul>
@@ -109,23 +93,23 @@ export function Footer() {
                   href="/about"
                   className="hover:opacity-70 transition-opacity"
                 >
-                  Our Story
+                  Our Philosophy
                 </Link>
               </li>
               <li>
                 <Link
-                  href="/about#sourcing"
+                  href="/lab-reports"
                   className="hover:opacity-70 transition-opacity"
                 >
-                  Sourcing
+                  Lab Reports
                 </Link>
               </li>
               <li>
                 <Link
-                  href="/about#quality"
+                  href="/faqs"
                   className="hover:opacity-70 transition-opacity"
                 >
-                  Quality & Testing
+                  FAQs
                 </Link>
               </li>
               <li>
@@ -133,7 +117,7 @@ export function Footer() {
                   href="/contact"
                   className="hover:opacity-70 transition-opacity"
                 >
-                  Contact Us
+                  Contact
                 </Link>
               </li>
             </ul>
@@ -145,8 +129,8 @@ export function Footer() {
               Newsletter
             </h4>
             <p className="text-primary-foreground/80 text-sm mb-4">
-              Wellness insights, new arrivals and offers, directly to your
-              inbox.
+              The latest in peptides, biohacking, longevity and human
+              optimization.
             </p>
             <form onSubmit={handleSubscribe} className="relative">
               <input
@@ -174,7 +158,7 @@ export function Footer() {
 
         <div className="pt-8 border-t border-primary-foreground/10 flex flex-col md:flex-row items-center justify-between gap-4 text-xs text-primary-foreground/60">
           <div>
-            &copy; {new Date().getFullYear()} MOSSÉ |{" "}
+            &copy; {new Date().getFullYear()} Viality |{" "}
             <a href="#" className="hover:underline">
               Privacy Policy
             </a>{" "}
@@ -192,8 +176,9 @@ export function Footer() {
             </a>
           </div>
           <div className="text-center md:text-right max-w-lg italic opacity-70">
-            *This product is not intended to diagnose, treat, cure or prevent
-            any disease.
+            *These statements have not been evaluated by the Food and Drug
+            Administration. This product is intended strictly for research and
+            laboratory use and is not for human consumption.
           </div>
         </div>
       </div>

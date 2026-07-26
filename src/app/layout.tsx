@@ -8,13 +8,13 @@ import { CartDrawer } from "@/components/cart/CartDrawer";
 
 export const metadata: Metadata = {
   title: {
-    default: "MOSSÉ — Wildcrafted Atlantic Sea Moss",
-    template: "%s | MOSSÉ",
+    default: "Viality — where science meets performance",
+    template: "%s | Viality",
   },
   description:
-    "Premium sea moss supplements created to support your everyday wellness routine. Wildcrafted Atlantic sea moss capsules, gel, and blends.",
+    "Viality exists to support research by providing high quality materials and maintaining rigorous standards of consistency and transparency.",
   metadataBase: new URL(
-    process.env.NEXT_PUBLIC_SITE_URL || "https://mossewellness.com"
+    process.env.NEXT_PUBLIC_SITE_URL || "https://vialityhealth.com"
   ),
 };
 

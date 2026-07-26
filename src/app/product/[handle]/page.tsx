@@ -50,7 +50,7 @@ export default async function ProductPage({ params }: Props) {
     name: product.title,
     description: product.description,
     image: product.images.edges[0]?.node.url,
-    brand: { "@type": "Brand", name: "MOSSÉ" },
+    brand: { "@type": "Brand", name: "Viality" },
     offers: {
       "@type": "Offer",
       price: product.priceRange.minVariantPrice.amount,

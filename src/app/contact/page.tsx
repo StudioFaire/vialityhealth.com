@@ -7,33 +7,33 @@ import { ChevronDown, CheckCircle2 } from "lucide-react";
 const faqs = [
   {
     id: "1",
-    q: "How should I store sea moss products?",
-    a: "Our capsules and powders can be stored in a cool, dry place away from direct sunlight. Once opened, our Sea Moss Gel should be refrigerated and consumed within 3-4 weeks.",
+    q: "Where is my order?",
+    a: "Once your order has shipped, you will receive a confirmation email with tracking information. You can use this to monitor your delivery in real time.",
   },
   {
     id: "2",
     q: "How long does shipping take?",
-    a: "Standard shipping within the US takes 3-5 business days. Expedited shipping takes 1-2 business days. International orders typically arrive within 7-14 business days.",
+    a: "Standard shipping takes 3-5 business days. Express shipping takes 1-2 business days. International orders typically arrive within 7-14 business days.",
   },
   {
     id: "3",
-    q: "Can I change or cancel my order?",
-    a: "We process orders quickly, but if you contact us within 1 hour of placing your order, we will do our best to accommodate any changes or cancellations.",
+    q: "What is your returns policy?",
+    a: "We offer a 30-day money-back guarantee. If you are not completely satisfied, contact our team and we will arrange a return or exchange.",
   },
   {
     id: "4",
-    q: "Do you offer subscriptions?",
-    a: 'Yes! You can select "Subscribe & Save 15%" on any product page. You can pause, modify, or cancel your subscription at any time through your account portal.',
+    q: "Does Viality Health supply research peptides in Australia?",
+    a: "We currently ship to select international destinations. Please contact us directly to confirm availability for your region.",
   },
   {
     id: "5",
-    q: "Where is your sea moss sourced?",
-    a: "Our sea moss is ethically wildcrafted from the pristine, nutrient-dense waters of the North Atlantic, far from commercial ports or shipping lanes.",
+    q: "Are your products for human use?",
+    a: "No. All Viality products are intended strictly for laboratory and research purposes. They are not for human or animal consumption.",
   },
   {
     id: "6",
-    q: "Are your products third-party tested?",
-    a: "Absolutely. Every batch is rigorously tested by independent, ISO-certified laboratories for heavy metals, microbes, and purity before it reaches you.",
+    q: "How should I store my peptides?",
+    a: "Store in a cool, dry place away from direct sunlight. For reconstituted peptides, refrigerate and use within 30 days. Lyophilized peptides can be stored frozen for longer shelf life.",
   },
 ];
 
@@ -75,12 +75,12 @@ export default function ContactPage() {
       <div className="container mx-auto px-4 max-w-6xl">
         <div className="text-center mb-16">
           <h1 className="text-4xl md:text-5xl font-serif text-primary mb-4">
-            Let&apos;s talk wellness.
+            Get in touch.
           </h1>
           <p className="text-foreground/60 max-w-xl mx-auto">
-            Whether you have a question about our formulas, need help with an
-            order, or want to explore wholesale opportunities, we&apos;re here
-            to help.
+            Whether you have a question about our formulations, need help with
+            an order, or want to explore wholesale opportunities, we&apos;re
+            here to help.
           </p>
         </div>
 
@@ -262,10 +262,10 @@ export default function ContactPage() {
                     Email
                   </h4>
                   <a
-                    href="mailto:hello@mossewellness.com"
+                    href="mailto:vialityhealth@gmail.com"
                     className="text-lg text-primary hover:text-secondary transition-colors"
                   >
-                    hello@mossewellness.com
+                    vialityhealth@gmail.com
                   </a>
                 </div>
 
@@ -282,10 +282,10 @@ export default function ContactPage() {
                     Press Inquiries
                   </h4>
                   <a
-                    href="mailto:press@mossewellness.com"
+                    href="mailto:vialityhealth@gmail.com"
                     className="text-primary hover:text-secondary transition-colors"
                   >
-                    press@mossewellness.com
+                    vialityhealth@gmail.com
                   </a>
                 </div>
               </div>
@@ -296,11 +296,11 @@ export default function ContactPage() {
                 Wholesale Partners
               </h3>
               <p className="text-foreground/70 mb-6 text-sm">
-                Interested in stocking MOSSÉ products in your boutique, clinic,
-                or wellness center?
+                Interested in stocking Viality products in your clinic,
+                research facility, or wellness center?
               </p>
               <a
-                href="mailto:wholesale@mossewellness.com"
+                href="mailto:vialityhealth@gmail.com"
                 className="inline-flex font-medium text-primary hover:text-secondary transition-colors text-sm uppercase tracking-widest"
               >
                 Apply for Wholesale &rarr;
@@ -334,11 +334,10 @@ export default function ContactPage() {
                   </span>
                   <ChevronDown
                     size={20}
-                    className={`text-foreground/50 transition-transform duration-300 shrink-0 ${
-                      openFaq === faq.id
+                    className={`text-foreground/50 transition-transform duration-300 shrink-0 ${openFaq === faq.id
                         ? "rotate-180 text-primary"
                         : "group-hover:text-primary"
-                    }`}
+                      }`}
                   />
                 </button>
                 <AnimatePresence>

@@ -33,7 +33,7 @@ type CartContextType = {
 
 const CartContext = createContext<CartContextType | undefined>(undefined);
 
-const CART_ID_KEY = "mosse-cart-id";
+const CART_ID_KEY = "viality-cart-id";
 
 export function CartProvider({ children }: { children: ReactNode }) {
   const [cart, setCart] = useState<ShopifyCart | null>(null);
