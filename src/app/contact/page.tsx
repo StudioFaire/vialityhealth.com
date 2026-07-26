@@ -271,14 +271,6 @@ export default function ContactPage() {
 
                 <div>
                   <h4 className="text-xs font-semibold uppercase tracking-widest text-foreground/50 mb-1">
-                    Hours
-                  </h4>
-                  <p className="text-foreground/80">Monday – Friday</p>
-                  <p className="text-foreground/80">9:00 am – 5:00 pm EST</p>
-                </div>
-
-                <div>
-                  <h4 className="text-xs font-semibold uppercase tracking-widest text-foreground/50 mb-1">
                     Press Inquiries
                   </h4>
                   <a
@@ -335,8 +327,8 @@ export default function ContactPage() {
                   <ChevronDown
                     size={20}
                     className={`text-foreground/50 transition-transform duration-300 shrink-0 ${openFaq === faq.id
-                        ? "rotate-180 text-primary"
-                        : "group-hover:text-primary"
+                      ? "rotate-180 text-primary"
+                      : "group-hover:text-primary"
                       }`}
                   />
                 </button>
