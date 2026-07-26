@@ -57,7 +57,7 @@ export function Navbar() {
         <Link
           href="/"
           className={cn(
-            "logo shrink-0 transition-opacity hover:opacity-60 size-full max-w-2/6 md:max-w-1/6 relative",
+            "hover:opacity-60 logo max-w-2/6 md:max-w-1/6 relative shrink-0 text-3xl text-foreground transition-opacity w-full",
             transparent ? "text-foreground" : "text-foreground"
           )}
         >
