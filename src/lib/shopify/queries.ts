@@ -148,9 +148,8 @@ export const GetProductByHandleQuery = /* GraphQL */ `
 `;
 
 export const GetCollectionByHandleQuery = /* GraphQL */ `
-  ${ProductFragment}
   query GetCollectionByHandle($handle: String!, $first: Int!) {
-    collection(handle: $handle) {
+    collectionByHandle(handle: $handle) {
       id
       title
       handle
@@ -229,6 +228,55 @@ export const GetCartQuery = /* GraphQL */ `
             }
           }
         }
+      }
+    }
+  }
+`;
+
+export const GetShopPoliciesQuery = /* GraphQL */ `
+  query GetShopPolicies {
+    shop {
+      refundPolicy {
+        title
+        handle
+        body
+        url
+      }
+      privacyPolicy {
+        title
+        handle
+        body
+        url
+      }
+      termsOfService {
+        title
+        handle
+        body
+        url
+      }
+      shippingPolicy {
+        title
+        handle
+        body
+        url
+      }
+      contactInformation {
+        title
+        handle
+        body
+        url
+      }
+      legalNotice {
+        title
+        handle
+        body
+        url
+      }
+      subscriptionPolicy {
+        title
+        handle
+        body
+        url
       }
     }
   }

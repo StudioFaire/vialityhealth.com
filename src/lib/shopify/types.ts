@@ -124,6 +124,23 @@ export type ShopifyCollection = {
   };
 };
 
+export type ShopifyShopPolicy = {
+  title: string;
+  handle: string;
+  body: string;
+  url: string;
+};
+
+export type ShopPolicies = {
+  refundPolicy: ShopifyShopPolicy | null;
+  privacyPolicy: ShopifyShopPolicy | null;
+  termsOfService: ShopifyShopPolicy | null;
+  shippingPolicy: ShopifyShopPolicy | null;
+  contactInformation: ShopifyShopPolicy | null;
+  legalNotice: ShopifyShopPolicy | null;
+  subscriptionPolicy: ShopifyShopPolicy | null;
+};
+
 // Helper to extract product images
 export function getProductImages(product: ShopifyProduct): ShopifyImage[] {
   return product.images.edges.map((e) => e.node);

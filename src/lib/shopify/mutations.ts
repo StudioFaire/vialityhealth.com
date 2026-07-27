@@ -44,12 +44,12 @@ export const CreateCartMutation = /* GraphQL */ `
                     name
                     value
                   }
-                }
-              }
-              sellingPlanAllocation {
-                sellingPlan {
-                  id
-                  name
+                  sellingPlanAllocation {
+                    sellingPlan {
+                      id
+                      name
+                    }
+                  }
                 }
               }
             }
@@ -110,12 +110,12 @@ export const AddToCartMutation = /* GraphQL */ `
                     name
                     value
                   }
-                }
-              }
-              sellingPlanAllocation {
-                sellingPlan {
-                  id
-                  name
+                  sellingPlanAllocation {
+                    sellingPlan {
+                      id
+                      name
+                    }
+                  }
                 }
               }
             }

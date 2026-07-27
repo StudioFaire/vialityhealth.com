@@ -6,6 +6,7 @@ import {
   GetCollectionByHandleQuery,
   GetAllCollectionsQuery,
   GetCartQuery,
+  GetShopPoliciesQuery,
 } from "./queries";
 import {
   CreateCartMutation,
@@ -17,6 +18,7 @@ import type {
   ShopifyProduct,
   ShopifyCart,
   ShopifyCollection,
+  ShopPolicies,
 } from "./types";
 
 function assertData<T>(data: T | undefined, operation: string): T {
@@ -65,9 +67,9 @@ export async function getCollectionByHandle(
   const cachedFn = unstable_cache(
     async () => {
       const { data } = await shopifyClient.request<{
-        collection: ShopifyCollection | null;
+        collectionByHandle: ShopifyCollection | null;
       }>(GetCollectionByHandleQuery, { variables: { handle, first } });
-      return assertData(data, "getCollectionByHandle").collection;
+      return assertData(data, "getCollectionByHandle").collectionByHandle;
     },
     ["shopify", "collection", handle],
     { revalidate: REVALIDATE_SECONDS, tags: ["shopify-collections"] }
@@ -168,4 +170,37 @@ export async function removeFromCart(
     cartLinesRemove: { cart: ShopifyCart; userErrors: unknown[] };
   }>(RemoveFromCartMutation, { variables: { cartId, lineIds } });
   return assertData(data, "removeFromCart").cartLinesRemove.cart;
+}
+
+// ── Policies ───────────────────────────────────────────────
+
+export async function getShopPolicies(): Promise<ShopPolicies> {
+  const cachedFn = unstable_cache(
+    async () => {
+      const { data } = await shopifyClient.request<{
+        shop: ShopPolicies;
+      }>(GetShopPoliciesQuery);
+      return assertData(data, "getShopPolicies").shop;
+    },
+    ["shopify", "policies"],
+    { revalidate: REVALIDATE_SECONDS, tags: ["shopify-policies"] }
+  );
+  return cachedFn();
+}
+
+const LIQUID_VAR_RE = /\{\{\s*(\w+)\s*\}\}/g;
+const LIQUID_IF_RE = /\{%[-\s]*if\s+[^%]*%\}[\s\S]*?\{%[-\s]*endif\s*[-\s]*%\}/g;
+const LIQUID_COMMENT_RE = /\{#[\s\S]*?#\}/g;
+
+export function resolveLiquidVariables(
+  html: string,
+  vars: Record<string, string>
+): string {
+  let result = html;
+  result = result.replace(LIQUID_COMMENT_RE, "");
+  result = result.replace(LIQUID_IF_RE, "");
+  result = result.replace(LIQUID_VAR_RE, (_, key: string) => vars[key] ?? "");
+  result = result.replaceAll("Mossé", "Viality");
+  result = result.replaceAll("mossewellness.com", "vialityhealth.com");
+  return result;
 }
