@@ -1,0 +1,3 @@
+- [ ] Replace vialityhealth@gmail.com
+- [ ] Setup hello@vialityhealth.com
+- [ ] Connect contact form to Resend

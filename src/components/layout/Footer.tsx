@@ -1,23 +1,15 @@
 "use client";
 
-import { useState } from "react";
+import { useActionState } from "react";
 import Link from "next/link";
 import { MoveRight, Check } from "lucide-react";
+import { subscribeToNewsletter } from "@/app/actions/newsletter";
 
 export function Footer() {
-  const [email, setEmail] = useState("");
-  const [isSubscribed, setIsSubscribed] = useState(false);
-
-  const handleSubscribe = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (email) {
-      setIsSubscribed(true);
-      setTimeout(() => {
-        setIsSubscribed(false);
-        setEmail("");
-      }, 3000);
-    }
-  };
+  const [state, formAction, isPending] = useActionState(subscribeToNewsletter, {
+    success: false,
+    message: "",
+  });
 
   return (
     <footer className="bg-primary text-primary-foreground py-16 px-6">

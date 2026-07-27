@@ -1,11 +1,13 @@
 "use client";
 
+import { useActionState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { GrainOverlay } from "@/components/viality/GrainOverlay";
 import type { ShopifyProduct } from "@/lib/shopify/types";
 import { getProductImage, formatPrice } from "@/lib/shopify/types";
+import { subscribeToNewsletter } from "@/app/actions/newsletter";
 
 function VideoPanel({ src }: { src: string }) {
   return (
@@ -38,6 +40,11 @@ function VideoPanel({ src }: { src: string }) {
 }
 
 export function HomePage({ featuredProducts }: { featuredProducts: ShopifyProduct[] }) {
+  const [newsletterState, newsletterAction, newsletterPending] = useActionState(
+    subscribeToNewsletter,
+    { success: false, message: "" }
+  );
+
   return (
     <>
       {/* ── Hero ────────────────────────────────────────────── */}
@@ -340,20 +347,27 @@ export function HomePage({ featuredProducts }: { featuredProducts: ShopifyProduc
           <p className="uppercase text-primary-foreground/65 mb-10 text-sm max-w-sm text-balance leading-relaxed">
             the latest in peptides, biohacking, longevity and human optimization
           </p>
-          <form className="w-full flex flex-col sm:flex-row gap-4 max-w-md">
+          <form action={newsletterAction} className="w-full flex flex-col sm:flex-row gap-4 max-w-md">
             <input
               type="email"
+              name="email"
               placeholder="Email address"
               className="flex-1 bg-transparent border-b border-primary-foreground/25 px-4 py-3 text-xs focus:outline-none focus:border-accent placeholder:text-primary-foreground/30 uppercase tracking-widest transition-colors"
               required
             />
             <button
               type="submit"
-              className="px-8 py-3 bg-accent text-accent-foreground text-xs uppercase tracking-widest hover:bg-accent/88 transition-colors"
+              disabled={newsletterPending}
+              className="px-8 py-3 bg-accent text-accent-foreground text-xs uppercase tracking-widest hover:bg-accent/88 transition-colors disabled:opacity-50"
             >
-              Sign Up
+              {newsletterPending ? "Signing Up..." : "Sign Up"}
             </button>
           </form>
+          {newsletterState.message && (
+            <p className={`mt-4 text-xs uppercase tracking-widest ${newsletterState.success ? "text-accent" : "text-red-400"}`}>
+              {newsletterState.message}
+            </p>
+          )}
         </div>
       </section>
     </>

@@ -1,8 +1,9 @@
 "use client";
 
-import { useState } from "react";
+import { useActionState, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ChevronDown, CheckCircle2 } from "lucide-react";
+import { sendContactMessage } from "@/app/actions/contact";
 
 const faqs = [
   {
@@ -47,28 +48,11 @@ const subjects = [
 ];
 
 export default function ContactPage() {
-  const [isSubmitted, setIsSubmitted] = useState(false);
-  const [openFaq, setOpenFaq] = useState<string | null>(null);
-  const [form, setForm] = useState({
-    name: "",
-    email: "",
-    phone: "",
-    orderNumber: "",
-    subject: "",
+  const [state, formAction, isPending] = useActionState(sendContactMessage, {
+    success: false,
     message: "",
   });
-
-  const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
-  ) => {
-    setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }));
-  };
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    console.log(form);
-    setIsSubmitted(true);
-  };
+  const [openFaq, setOpenFaq] = useState<string | null>(null);
 
   return (
     <div className="min-h-screen bg-background pt-10 pb-24">
@@ -89,7 +73,7 @@ export default function ContactPage() {
           <div className="lg:w-3/5">
             <div className="bg-white p-8 md:p-12 rounded-3xl shadow-sm border border-border/40">
               <AnimatePresence mode="wait">
-                {isSubmitted ? (
+                {state.success ? (
                   <motion.div
                     key="success"
                     initial={{ opacity: 0, scale: 0.95 }}
@@ -103,21 +87,11 @@ export default function ContactPage() {
                       Message Received
                     </h3>
                     <p className="text-foreground/70 mb-8 max-w-sm">
-                      Thank you for reaching out. A member of our team will get
-                      back to you within 24-48 business hours.
+                      {state.message}
                     </p>
                     <button
-                      onClick={() => {
-                        setIsSubmitted(false);
-                        setForm({
-                          name: "",
-                          email: "",
-                          phone: "",
-                          orderNumber: "",
-                          subject: "",
-                          message: "",
-                        });
-                      }}
+                      type="reset"
+                      form="contact-form"
                       className="px-8 py-3 bg-primary text-white rounded-full text-sm font-medium tracking-wide uppercase hover:bg-primary/90 transition-colors"
                     >
                       Send another message
@@ -134,7 +108,7 @@ export default function ContactPage() {
                       Send us a message
                     </h2>
 
-                    <form onSubmit={handleSubmit} className="space-y-6">
+                    <form id="contact-form" action={formAction} className="space-y-6">
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <div>
                           <label className="text-xs uppercase tracking-widest text-foreground/70 block mb-1">
@@ -142,8 +116,6 @@ export default function ContactPage() {
                           </label>
                           <input
                             name="name"
-                            value={form.name}
-                            onChange={handleChange}
                             required
                             className="w-full bg-transparent border-b border-border/60 py-3 focus:outline-none focus:border-primary transition-colors placeholder:text-muted-foreground"
                             placeholder="Jane Doe"
@@ -156,8 +128,6 @@ export default function ContactPage() {
                           <input
                             name="email"
                             type="email"
-                            value={form.email}
-                            onChange={handleChange}
                             required
                             className="w-full bg-transparent border-b border-border/60 py-3 focus:outline-none focus:border-primary transition-colors placeholder:text-muted-foreground"
                             placeholder="jane@example.com"
@@ -173,8 +143,6 @@ export default function ContactPage() {
                           <input
                             name="phone"
                             type="tel"
-                            value={form.phone}
-                            onChange={handleChange}
                             className="w-full bg-transparent border-b border-border/60 py-3 focus:outline-none focus:border-primary transition-colors placeholder:text-muted-foreground"
                             placeholder="Optional"
                           />
@@ -185,8 +153,6 @@ export default function ContactPage() {
                           </label>
                           <input
                             name="orderNumber"
-                            value={form.orderNumber}
-                            onChange={handleChange}
                             className="w-full bg-transparent border-b border-border/60 py-3 focus:outline-none focus:border-primary transition-colors placeholder:text-muted-foreground"
                             placeholder="If applicable"
                           />
@@ -200,8 +166,6 @@ export default function ContactPage() {
                         <div className="relative">
                           <select
                             name="subject"
-                            value={form.subject}
-                            onChange={handleChange}
                             required
                             className="w-full bg-transparent border-b border-border/60 py-3 appearance-none focus:outline-none focus:border-primary transition-colors cursor-pointer"
                           >
@@ -227,8 +191,6 @@ export default function ContactPage() {
                         </label>
                         <textarea
                           name="message"
-                          value={form.message}
-                          onChange={handleChange}
                           required
                           rows={5}
                           className="w-full bg-transparent border-b border-border/60 py-3 focus:outline-none focus:border-primary transition-colors resize-none placeholder:text-muted-foreground"
@@ -236,11 +198,16 @@ export default function ContactPage() {
                         />
                       </div>
 
+                      {state.message && !state.success && (
+                        <p className="text-sm text-red-600">{state.message}</p>
+                      )}
+
                       <button
                         type="submit"
-                        className="w-full py-4 bg-primary text-white rounded-full font-medium tracking-wide uppercase text-sm hover:bg-primary/90 transition-colors mt-8"
+                        disabled={isPending}
+                        className="w-full py-4 bg-primary text-white rounded-full font-medium tracking-wide uppercase text-sm hover:bg-primary/90 transition-colors mt-8 disabled:opacity-50"
                       >
-                        Send Message
+                        {isPending ? "Sending..." : "Send Message"}
                       </button>
                     </form>
                   </motion.div>
