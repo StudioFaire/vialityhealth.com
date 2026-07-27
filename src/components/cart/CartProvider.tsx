@@ -25,7 +25,7 @@ type CartContextType = {
   isLoading: boolean;
   isCartOpen: boolean;
   setIsCartOpen: (open: boolean) => void;
-  addItem: (variantId: string, quantity?: number) => Promise<void>;
+  addItem: (variantId: string, quantity?: number, sellingPlanId?: string) => Promise<void>;
   removeItem: (lineId: string) => Promise<void>;
   updateQuantity: (lineId: string, quantity: number) => Promise<void>;
   checkout: () => void;
@@ -55,11 +55,11 @@ export function CartProvider({ children }: { children: ReactNode }) {
   }, []);
 
   const addItem = useCallback(
-    async (variantId: string, quantity = 1) => {
+    async (variantId: string, quantity = 1, sellingPlanId?: string) => {
       setIsLoading(true);
       try {
         if (cart) {
-          const updated = await addShopifyToCart(cart.id, variantId, quantity);
+          const updated = await addShopifyToCart(cart.id, variantId, quantity, sellingPlanId);
           setCart(updated);
         } else {
           const newCart = await createShopifyCart(variantId, quantity);

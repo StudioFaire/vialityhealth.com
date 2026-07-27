@@ -7,12 +7,12 @@ import { Minus, Plus, ShieldCheck, Truck, RotateCcw, ChevronDown } from "lucide-
 import { motion, AnimatePresence } from "framer-motion";
 import { useCart } from "@/components/cart/CartProvider";
 import { ProductCard } from "@/components/product/ProductCard";
-import { formatPrice } from "@/lib/utils";
 import type { ShopifyProduct } from "@/lib/shopify/types";
 import {
   getProductImages,
   getProductVariants,
-  getPrice,
+  getSellingPlans,
+  getSubscriptionPrice,
 } from "@/lib/shopify/types";
 import { getAllProducts } from "@/lib/shopify";
 import { useEffect } from "react";
@@ -21,6 +21,8 @@ export function ProductPageClient({ product }: { product: ShopifyProduct }) {
   const { addItem } = useCart();
   const images = getProductImages(product);
   const variants = getProductVariants(product);
+  const sellingPlans = getSellingPlans(product);
+  const activeSellingPlan = sellingPlans.length > 0 ? sellingPlans[0] : null;
 
   const [selectedImageIndex, setSelectedImageIndex] = useState(0);
   const [selectedOptions, setSelectedOptions] = useState<
@@ -61,18 +63,23 @@ export function ProductPageClient({ product }: { product: ShopifyProduct }) {
     selectedVariant?.compareAtPrice &&
     parseFloat(selectedVariant.compareAtPrice.amount) > 0;
 
-  const subscribeDiscount = 0.15;
+  const basePrice = selectedVariant
+    ? parseFloat(selectedVariant.price.amount)
+    : 0;
+
   const displayPrice =
-    purchaseType === "subscribe" && selectedVariant
-      ? parseFloat(selectedVariant.price.amount) * (1 - subscribeDiscount)
-      : selectedVariant
-        ? parseFloat(selectedVariant.price.amount)
-        : 0;
+    purchaseType === "subscribe" && selectedVariant && activeSellingPlan
+      ? getSubscriptionPrice(basePrice, activeSellingPlan)
+      : basePrice;
 
   const handleAdd = () => {
     if (!selectedVariant) return;
     setIsAdding(true);
-    addItem(selectedVariant.id, quantity);
+    const sellingPlanId =
+      purchaseType === "subscribe" && activeSellingPlan
+        ? activeSellingPlan.id
+        : undefined;
+    addItem(selectedVariant.id, quantity, sellingPlanId);
     setTimeout(() => setIsAdding(false), 1500);
   };
 
@@ -173,9 +180,9 @@ export function ProductPageClient({ product }: { product: ShopifyProduct }) {
                   ${parseFloat(selectedVariant.compareAtPrice!.amount).toFixed(2)}
                 </span>
               )}
-              {purchaseType === "subscribe" && (
+              {purchaseType === "subscribe" && activeSellingPlan && (
                 <span className="text-sm text-accent font-medium mb-1 ml-2">
-                  (Save 15%)
+                  (Save {Math.round((1 - getSubscriptionPrice(1, activeSellingPlan)) * 100)}%)
                 </span>
               )}
             </div>
@@ -213,17 +220,20 @@ export function ProductPageClient({ product }: { product: ShopifyProduct }) {
             {/* Purchase Type */}
             <div className="space-y-3 mb-8">
               <label
-                className={`flex items-center justify-between p-4 border rounded-xl cursor-pointer transition-all ${purchaseType === "one-time"
-                  ? "border-primary bg-primary/5 ring-1 ring-primary/20"
-                  : "border-border/60 bg-white hover:border-primary/40"
-                  }`}
+                onClick={() => setPurchaseType("one-time")}
+                className={`flex items-center justify-between p-4 border rounded-xl cursor-pointer transition-all ${
+                  purchaseType === "one-time"
+                    ? "border-primary bg-primary/5 ring-1 ring-primary/20"
+                    : "border-border/60 bg-white hover:border-primary/40"
+                }`}
               >
                 <div className="flex items-center gap-3">
                   <div
-                    className={`w-4 h-4 rounded-full border flex items-center justify-center ${purchaseType === "one-time"
-                      ? "border-primary"
-                      : "border-border"
-                      }`}
+                    className={`w-4 h-4 rounded-full border flex items-center justify-center ${
+                      purchaseType === "one-time"
+                        ? "border-primary"
+                        : "border-border"
+                    }`}
                   >
                     {purchaseType === "one-time" && (
                       <div className="w-2 h-2 bg-primary rounded-full" />
@@ -241,17 +251,26 @@ export function ProductPageClient({ product }: { product: ShopifyProduct }) {
               </label>
 
               <label
-                className={`flex items-center justify-between p-4 border rounded-xl cursor-pointer transition-all ${purchaseType === "subscribe"
-                  ? "border-primary bg-primary/5 ring-1 ring-primary/20"
-                  : "border-border/60 bg-white hover:border-primary/40"
-                  }`}
+                onClick={() => {
+                  if (activeSellingPlan) {
+                    setPurchaseType("subscribe");
+                  }
+                }}
+                className={`flex items-center justify-between p-4 border rounded-xl transition-all ${
+                  !activeSellingPlan
+                    ? "border-border/30 bg-white/50 opacity-50 cursor-not-allowed"
+                    : purchaseType === "subscribe"
+                      ? "border-primary bg-primary/5 ring-1 ring-primary/20 cursor-pointer"
+                      : "border-border/60 bg-white hover:border-primary/40 cursor-pointer"
+                }`}
               >
                 <div className="flex items-center gap-3">
                   <div
-                    className={`w-4 h-4 rounded-full border flex items-center justify-center ${purchaseType === "subscribe"
-                      ? "border-primary"
-                      : "border-border"
-                      }`}
+                    className={`w-4 h-4 rounded-full border flex items-center justify-center ${
+                      purchaseType === "subscribe"
+                        ? "border-primary"
+                        : "border-border"
+                    }`}
                   >
                     {purchaseType === "subscribe" && (
                       <div className="w-2 h-2 bg-primary rounded-full" />
@@ -259,16 +278,20 @@ export function ProductPageClient({ product }: { product: ShopifyProduct }) {
                   </div>
                   <div>
                     <span className="font-medium text-sm block">
-                      Subscribe & Save 15%
+                      {activeSellingPlan
+                        ? activeSellingPlan.name
+                        : "Subscriptions not available"}
                     </span>
-                    <span className="text-xs text-foreground/60">
-                      Delivered every 30 days
-                    </span>
+                    {activeSellingPlan && (
+                      <span className="text-xs text-foreground/60">
+                        Recurring delivery
+                      </span>
+                    )}
                   </div>
                 </div>
                 <span className="font-medium text-sm">
-                  {selectedVariant
-                    ? `$${(parseFloat(selectedVariant.price.amount) * 0.85).toFixed(2)}`
+                  {selectedVariant && activeSellingPlan
+                    ? `$${getSubscriptionPrice(parseFloat(selectedVariant.price.amount), activeSellingPlan).toFixed(2)}`
                     : "—"}
                 </span>
               </label>

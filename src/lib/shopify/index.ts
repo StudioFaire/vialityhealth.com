@@ -123,14 +123,22 @@ export async function createCart(
 export async function addToCart(
   cartId: string,
   variantId: string,
-  quantity = 1
+  quantity = 1,
+  sellingPlanId?: string
 ): Promise<ShopifyCart> {
+  const lineInput: { merchandiseId: string; quantity: number; sellingPlanId?: string } = {
+    merchandiseId: variantId,
+    quantity,
+  };
+  if (sellingPlanId) {
+    lineInput.sellingPlanId = sellingPlanId;
+  }
   const { data } = await shopifyClient.request<{
     cartLinesAdd: { cart: ShopifyCart; userErrors: unknown[] };
   }>(AddToCartMutation, {
     variables: {
       cartId,
-      lines: [{ merchandiseId: variantId, quantity }],
+      lines: [lineInput],
     },
   });
   return assertData(data, "addToCart").cartLinesAdd.cart;

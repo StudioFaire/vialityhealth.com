@@ -1,3 +1,13 @@
 - [ ] Replace vialityhealth@gmail.com
 - [ ] Setup hello@vialityhealth.com
 - [ ] Connect contact form to Resend
+- [ ] Make subscription option work
+- [ ] Add favicon
+- [ ] Augment the Viality product images and descriptions with additional data from the CMS
+- [ ] Review the site content and design with Ivy
+- [ ] Set up the payout account
+- [ ] Set up shipping rules
+- [ ] Set up ABN
+- [ ] Add policies
+- [ ] Add consent manager
+- [ ] Discuss Resend and Klaviyo with Ivy

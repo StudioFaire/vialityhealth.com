@@ -10,6 +10,21 @@ export type ShopifyPrice = {
   currencyCode: string;
 };
 
+export type ShopifySellingPlan = {
+  id: string;
+  name: string;
+  priceAdjustments: {
+    adjustmentValue:
+      | { adjustmentPercentage: number }
+      | { adjustmentAmount: ShopifyPrice }
+      | { price: ShopifyPrice };
+  }[];
+};
+
+export type ShopifySellingPlanAllocation = {
+  sellingPlan: ShopifySellingPlan;
+};
+
 export type ShopifyProductVariant = {
   id: string;
   title: string;
@@ -17,6 +32,16 @@ export type ShopifyProductVariant = {
   price: ShopifyPrice;
   compareAtPrice: ShopifyPrice | null;
   selectedOptions: { name: string; value: string }[];
+  sellingPlanAllocations: {
+    edges: { node: ShopifySellingPlanAllocation }[];
+  };
+};
+
+export type ShopifySellingPlanGroup = {
+  name: string;
+  sellingPlans: {
+    edges: { node: ShopifySellingPlan }[];
+  };
 };
 
 export type ShopifyProductOption = {
@@ -34,6 +59,9 @@ export type ShopifyProduct = {
   options: ShopifyProductOption[];
   variants: {
     edges: { node: ShopifyProductVariant }[];
+  };
+  sellingPlanGroups: {
+    edges: { node: ShopifySellingPlanGroup }[];
   };
   images: {
     edges: { node: ShopifyImage }[];
@@ -65,6 +93,12 @@ export type ShopifyCartLine = {
     };
     selectedOptions: { name: string; value: string }[];
   };
+  sellingPlanAllocation?: {
+    sellingPlan: {
+      id: string;
+      name: string;
+    };
+  } | null;
 };
 
 export type ShopifyCart = {
@@ -123,4 +157,54 @@ export function formatPrice(price: ShopifyPrice): string {
 // Helper to get cart lines
 export function getCartLines(cart: ShopifyCart): ShopifyCartLine[] {
   return cart.lines.edges.map((e) => e.node);
+}
+
+// Helper to get selling plan groups from a product
+export function getSellingPlanGroups(
+  product: ShopifyProduct
+): ShopifySellingPlanGroup[] {
+  return product.sellingPlanGroups.edges.map((e) => e.node);
+}
+
+// Helper to get all selling plans from a product (flattened from groups)
+export function getSellingPlans(
+  product: ShopifyProduct
+): ShopifySellingPlan[] {
+  return getSellingPlanGroups(product).flatMap((group) =>
+    group.sellingPlans.edges.map((e) => e.node)
+  );
+}
+
+// Helper to get the first selling plan (if any)
+export function getFirstSellingPlan(
+  product: ShopifyProduct
+): ShopifySellingPlan | null {
+  return getSellingPlans(product)[0] ?? null;
+}
+
+// Helper to get selling plan allocation for a variant
+export function getSellingPlanAllocations(
+  variant: ShopifyProductVariant
+): ShopifySellingPlanAllocation[] {
+  return variant.sellingPlanAllocations.edges.map((e) => e.node);
+}
+
+// Helper to calculate the subscription price for a selling plan
+export function getSubscriptionPrice(
+  basePrice: number,
+  sellingPlan: ShopifySellingPlan
+): number {
+  for (const adjustment of sellingPlan.priceAdjustments) {
+    const value = adjustment.adjustmentValue;
+    if ("adjustmentPercentage" in value) {
+      return basePrice * (1 - value.adjustmentPercentage / 100);
+    }
+    if ("adjustmentAmount" in value) {
+      return basePrice - parseFloat(value.adjustmentAmount.amount);
+    }
+    if ("price" in value) {
+      return parseFloat(value.price.amount);
+    }
+  }
+  return basePrice;
 }

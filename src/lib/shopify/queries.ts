@@ -28,6 +28,69 @@ export const ProductFragment = /* GraphQL */ `
             name
             value
           }
+          sellingPlanAllocations(first: 5) {
+            edges {
+              node {
+                sellingPlan {
+                  id
+                  name
+                  priceAdjustments {
+                    adjustmentValue {
+                      ... on SellingPlanPercentagePriceAdjustment {
+                        adjustmentPercentage
+                      }
+                      ... on SellingPlanFixedAmountPriceAdjustment {
+                        adjustmentAmount {
+                          amount
+                          currencyCode
+                        }
+                      }
+                      ... on SellingPlanFixedPriceAdjustment {
+                        price {
+                          amount
+                          currencyCode
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+    sellingPlanGroups(first: 5) {
+      edges {
+        node {
+          name
+          sellingPlans(first: 5) {
+            edges {
+              node {
+                id
+                name
+                priceAdjustments {
+                  adjustmentValue {
+                    ... on SellingPlanPercentagePriceAdjustment {
+                      adjustmentPercentage
+                    }
+                    ... on SellingPlanFixedAmountPriceAdjustment {
+                      adjustmentAmount {
+                        amount
+                        currencyCode
+                      }
+                    }
+                    ... on SellingPlanFixedPriceAdjustment {
+                      price {
+                        amount
+                        currencyCode
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
         }
       }
     }

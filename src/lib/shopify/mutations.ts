@@ -46,6 +46,12 @@ export const CreateCartMutation = /* GraphQL */ `
                   }
                 }
               }
+              sellingPlanAllocation {
+                sellingPlan {
+                  id
+                  name
+                }
+              }
             }
           }
         }
@@ -104,6 +110,12 @@ export const AddToCartMutation = /* GraphQL */ `
                     name
                     value
                   }
+                }
+              }
+              sellingPlanAllocation {
+                sellingPlan {
+                  id
+                  name
                 }
               }
             }
