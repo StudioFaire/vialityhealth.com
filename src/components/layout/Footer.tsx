@@ -22,7 +22,7 @@ export function Footer() {
               href="/"
               className="font-serif text-4xl font-bold tracking-tight mb-4 inline-block"
             >
-              MOSSÉ
+              Viality
             </Link>
             <p className="text-primary-foreground/80 max-w-sm text-sm leading-relaxed mb-6">
               Minerals from the sea. Wellness for every day. We source the
@@ -231,7 +231,7 @@ export function Footer() {
 
         <div className="pt-8 border-t border-primary-foreground/10 flex flex-col md:flex-row items-center justify-between gap-4 text-xs text-primary-foreground/60">
           <div>
-            &copy; {new Date().getFullYear()} MOSSÉ |{" "}
+            &copy; {new Date().getFullYear()} Viality |{" "}
             <Link href="/policies/privacy" className="hover:underline">
               Privacy
             </Link>{" "}

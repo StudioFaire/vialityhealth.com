@@ -4,7 +4,7 @@ import { getShopPolicies, resolveLiquidVariables } from "@/lib/shopify";
 
 export const metadata: Metadata = generatePolicyMetadata(
   "Terms of Service",
-  "Review the terms and conditions governing your use of the MOSSÉ website and services."
+  "Review the terms and conditions governing your use of the Viality website and services."
 );
 
 export default async function TermsOfServicePage() {
@@ -13,9 +13,9 @@ export default async function TermsOfServicePage() {
 
   const bodyHtml = policy
     ? resolveLiquidVariables(policy.body, {
-        shop_name: "Mossé",
-        email: "hello@mossewellness.com",
-      })
+      shop_name: "Mossé",
+      email: "hello@vialityhealth.com",
+    })
     : undefined;
 
   return (

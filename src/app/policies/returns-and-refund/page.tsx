@@ -4,7 +4,7 @@ import { getShopPolicies, resolveLiquidVariables } from "@/lib/shopify";
 
 export const metadata: Metadata = generatePolicyMetadata(
   "Return & Refund Policy",
-  "Learn about MOSSÉ's return and refund policy."
+  "Learn about Viality's return and refund policy."
 );
 
 export default async function ReturnsAndRefundPolicyPage() {
@@ -13,9 +13,9 @@ export default async function ReturnsAndRefundPolicyPage() {
 
   const bodyHtml = policy
     ? resolveLiquidVariables(policy.body, {
-        shop_name: "Mossé",
-        email: "hello@mossewellness.com",
-      })
+      shop_name: "Mossé",
+      email: "hello@vialityhealth.com",
+    })
     : undefined;
 
   return (

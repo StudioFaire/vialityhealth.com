@@ -11,3 +11,4 @@
 - [ ] Add policies
 - [ ] Add consent manager
 - [ ] Discuss Resend and Klaviyo with Ivy
+- [ ] Migrate MenuQueryHandler from /Users/karlpodger/Sites/uncnsrdlabel.com/apps/web/src/components/molecules/GlobalFooter/GlobalFooter.tsx

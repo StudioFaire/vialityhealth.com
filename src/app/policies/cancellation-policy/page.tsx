@@ -4,7 +4,7 @@ import { getShopPolicies, resolveLiquidVariables } from "@/lib/shopify";
 
 export const metadata: Metadata = generatePolicyMetadata(
   "Cancellation Policy",
-  "Learn about subscription and order cancellation options at MOSSÉ."
+  "Learn about subscription and order cancellation options at Viality."
 );
 
 export default async function CancellationPolicyPage() {
@@ -13,9 +13,9 @@ export default async function CancellationPolicyPage() {
 
   const bodyHtml = policy
     ? resolveLiquidVariables(policy.body, {
-        shop_name: "Mossé",
-        email: "hello@mossewellness.com",
-      })
+      shop_name: "Mossé",
+      email: "hello@vialityhealth.com",
+    })
     : undefined;
 
   return (

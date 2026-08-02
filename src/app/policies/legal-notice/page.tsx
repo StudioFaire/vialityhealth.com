@@ -4,7 +4,7 @@ import { getShopPolicies, resolveLiquidVariables } from "@/lib/shopify";
 
 export const metadata: Metadata = generatePolicyMetadata(
   "Legal Notice",
-  "Important legal information regarding the MOSSÉ website and products."
+  "Important legal information regarding the Viality website and products."
 );
 
 export default async function LegalNoticePage() {
@@ -13,9 +13,9 @@ export default async function LegalNoticePage() {
 
   const bodyHtml = policy
     ? resolveLiquidVariables(policy.body, {
-        shop_name: "Mossé",
-        email: "hello@mossewellness.com",
-      })
+      shop_name: "Mossé",
+      email: "hello@vialityhealth.com",
+    })
     : undefined;
 
   return (
