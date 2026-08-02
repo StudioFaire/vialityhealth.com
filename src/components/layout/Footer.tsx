@@ -25,8 +25,7 @@ export function Footer() {
               Viality
             </Link>
             <p className="text-primary-foreground/80 max-w-sm text-sm leading-relaxed mb-6">
-              Minerals from the sea. Wellness for every day. We source the
-              finest wildcrafted Atlantic sea moss for your daily routine.
+              We operate with complete openness. Every claim we make is verifiable. Every detail disclosed, every claim supported by evidence.
             </p>
             <div className="flex items-center space-x-4">
               <a
