@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
+import localFont from 'next/font/local';
 import "./globals.css";
 import { CartProvider } from "@/components/cart/CartProvider";
 import { AnnouncementBar } from "@/components/layout/AnnouncementBar";
@@ -13,6 +14,37 @@ const inter = Inter({
   variable: "--font-sans",
   display: "swap",
 });
+
+const iosevkaCharon = localFont({
+  src: [
+    {
+      path: '../fonts/IosevkaCharon-Light.ttf',
+      weight: '300',
+      style: 'normal',
+    },
+    {
+      path: '../fonts/IosevkaCharon-Regular.ttf',
+      weight: '400',
+      style: 'normal',
+    },
+    {
+      path: '../fonts/IosevkaCharon-Medium.ttf',
+      weight: '500',
+      style: 'normal',
+    },
+    {
+      path: '../fonts/IosevkaCharon-Bold.ttf',
+      weight: '700',
+      style: 'normal',
+    },
+    {
+      path: '../fonts/IosevkaCharon-Italic.ttf', // If you use italics
+      weight: '400',
+      style: 'italic',
+    },
+  ],
+  variable: '--font-serif',
+})
 
 export const metadata: Metadata = {
   title: {
@@ -32,7 +64,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={inter.variable}>
+    <html lang="en" className={[iosevkaCharon.variable, inter.variable].filter(Boolean).join(" ")}>
       <body className="group/body min-h-screen flex flex-col">
         <CartProvider>
           <AnnouncementBar />

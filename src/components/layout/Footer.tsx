@@ -2,8 +2,8 @@
 
 import { useActionState } from "react";
 import Link from "next/link";
-import { Instagram, MoveRight, Check } from "lucide-react";
-import { SiTiktok } from "react-icons/si";
+import { MoveRight, Check } from "lucide-react";
+import { SiInstagram, SiTiktok } from "react-icons/si";
 import { subscribeToNewsletter } from "@/app/actions/newsletter";
 
 export function Footer() {
@@ -20,7 +20,7 @@ export function Footer() {
           <div className="lg:col-span-4">
             <Link
               href="/"
-              className="font-serif text-4xl font-bold tracking-tight mb-4 inline-block"
+              className="font-serif text-4xl mb-4 inline-block"
             >
               Viality
             </Link>
@@ -35,7 +35,7 @@ export function Footer() {
                 className="p-2 border border-primary-foreground/20 rounded-full hover:bg-primary-foreground hover:text-primary transition-colors"
                 aria-label="Instagram"
               >
-                <Instagram size={18} />
+                <SiInstagram size={18} />
               </a>
               <a
                 href="https://tiktok.com"

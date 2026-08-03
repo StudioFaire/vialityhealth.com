@@ -12,3 +12,5 @@
 - [ ] Add consent manager
 - [ ] Discuss Resend and Klaviyo with Ivy
 - [ ] Migrate MenuQueryHandler from /Users/karlpodger/Sites/uncnsrdlabel.com/apps/web/src/components/molecules/GlobalFooter/GlobalFooter.tsx
+- [ ] Migrate "Are you 18 or older?" dialog
+- [ ] Migrate "Your VIP Pass" popover
