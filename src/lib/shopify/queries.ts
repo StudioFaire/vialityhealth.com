@@ -147,9 +147,10 @@ export const GetProductByHandleQuery = /* GraphQL */ `
   }
 `;
 
-export const GetCollectionByHandleQuery = /* GraphQL */ `
-  query GetCollectionByHandle($handle: String!, $first: Int!) {
-    collectionByHandle(handle: $handle) {
+export const GetCollectionByIdentifierQuery = /* GraphQL */ `
+  ${ProductFragment}
+  query GetCollectionByIdentifier($handle: String!, $first: Int!) {
+    collection(handle: $handle) {
       id
       title
       handle

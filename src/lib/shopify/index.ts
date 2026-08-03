@@ -3,7 +3,7 @@ import { shopifyClient } from "./client";
 import {
   GetAllProductsQuery,
   GetProductByHandleQuery,
-  GetCollectionByHandleQuery,
+  GetCollectionByIdentifierQuery,
   GetAllCollectionsQuery,
   GetCartQuery,
   GetShopPoliciesQuery,
@@ -60,16 +60,16 @@ export async function getProductByHandle(
   return cachedFn();
 }
 
-export async function getCollectionByHandle(
+export async function getCollectionByIdentifier(
   handle: string,
   first = 50
 ): Promise<ShopifyCollection | null> {
   const cachedFn = unstable_cache(
     async () => {
       const { data } = await shopifyClient.request<{
-        collectionByHandle: ShopifyCollection | null;
-      }>(GetCollectionByHandleQuery, { variables: { handle, first } });
-      return assertData(data, "getCollectionByHandle").collectionByHandle;
+        collection: ShopifyCollection | null;
+      }>(GetCollectionByIdentifierQuery, { variables: { handle, first } });
+      return assertData(data, "getCollectionByIdentifier").collection;
     },
     ["shopify", "collection", handle],
     { revalidate: REVALIDATE_SECONDS, tags: ["shopify-collections"] }

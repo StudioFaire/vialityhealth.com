@@ -304,7 +304,7 @@ export function HomePage({ featuredProducts }: { featuredProducts: ShopifyProduc
           ) : (
             <div className="text-center py-12">
               <p className="text-primary/40">
-                Products coming soon.
+                Products coming soon
               </p>
             </div>
           )}
