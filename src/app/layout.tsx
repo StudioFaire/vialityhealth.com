@@ -2,11 +2,11 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import localFont from 'next/font/local';
 import "./globals.css";
-import { CartProvider } from "@/components/cart/CartProvider";
+import { CartProvider } from "@/components/CartProvider";
 import { AnnouncementBar } from "@/components/layout/AnnouncementBar";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
-import { CartDrawer } from "@/components/cart/CartDrawer";
+import { CartDrawer } from "@/components/CartDrawer";
 
 const inter = Inter({
   subsets: ["latin"],

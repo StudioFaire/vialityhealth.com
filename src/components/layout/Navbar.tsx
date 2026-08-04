@@ -4,7 +4,7 @@ import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { User } from "lucide-react";
-import { useCart } from "@/components/cart/CartProvider";
+import { useCart } from "@/components/CartProvider";
 import { cn } from "@/lib/utils";
 import { MobileMenu } from "./MobileMenu";
 

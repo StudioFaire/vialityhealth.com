@@ -6,6 +6,7 @@ import {
   GetCollectionByIdentifierQuery,
   GetAllCollectionsQuery,
   GetCartQuery,
+  GetMenuQuery,
   GetShopPoliciesQuery,
 } from "./queries";
 import {
@@ -18,6 +19,7 @@ import type {
   ShopifyProduct,
   ShopifyCart,
   ShopifyCollection,
+  ShopifyMenu,
   ShopPolicies,
 } from "./types";
 
@@ -203,4 +205,20 @@ export function resolveLiquidVariables(
   result = result.replaceAll("Mossé", "Viality");
   result = result.replaceAll("vialityhealth.com", "vialityhealth.com");
   return result;
+}
+
+// ── Menus ───────────────────────────────────────────────
+
+export async function getMenu(handle: string): Promise<ShopifyMenu | null> {
+  const cachedFn = unstable_cache(
+    async () => {
+      const { data } = await shopifyClient.request<{
+        menu: ShopifyMenu | null;
+      }>(GetMenuQuery, { variables: { handle } });
+      return assertData(data, "getMenu").menu;
+    },
+    ["shopify", "menu", handle],
+    { revalidate: REVALIDATE_SECONDS, tags: ["shopify-menus"] }
+  );
+  return cachedFn();
 }

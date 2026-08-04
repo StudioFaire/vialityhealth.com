@@ -124,6 +124,17 @@ export type ShopifyCollection = {
   };
 };
 
+export type ShopifyMenuItem = {
+  id: string;
+  title: string;
+  url: string;
+};
+
+export type ShopifyMenu = {
+  id: string;
+  items: ShopifyMenuItem[];
+};
+
 export type ShopifyShopPolicy = {
   title: string;
   handle: string;

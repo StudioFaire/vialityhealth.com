@@ -4,7 +4,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { X, Minus, Plus, ShoppingBag } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
-import { useCart } from "@/components/cart/CartProvider";
+import { useCart } from "@/components/CartProvider";
 import { formatPrice } from "@/lib/utils";
 
 export function CartDrawer() {

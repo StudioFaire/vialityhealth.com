@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { ChevronDown } from "lucide-react";
-import { ProductCard } from "@/components/product/ProductCard";
+import { ProductCard } from "@/components/ProductCard";
 import type { ShopifyProduct } from "@/lib/shopify/types";
 
 type Collection = { id: string; title: string; handle: string };
@@ -63,11 +63,10 @@ export function ShopContent({
             <button
               key={category}
               onClick={() => setActiveCategory(category)}
-              className={`whitespace-nowrap px-5 py-2 rounded-full text-sm font-medium tracking-wide transition-colors ${
-                activeCategory === category
+              className={`whitespace-nowrap px-5 py-2 rounded-full text-sm font-medium tracking-wide transition-colors ${activeCategory === category
                   ? "bg-primary text-white"
                   : "bg-white border border-border/40 text-foreground/70 hover:border-primary/50"
-              }`}
+                }`}
             >
               {category}
             </button>

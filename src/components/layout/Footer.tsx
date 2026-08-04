@@ -3,14 +3,17 @@
 import { useActionState } from "react";
 import Link from "next/link";
 import { MoveRight, Check } from "lucide-react";
-import { SiInstagram, SiTiktok } from "react-icons/si";
 import { subscribeToNewsletter } from "@/app/actions/newsletter";
+import { SocialMenu } from "@/components/SocialMenu";
+import { getMenu } from "@/lib/shopify";
 
-export function Footer() {
+export async function Footer() {
   const [state, formAction, isPending] = useActionState(subscribeToNewsletter, {
     success: false,
     message: "",
   });
+
+  const followUsMenu = await getMenu("follow-us-viality");
 
   return (
     <footer className="bg-primary text-primary-foreground pt-16 pb-8 px-4 sm:px-6 lg:px-8">
@@ -27,26 +30,12 @@ export function Footer() {
             <p className="text-primary-foreground/80 max-w-sm text-sm leading-relaxed mb-6">
               We operate with complete openness. Every claim we make is verifiable. Every detail disclosed, every claim supported by evidence.
             </p>
-            <div className="flex items-center space-x-4">
-              <a
-                href="https://instagram.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="p-2 border border-primary-foreground/20 rounded-full hover:bg-primary-foreground hover:text-primary transition-colors"
-                aria-label="Instagram"
-              >
-                <SiInstagram size={18} />
-              </a>
-              <a
-                href="https://tiktok.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="p-2 border border-primary-foreground/20 rounded-full hover:bg-primary-foreground hover:text-primary transition-colors"
-                aria-label="TikTok"
-              >
-                <SiTiktok size={18} />
-              </a>
-            </div>
+            {followUsMenu && (
+              <SocialMenu
+                className="flex items-center space-x-4"
+                urls={followUsMenu.items?.map((item) => item.url ?? "").filter(Boolean) ?? []}
+              />
+            )}
           </div>
 
           {/* Links Columns */}

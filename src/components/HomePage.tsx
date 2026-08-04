@@ -4,7 +4,7 @@ import { useActionState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { motion } from "framer-motion";
-import { GrainOverlay } from "@/components/viality/GrainOverlay";
+import { GrainOverlay } from "@/components/GrainOverlay";
 import type { ShopifyProduct } from "@/lib/shopify/types";
 import { getProductImage, formatPrice } from "@/lib/shopify/types";
 import { subscribeToNewsletter } from "@/app/actions/newsletter";

@@ -282,3 +282,16 @@ export const GetShopPoliciesQuery = /* GraphQL */ `
     }
   }
 `;
+
+export const GetMenuQuery = /* GraphQL */ `
+  query GetMenu($handle: String!) {
+    menu(handle: $handle) {
+      id
+      items {
+        id
+        title
+        url
+      }
+    }
+  }
+`;

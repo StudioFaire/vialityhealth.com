@@ -5,8 +5,8 @@ import Link from "next/link";
 import Image from "next/image";
 import { Minus, Plus, ShieldCheck, Truck, RotateCcw, ChevronDown } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
-import { useCart } from "@/components/cart/CartProvider";
-import { ProductCard } from "@/components/product/ProductCard";
+import { useCart } from "@/components/CartProvider";
+import { ProductCard } from "@/components/ProductCard";
 import type { ShopifyProduct } from "@/lib/shopify/types";
 import {
   getProductImages,
@@ -221,19 +221,17 @@ export function ProductPageClient({ product }: { product: ShopifyProduct }) {
             <div className="space-y-3 mb-8">
               <label
                 onClick={() => setPurchaseType("one-time")}
-                className={`flex items-center justify-between p-4 border rounded-xl cursor-pointer transition-all ${
-                  purchaseType === "one-time"
-                    ? "border-primary bg-primary/5 ring-1 ring-primary/20"
-                    : "border-border/60 bg-white hover:border-primary/40"
-                }`}
+                className={`flex items-center justify-between p-4 border rounded-xl cursor-pointer transition-all ${purchaseType === "one-time"
+                  ? "border-primary bg-primary/5 ring-1 ring-primary/20"
+                  : "border-border/60 bg-white hover:border-primary/40"
+                  }`}
               >
                 <div className="flex items-center gap-3">
                   <div
-                    className={`w-4 h-4 rounded-full border flex items-center justify-center ${
-                      purchaseType === "one-time"
-                        ? "border-primary"
-                        : "border-border"
-                    }`}
+                    className={`w-4 h-4 rounded-full border flex items-center justify-center ${purchaseType === "one-time"
+                      ? "border-primary"
+                      : "border-border"
+                      }`}
                   >
                     {purchaseType === "one-time" && (
                       <div className="w-2 h-2 bg-primary rounded-full" />
@@ -256,21 +254,19 @@ export function ProductPageClient({ product }: { product: ShopifyProduct }) {
                     setPurchaseType("subscribe");
                   }
                 }}
-                className={`flex items-center justify-between p-4 border rounded-xl transition-all ${
-                  !activeSellingPlan
-                    ? "border-border/30 bg-white/50 opacity-50 cursor-not-allowed"
-                    : purchaseType === "subscribe"
-                      ? "border-primary bg-primary/5 ring-1 ring-primary/20 cursor-pointer"
-                      : "border-border/60 bg-white hover:border-primary/40 cursor-pointer"
-                }`}
+                className={`flex items-center justify-between p-4 border rounded-xl transition-all ${!activeSellingPlan
+                  ? "border-border/30 bg-white/50 opacity-50 cursor-not-allowed"
+                  : purchaseType === "subscribe"
+                    ? "border-primary bg-primary/5 ring-1 ring-primary/20 cursor-pointer"
+                    : "border-border/60 bg-white hover:border-primary/40 cursor-pointer"
+                  }`}
               >
                 <div className="flex items-center gap-3">
                   <div
-                    className={`w-4 h-4 rounded-full border flex items-center justify-center ${
-                      purchaseType === "subscribe"
-                        ? "border-primary"
-                        : "border-border"
-                    }`}
+                    className={`w-4 h-4 rounded-full border flex items-center justify-center ${purchaseType === "subscribe"
+                      ? "border-primary"
+                      : "border-border"
+                      }`}
                   >
                     {purchaseType === "subscribe" && (
                       <div className="w-2 h-2 bg-primary rounded-full" />
