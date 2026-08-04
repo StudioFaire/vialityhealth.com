@@ -42,7 +42,7 @@ export function StarRating({
   );
 }
 
-export function ProductCard({ product }: { product: ShopifyProduct }) {
+export function ProductCard({ product, description }: { product: ShopifyProduct; description?: string }) {
   const { addItem } = useCart();
   const [isAdding, setIsAdding] = useState(false);
 
@@ -87,7 +87,7 @@ export function ProductCard({ product }: { product: ShopifyProduct }) {
             {product.title}
           </h3>
           <p className="text-sm text-foreground/70 mb-4 flex-1 line-clamp-2">
-            {product.description}
+            {description || product.description}
           </p>
 
           <div className="flex items-center justify-between mt-auto pt-4 border-t border-border/40">

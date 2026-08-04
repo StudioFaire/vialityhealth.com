@@ -2,6 +2,7 @@ import { Suspense } from "react";
 import { getAllProducts, getAllCollections } from "@/lib/shopify";
 import type { ShopifyProduct } from "@/lib/shopify/types";
 import { ShopContent } from "./ShopContent";
+import { resolveProductDescriptionText } from "@/lib/shopify/description";
 
 export const metadata = {
   title: "Shop",
@@ -22,6 +23,11 @@ export default async function ShopPage() {
   } catch {
     // Shopify not configured yet
   }
+
+  const productsWithDescriptions = products.map((product) => ({
+    ...product,
+    resolvedDescription: resolveProductDescriptionText(product),
+  }));
 
   return (
     <div className="min-h-screen bg-background pt-10 pb-24">
@@ -51,7 +57,7 @@ export default async function ShopPage() {
             </div>
           }
         >
-          <ShopContent products={products} collections={collections} />
+          <ShopContent products={productsWithDescriptions} collections={collections} />
         </Suspense>
       </div>
     </div>

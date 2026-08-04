@@ -14,10 +14,8 @@ import {
   getSellingPlans,
   getSubscriptionPrice,
 } from "@/lib/shopify/types";
-import { getAllProducts } from "@/lib/shopify";
-import { useEffect } from "react";
 
-export function ProductPageClient({ product, description }: { product: ShopifyProduct; description: string }) {
+export function ProductPageClient({ product, description, relatedProducts }: { product: ShopifyProduct; description: string; relatedProducts: (ShopifyProduct & { resolvedDescription: string })[] }) {
   const { addItem } = useCart();
   const images = getProductImages(product);
   const variants = getProductVariants(product);
@@ -39,16 +37,7 @@ export function ProductPageClient({ product, description }: { product: ShopifyPr
   const [purchaseType, setPurchaseType] = useState<"one-time" | "subscribe">(
     "one-time"
   );
-  const [openAccordion, setOpenAccordion] = useState<string>("description");
-  const [relatedProducts, setRelatedProducts] = useState<ShopifyProduct[]>([]);
-
-  useEffect(() => {
-    getAllProducts(6).then((all) => {
-      setRelatedProducts(
-        all.filter((p) => p.handle !== product.handle).slice(0, 3)
-      );
-    });
-  }, [product.handle]);
+  const [openAccordion, setOpenAccordion] = useState<string>("descriptionHtml");
 
   // Find the matching variant based on selected options
   const selectedVariant = variants.find((v) =>
@@ -190,7 +179,7 @@ export function ProductPageClient({ product, description }: { product: ShopifyPr
             <div className="w-full h-px bg-border/40 mb-8" />
 
             {/* Product Options */}
-            {product.options.map((option) => (
+            {product.options.filter((opt) => opt.values.length > 1).map((option) => (
               <div key={option.id} className="mb-6">
                 <label className="text-sm font-medium text-primary mb-3 block">
                   {option.name}
@@ -355,11 +344,11 @@ export function ProductPageClient({ product, description }: { product: ShopifyPr
                 >
                   <button
                     onClick={() => toggleAccordion(accordion.id)}
-                    className="w-full flex items-center justify-between py-2 text-left group"
+                    className="w-full flex items-center justify-between py-2 text-left group prose prose-h2:mb-0"
                   >
-                    <span className="font-serif text-lg text-primary">
+                    <h2>
                       {accordion.title}
-                    </span>
+                    </h2>
                     <ChevronDown
                       size={18}
                       className={`text-foreground/50 transition-transform duration-300 ${openAccordion === accordion.id
@@ -377,9 +366,10 @@ export function ProductPageClient({ product, description }: { product: ShopifyPr
                         transition={{ duration: 0.3, ease: "easeInOut" }}
                         className="overflow-hidden"
                       >
-                        <p className="py-4 text-foreground/70 text-sm leading-relaxed">
-                          {accordion.content}
-                        </p>
+                        <div
+                          className="py-4 prose prose-sm"
+                          dangerouslySetInnerHTML={{ __html: accordion.content }}
+                        />
                       </motion.div>
                     )}
                   </AnimatePresence>
@@ -407,7 +397,7 @@ export function ProductPageClient({ product, description }: { product: ShopifyPr
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
               {relatedProducts.map((rp) => (
-                <ProductCard key={rp.id} product={rp} />
+                <ProductCard key={rp.id} product={rp} description={rp.resolvedDescription} />
               ))}
             </div>
           </div>

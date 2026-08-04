@@ -3,7 +3,7 @@ import Link from "next/link";
 import type { Metadata } from "next";
 import { getProductByHandle, getAllProducts } from "@/lib/shopify";
 import { ProductPageClient } from "./ProductPageClient";
-import { decryptAndReverse } from "@/lib/crypto";
+import { resolveProductDescription, resolveProductDescriptionText } from "@/lib/shopify/description";
 
 type Props = {
   params: Promise<{ handle: string }>;
@@ -44,12 +44,16 @@ export default async function ProductPage({ params }: Props) {
     notFound();
   }
 
-  const fullName = product.full_name ? decryptAndReverse(product.full_name) : "";
-  const shortName = product.short_name ? decryptAndReverse(product.short_name) : "";
+  const description = resolveProductDescription(product);
 
-  const description = product.description
-    .replaceAll("{{full_name}}", fullName)
-    .replaceAll("{{short_name}}", shortName);
+  const allProducts = await getAllProducts(6);
+  const relatedProducts = allProducts
+    .filter((p) => p.handle !== product.handle)
+    .slice(0, 3)
+    .map((p) => ({
+      ...p,
+      resolvedDescription: resolveProductDescriptionText(p),
+    }));
 
   const jsonLd = {
     "@context": "https://schema.org",
@@ -74,7 +78,7 @@ export default async function ProductPage({ params }: Props) {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
-      <ProductPageClient product={product} description={description} />
+      <ProductPageClient product={product} description={description} relatedProducts={relatedProducts} />
     </>
   );
 }

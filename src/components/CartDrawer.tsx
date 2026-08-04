@@ -71,9 +71,6 @@ export function CartDrawer() {
                   {lines.map((line) => {
                     const product = line.merchandise.product;
                     const image = product.images.edges[0]?.node;
-                    const variantTitle = line.merchandise.title;
-                    const isDefaultVariant =
-                      variantTitle === "Default Title" || line.merchandise.selectedOptions.length === 0;
 
                     return (
                       <div key={line.id} className="flex gap-4">
@@ -94,11 +91,6 @@ export function CartDrawer() {
                               <h3 className="font-medium text-primary text-sm">
                                 {product.title}
                               </h3>
-                              {!isDefaultVariant && (
-                                <p className="text-xs text-foreground/60 mt-1">
-                                  {variantTitle}
-                                </p>
-                              )}
                             </div>
                             <button
                               onClick={() => removeItem(line.id)}

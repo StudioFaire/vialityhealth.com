@@ -8,6 +8,9 @@ importers:
 
   .:
     dependencies:
+      '@novatize-mattheri/shopify-richtext-renderer':
+        specifier: ^0.0.14
+        version: 0.0.14(react@19.2.8)
       '@shopify/storefront-api-client':
         specifier: ^1.0.10
         version: 1.0.10
@@ -309,6 +312,11 @@ packages:
     engines: {node: '>= 10'}
     cpu: [x64]
     os: [win32]
+
+  '@novatize-mattheri/shopify-richtext-renderer@0.0.14':
+    resolution: {integrity: sha512-fT8dn9BBJfrDRtQQ1f4HEhdNQ5k1FaPvHYhyF8c1sX07A4ceXxP6sooxh5YgxI5e0I+cPTb78lgpNxftUz1Wng==}
+    peerDependencies:
+      react: ^18.2.0
 
   '@shopify/graphql-client@1.4.2':
     resolution: {integrity: sha512-C/fEyx6BZmTGeJv0HSsduhfn5ZbkXk0nePkyo0+xXxorP1I+uvx9pobdFxTfiPnOrh+P6QiKzBgIviksnSo4YA==}
@@ -855,6 +863,10 @@ snapshots:
 
   '@next/swc-win32-x64-msvc@15.5.21':
     optional: true
+
+  '@novatize-mattheri/shopify-richtext-renderer@0.0.14(react@19.2.8)':
+    dependencies:
+      react: 19.2.8
 
   '@shopify/graphql-client@1.4.2': {}
 

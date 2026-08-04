@@ -55,6 +55,7 @@ export type ShopifyProductRaw = {
   title: string;
   handle: string;
   description: string;
+  descriptionHtml: string;
   productType: string;
   options: ShopifyProductOption[];
   variants: {
@@ -88,6 +89,7 @@ export type ShopifyProduct = {
   title: string;
   handle: string;
   description: string;
+  descriptionHtml: string;
   productType: string;
   options: ShopifyProductOption[];
   variants: {
@@ -199,6 +201,7 @@ export function transformProduct(raw: ShopifyProductRaw): ShopifyProduct {
     title: raw.title,
     handle: raw.handle,
     description: raw.description,
+    descriptionHtml: raw.descriptionHtml,
     productType: raw.productType,
     options: raw.options,
     variants: raw.variants,

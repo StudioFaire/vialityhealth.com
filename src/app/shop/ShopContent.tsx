@@ -11,7 +11,7 @@ export function ShopContent({
   products,
   collections,
 }: {
-  products: ShopifyProduct[];
+  products: (ShopifyProduct & { resolvedDescription: string })[];
   collections: Collection[];
 }) {
   const [activeCategory, setActiveCategory] = useState<string>("All");
@@ -98,7 +98,7 @@ export function ShopContent({
       {sortedProducts.length > 0 ? (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
           {sortedProducts.map((product) => (
-            <ProductCard key={product.id} product={product} />
+            <ProductCard key={product.id} product={product} description={product.resolvedDescription} />
           ))}
         </div>
       ) : (
