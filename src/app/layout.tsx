@@ -7,6 +7,7 @@ import { AnnouncementBar } from "@/components/layout/AnnouncementBar";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { CartDrawer } from "@/components/CartDrawer";
+import { getMenu } from "@/lib/shopify";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -58,11 +59,14 @@ export const metadata: Metadata = {
   ),
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  const followUsMenu = await getMenu("follow-us-viality");
+  const followUsUrls =
+    followUsMenu?.items.map((item) => item.url).filter(Boolean) ?? [];
   return (
     <html lang="en" className={[iosevkaCharon.variable, inter.variable].filter(Boolean).join(" ")}>
       <body className="group/body min-h-screen flex flex-col">
@@ -71,7 +75,7 @@ export default function RootLayout({
           <Navbar />
           <CartDrawer />
           <main className="flex-1">{children}</main>
-          <Footer />
+          <Footer followUsUrls={followUsUrls} />
         </CartProvider>
       </body>
     </html>
