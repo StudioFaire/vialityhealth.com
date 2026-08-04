@@ -17,14 +17,19 @@ import {
 } from "./mutations";
 import type {
   ShopifyProduct,
+  ShopifyProductRaw,
   ShopifyCart,
   ShopifyCollection,
   ShopifyMenu,
   ShopPolicies,
 } from "./types";
+import { transformProduct } from "./types";
 
-function assertData<T>(data: T | undefined, operation: string): T {
-  if (!data) throw new Error(`Shopify request failed: ${operation}`);
+function assertData<T>(data: T | undefined, operation: string, errors?: unknown): T {
+  if (!data) {
+    console.error(`Shopify error for ${operation}:`, errors);
+    throw new Error(`Shopify request failed: ${operation}`);
+  }
   return data;
 }
 
@@ -36,9 +41,9 @@ export async function getAllProducts(
   const cachedFn = unstable_cache(
     async () => {
       const { data } = await shopifyClient.request<{
-        products: { edges: { node: ShopifyProduct }[] };
+        products: { edges: { node: ShopifyProductRaw }[] };
       }>(GetAllProductsQuery, { variables: { first } });
-      return assertData(data, "getAllProducts").products.edges.map((e) => e.node);
+      return assertData(data, "getAllProducts").products.edges.map((e) => transformProduct(e.node));
     },
     ["shopify", "products"],
     { revalidate: REVALIDATE_SECONDS, tags: ["shopify-products"] }
@@ -51,10 +56,14 @@ export async function getProductByHandle(
 ): Promise<ShopifyProduct | null> {
   const cachedFn = unstable_cache(
     async () => {
-      const { data } = await shopifyClient.request<{
-        productByHandle: ShopifyProduct | null;
+      const response = await shopifyClient.request<{
+        productByHandle: ShopifyProductRaw | null;
       }>(GetProductByHandleQuery, { variables: { handle } });
-      return assertData(data, "getProductByHandle").productByHandle;
+      if (response.errors) {
+        console.error("Shopify GraphQL errors:", response.errors);
+      }
+      const raw = assertData(response.data, "getProductByHandle", response.errors).productByHandle;
+      return raw ? transformProduct(raw) : null;
     },
     ["shopify", "product", handle],
     { revalidate: REVALIDATE_SECONDS, tags: ["shopify-products"] }
@@ -69,9 +78,24 @@ export async function getCollectionByIdentifier(
   const cachedFn = unstable_cache(
     async () => {
       const { data } = await shopifyClient.request<{
-        collection: ShopifyCollection | null;
+        collection: {
+          id: string;
+          title: string;
+          handle: string;
+          description: string;
+          products: { edges: { node: ShopifyProductRaw }[] };
+        } | null;
       }>(GetCollectionByIdentifierQuery, { variables: { handle, first } });
-      return assertData(data, "getCollectionByIdentifier").collection;
+      const raw = assertData(data, "getCollectionByIdentifier").collection;
+      if (!raw) return null;
+      return {
+        ...raw,
+        products: {
+          edges: raw.products.edges.map((e) => ({
+            node: transformProduct(e.node),
+          })),
+        },
+      };
     },
     ["shopify", "collection", handle],
     { revalidate: REVALIDATE_SECONDS, tags: ["shopify-collections"] }

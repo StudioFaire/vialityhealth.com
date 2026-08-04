@@ -17,7 +17,7 @@ import {
 import { getAllProducts } from "@/lib/shopify";
 import { useEffect } from "react";
 
-export function ProductPageClient({ product }: { product: ShopifyProduct }) {
+export function ProductPageClient({ product, description }: { product: ShopifyProduct; description: string }) {
   const { addItem } = useCart();
   const images = getProductImages(product);
   const variants = getProductVariants(product);
@@ -90,7 +90,7 @@ export function ProductPageClient({ product }: { product: ShopifyProduct }) {
   const productType = product.productType;
 
   const accordions = [
-    { id: "description", title: "Product Description", content: product.description },
+    { id: "description", title: "Product Description", content: description },
     { id: "ingredients", title: "Ingredients", content: "Each compound is selected through careful evaluation of peer-reviewed evidence. No fillers, no colorants, no compromises. Every ingredient and its exact dose is declared." },
     { id: "use", title: "Suggested Use", content: "Take as directed on packaging. Consult a qualified healthcare professional before beginning any new research protocol." },
     { id: "quality", title: "Quality & Testing", content: "Every batch is third-party verified by an ISO-accredited laboratory for identity, potency, and purity. Each product carries a batch number tied directly to its Certificate of Analysis." },
@@ -388,13 +388,7 @@ export function ProductPageClient({ product }: { product: ShopifyProduct }) {
             </div>
 
             <p className="text-xs text-foreground/50 italic leading-relaxed">
-              *These statements have not been evaluated by the Food and Drug
-              Administration. This product is intended strictly for laboratory
-              and research purposes only. Not intended for human consumption.
-              By completing your purchase, you confirm that you are at least 18
-              years of age, that this material will be handled responsibly, and
-              that it will be used solely for lawful research or analytical
-              purposes in accordance with all applicable regulations.
+              This product is intended strictly for laboratory and research purposes only. Not intended for human consumption.
             </p>
           </div>
         </div>

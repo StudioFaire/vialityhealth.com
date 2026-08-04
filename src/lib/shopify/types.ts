@@ -15,9 +15,9 @@ export type ShopifySellingPlan = {
   name: string;
   priceAdjustments: {
     adjustmentValue:
-      | { adjustmentPercentage: number }
-      | { adjustmentAmount: ShopifyPrice }
-      | { price: ShopifyPrice };
+    | { adjustmentPercentage: number }
+    | { adjustmentAmount: ShopifyPrice }
+    | { price: ShopifyPrice };
   }[];
 };
 
@@ -50,6 +50,39 @@ export type ShopifyProductOption = {
   values: string[];
 };
 
+export type ShopifyProductRaw = {
+  id: string;
+  title: string;
+  handle: string;
+  description: string;
+  productType: string;
+  options: ShopifyProductOption[];
+  variants: {
+    edges: { node: ShopifyProductVariant }[];
+  };
+  sellingPlanGroups: {
+    edges: { node: ShopifySellingPlanGroup }[];
+  };
+  images: {
+    edges: { node: ShopifyImage }[];
+  };
+  priceRange: {
+    minVariantPrice: ShopifyPrice;
+    maxVariantPrice: ShopifyPrice;
+  };
+  compareAtPriceRange: {
+    minVariantPrice: ShopifyPrice;
+  };
+  tags: string[];
+  publishedAt: string;
+  fullNameMetafield?: {
+    value: string;
+  } | null;
+  shortNameMetafield?: {
+    value: string;
+  } | null;
+};
+
 export type ShopifyProduct = {
   id: string;
   title: string;
@@ -75,6 +108,8 @@ export type ShopifyProduct = {
   };
   tags: string[];
   publishedAt: string;
+  full_name?: string;
+  short_name?: string;
 };
 
 export type ShopifyCartLine = {
@@ -155,6 +190,27 @@ export type ShopPolicies = {
 // Helper to extract product images
 export function getProductImages(product: ShopifyProduct): ShopifyImage[] {
   return product.images.edges.map((e) => e.node);
+}
+
+// Helper to transform raw product data (with metafields) into ShopifyProduct
+export function transformProduct(raw: ShopifyProductRaw): ShopifyProduct {
+  return {
+    id: raw.id,
+    title: raw.title,
+    handle: raw.handle,
+    description: raw.description,
+    productType: raw.productType,
+    options: raw.options,
+    variants: raw.variants,
+    sellingPlanGroups: raw.sellingPlanGroups,
+    images: raw.images,
+    priceRange: raw.priceRange,
+    compareAtPriceRange: raw.compareAtPriceRange,
+    tags: raw.tags,
+    publishedAt: raw.publishedAt,
+    full_name: raw.fullNameMetafield?.value,
+    short_name: raw.shortNameMetafield?.value,
+  };
 }
 
 // Helper to get first image

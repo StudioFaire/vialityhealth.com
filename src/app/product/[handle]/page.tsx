@@ -3,6 +3,7 @@ import Link from "next/link";
 import type { Metadata } from "next";
 import { getProductByHandle, getAllProducts } from "@/lib/shopify";
 import { ProductPageClient } from "./ProductPageClient";
+import { decryptAndReverse } from "@/lib/crypto";
 
 type Props = {
   params: Promise<{ handle: string }>;
@@ -43,7 +44,13 @@ export default async function ProductPage({ params }: Props) {
     notFound();
   }
 
-  // JSON-LD structured data
+  const fullName = product.full_name ? decryptAndReverse(product.full_name) : "";
+  const shortName = product.short_name ? decryptAndReverse(product.short_name) : "";
+
+  const description = product.description
+    .replaceAll("{{full_name}}", fullName)
+    .replaceAll("{{short_name}}", shortName);
+
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "Product",
@@ -67,7 +74,7 @@ export default async function ProductPage({ params }: Props) {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
-      <ProductPageClient product={product} />
+      <ProductPageClient product={product} description={description} />
     </>
   );
 }

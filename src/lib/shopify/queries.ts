@@ -122,6 +122,12 @@ export const ProductFragment = /* GraphQL */ `
     }
     tags
     publishedAt
+    fullNameMetafield: metafield(namespace: "custom", key: "full_name") {
+      value
+    }
+    shortNameMetafield: metafield(namespace: "custom", key: "short_name") {
+      value
+    }
   }
 `;
 
