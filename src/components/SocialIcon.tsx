@@ -13,17 +13,15 @@ export function SocialIcon({
   style?: React.CSSProperties;
   url: string;
 }) {
-  console.log("Follow Us Menu:", url); // Log the menu data for debugging
   return (
-    <><span>AAAA</span>
-      <SocialIconProvider
-        className={cn(
-          "icon [&_.social-svg-icon]:fill-background-inverted! [&_.social-svg-mask]:fill-foreground-inverted! focus-visible:[&_.social-svg-icon]:fill-accent! focus-visible:[&_.social-svg-icon]:stroke-accent! focus-visible:[&_.social-svg-mask]:stroke-accent!",
-          className,
-        )}
-        target="_blank"
-        url={url}
-        style={style}
-      /></>
+    <SocialIconProvider
+      className={cn(
+        "icon [&_.social-svg]:fill-background-inverted! [&_.social-svg-mask]:fill-foreground-inverted! focus-visible:[&_.social-svg]:fill-accent! focus-visible:[&_.social-svg]:stroke-accent! focus-visible:[&_.social-svg-mask]:stroke-accent!",
+        className,
+      )}
+      target="_blank"
+      url={url}
+      style={style}
+    />
   );
 }
