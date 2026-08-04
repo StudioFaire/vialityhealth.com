@@ -150,97 +150,6 @@ export function HomePage({ featuredProducts }: { featuredProducts: ShopifyProduc
         </motion.div>
       </section>
 
-      {/* ── Trust Section ────────────────────────────────────── */}
-      <section className="py-24 px-6 bg-background">
-        <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
-          <div className="order-2 md:order-1 grid grid-cols-2 gap-x-8 gap-y-12">
-            {[
-              {
-                title: "Evidence-Led",
-                desc: "Each compound earns its place through peer-reviewed science, not wellness trends.",
-              },
-              {
-                title: "Third-Party Verified",
-                desc: "Every batch is independently tested. Certificates of analysis, always available.",
-              },
-              {
-                title: "Batch Transparency",
-                desc: "Each product carries a batch number tied directly to its Certificate of Analysis.",
-              },
-              {
-                title: "GMP Manufactured",
-                desc: "Produced in a certified facility where consistency is non-negotiable.",
-              },
-            ].map((item, i) => (
-              <motion.div
-                key={item.title}
-                initial={{ opacity: 0 }}
-                whileInView={{ opacity: 1 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: i * 0.1 }}
-                className="flex flex-col gap-3"
-              >
-                <div className="size-7 border border-primary/15 flex items-center justify-center mb-2">
-                  <div className="size-1.5 bg-accent" />
-                </div>
-                <h4 className="text-xs uppercase tracking-widest font-semibold">
-                  {item.title}
-                </h4>
-                <p className="text-sm text-primary/55 leading-relaxed">
-                  {item.desc}
-                </p>
-              </motion.div>
-            ))}
-          </div>
-
-          <div className="order-1 md:order-2">
-            <h2 className="font-serif uppercase font-light text-4xl mb-6">
-              our standards
-            </h2>
-            <p className="text-primary/65 mb-10 leading-relaxed max-w-md">
-              We operate with complete openness. Every claim we make is
-              verifiable. Every detail disclosed, every claim supported by
-              evidence.
-            </p>
-            <Link
-              href="/lab-reports"
-              className="px-8 py-4 bg-primary text-primary-foreground text-xs uppercase tracking-widest hover:bg-primary/88 transition-colors inline-block"
-            >
-              View Lab Reports
-            </Link>
-          </div>
-        </div>
-      </section>
-
-      {/* ── Philosophy ────────────────────────────────────── */}
-      <section className="py-36 px-6 bg-background">
-        <div className="max-w-4xl mx-auto text-center">
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-80px" }}
-            transition={{ duration: 0.9 }}
-            className="font-serif uppercase font-light text-2xl md:text-4xl leading-relaxed text-primary/90"
-          >
-            where science and discipline meet and neither is allowed to
-            compromise the other.
-          </motion.p>
-          <motion.div
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.3, duration: 0.8 }}
-            className="mt-12"
-          >
-            <Link
-              href="/about"
-              className="inline-block border-b border-primary/30 pb-1 text-xs uppercase tracking-widest hover:border-primary transition-colors"
-            >
-              Our Philosophy
-            </Link>
-          </motion.div>
-        </div>
-      </section>
 
       {/* ── Featured Products ────────────────────────────── */}
       <section className="py-24 px-6 bg-surface-warm">
@@ -320,23 +229,68 @@ export function HomePage({ featuredProducts }: { featuredProducts: ShopifyProduc
         </div>
       </section>
 
-      {/* ── Shipping Info ────────────────────────────────── */}
-      <section className="py-16 px-6 bg-surface-section border-t border-border/30">
-        <div className="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-3 gap-8 text-center">
-          {[
-            { label: "Complimentary Shipping", detail: "On all orders over $200" },
-            { label: "Batch Verified", detail: "Third-party COA available for every formulation" },
-            { label: "Research Use Only", detail: "Not for human or animal consumption" },
-          ].map((item) => (
-            <div key={item.label} className="flex flex-col gap-2">
-              <p className="text-xs uppercase tracking-widest font-semibold">
-                {item.label}
-              </p>
-              <p className="text-xs text-primary/50">{item.detail}</p>
-            </div>
-          ))}
+      {/* ── Trust Section ────────────────────────────────────── */}
+      <section className="py-24 px-6 bg-background">
+        <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
+          <div className="order-2 md:order-1 grid grid-cols-2 gap-x-8 gap-y-12">
+            {[
+              {
+                title: "Evidence-Led",
+                desc: "Each compound earns its place through peer-reviewed science, not wellness trends.",
+              },
+              {
+                title: "Third-Party Verified",
+                desc: "Every batch is independently tested. Certificates of analysis, always available.",
+              },
+              {
+                title: "Batch Transparency",
+                desc: "Each product carries a batch number tied directly to its Certificate of Analysis.",
+              },
+              {
+                title: "GMP Manufactured",
+                desc: "Produced in a certified facility where consistency is non-negotiable.",
+              },
+            ].map((item, i) => (
+              <motion.div
+                key={item.title}
+                initial={{ opacity: 0 }}
+                whileInView={{ opacity: 1 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: i * 0.1 }}
+                className="flex flex-col gap-3"
+              >
+                <div className="size-7 border border-primary/15 flex items-center justify-center mb-2">
+                  <div className="size-1.5 bg-accent" />
+                </div>
+                <h4 className="text-xs uppercase tracking-widest font-semibold">
+                  {item.title}
+                </h4>
+                <p className="text-sm text-primary/55 leading-relaxed">
+                  {item.desc}
+                </p>
+              </motion.div>
+            ))}
+          </div>
+
+          <div className="order-1 md:order-2">
+            <h2 className="font-serif uppercase font-light text-4xl mb-6">
+              our standards
+            </h2>
+            <p className="text-primary/65 mb-10 leading-relaxed max-w-md">
+              We operate with complete openness. Every claim we make is
+              verifiable. Every detail disclosed, every claim supported by
+              evidence.
+            </p>
+            <Link
+              href="/lab-reports"
+              className="px-8 py-4 bg-primary text-primary-foreground text-xs uppercase tracking-widest hover:bg-primary/88 transition-colors inline-block"
+            >
+              View Lab Reports
+            </Link>
+          </div>
         </div>
       </section>
+
 
       {/* ── Newsletter ────────────────────────────────────── */}
       <section className="bg-primary text-primary-foreground py-16 px-6 text-center">
@@ -368,6 +322,54 @@ export function HomePage({ featuredProducts }: { featuredProducts: ShopifyProduc
               {newsletterState.message}
             </p>
           )}
+        </div>
+      </section>
+
+      {/* ── Philosophy ────────────────────────────────────── */}
+      <section className="py-36 px-6 bg-background">
+        <div className="max-w-4xl mx-auto text-center">
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-80px" }}
+            transition={{ duration: 0.9 }}
+            className="font-serif uppercase font-light text-2xl md:text-4xl leading-relaxed text-primary/90"
+          >
+            where science and discipline meet and neither is allowed to
+            compromise the other.
+          </motion.p>
+          <motion.div
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.3, duration: 0.8 }}
+            className="mt-12"
+          >
+            <Link
+              href="/about"
+              className="inline-block border-b border-primary/30 pb-1 text-xs uppercase tracking-widest hover:border-primary transition-colors"
+            >
+              Our Philosophy
+            </Link>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* ── Shipping Info ────────────────────────────────── */}
+      <section className="py-16 px-6 bg-surface-section border-t border-border/30">
+        <div className="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-3 gap-8 text-center">
+          {[
+            { label: "Complimentary Shipping", detail: "On all orders over $200" },
+            { label: "Batch Verified", detail: "Third-party COA available for every formulation" },
+            { label: "Research Use Only", detail: "Not for human or animal consumption" },
+          ].map((item) => (
+            <div key={item.label} className="flex flex-col gap-2">
+              <p className="text-xs uppercase tracking-widest font-semibold">
+                {item.label}
+              </p>
+              <p className="text-xs text-primary/50">{item.detail}</p>
+            </div>
+          ))}
         </div>
       </section>
     </>
