@@ -14,3 +14,6 @@
 - [ ] Migrate MenuQueryHandler from /Users/karlpodger/Sites/uncnsrdlabel.com/apps/web/src/components/molecules/GlobalFooter/GlobalFooter.tsx
 - [ ] Migrate "Are you 18 or older?" dialog
 - [ ] Migrate "Your VIP Pass" popover
+- [ ] Add URL to full product image
+- [ ] Set SEO metadata without placeholders
+- [ ] Show size when there is only 1 size variant

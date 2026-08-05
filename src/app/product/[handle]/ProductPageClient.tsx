@@ -119,6 +119,11 @@ export function ProductPageClient({ product, description, relatedProducts }: { p
               <h1 className="font-serif uppercase font-light text-4xl xl:text-5xl text-primary leading-tight mb-2">
                 {product.title}
               </h1>
+              {product.options.filter((opt) => opt.values.length === 1).map((option) => (
+                <p key={option.id} className="text-sm text-primary/50 font-light mb-1">
+                  {option.values[0]}
+                </p>
+              ))}
               <p className="text-xs uppercase tracking-widest text-primary/40 mb-5">
                 {product.productType}
               </p>
