@@ -88,8 +88,8 @@ export function ProductPageClient({ product, description, relatedProducts }: { p
                       <button
                         onClick={() => setSelectedImageIndex(idx)}
                         className={`group flex h-full w-full items-center justify-center overflow-hidden rounded-lg border bg-card hover:border-ring transition-all ${idx === selectedImageIndex
-                            ? "border-2 border-ring"
-                            : "border border-border/40"
+                          ? "border-2 border-ring"
+                          : "border border-border/40"
                           }`}
                       >
                         <div className="relative h-full w-full object-cover transition duration-300 ease-in-out group-hover:scale-105">
@@ -146,8 +146,8 @@ export function ProductPageClient({ product, description, relatedProducts }: { p
                         }))
                       }
                       className={`px-4 py-2 text-xs uppercase tracking-widest transition-colors ${selectedOptions[option.name] === value
-                          ? "bg-primary text-primary-foreground"
-                          : "border border-border/60 text-primary/70 hover:border-primary/50"
+                        ? "bg-primary text-primary-foreground"
+                        : "border border-border/60 text-primary/70 hover:border-primary/50"
                         }`}
                     >
                       {value}
@@ -235,8 +235,12 @@ export function ProductPageClient({ product, description, relatedProducts }: { p
 
             {/* Description */}
             <div className="text-sm text-primary/60 font-light leading-[1.8] max-w-sm">
-              <div className="container mx-auto prose md:prose-md">
+              <div className="container mx-auto prose md:prose-sm">
                 <div dangerouslySetInnerHTML={{ __html: description }} />
+                <br />
+                <p className="italic">
+                  This product is intended strictly for laboratory and research purposes only. Not intended for human consumption.
+                </p>
               </div>
             </div>
           </div>

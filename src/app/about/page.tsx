@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
-import { Microscope, FlaskConical, BookOpen } from "lucide-react";
+import Image from "next/image";
+import Link from "next/link";
+import { GrainOverlay } from "@/components/GrainOverlay";
 
 export const metadata: Metadata = {
   title: "Our Philosophy",
@@ -9,82 +11,117 @@ export const metadata: Metadata = {
 
 export default function AboutPage() {
   return (
-    <div className="min-h-screen bg-background">
+    <>
       {/* Hero Section */}
-      <section className="relative h-[60vh] min-h-100 flex items-center justify-center">
-        <div className="absolute inset-0 z-0">
-          <div className="absolute inset-0 bg-black/30 z-10" />
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
-            src="/images/about-hero.jpg"
-            alt="Laboratory research environment"
-            className="w-full h-full object-cover object-center"
+      <section className="relative min-h-screen flex flex-col justify-end pb-20 md:pb-28 px-6 md:px-16 overflow-hidden">
+        <div
+          className="absolute inset-0"
+          style={{ transform: "translateY(18%)" }}
+        >
+          <div className="absolute inset-0 bg-hero-gradient" />
+          <div
+            className="absolute inset-0"
+            style={{
+              background:
+                "radial-gradient(65% 60% at 25% 70%, oklch(0.76 0.042 78 / 0.8) 0%, transparent 65%)",
+              transform: "translateX(-13.666px) translateY(19.5229px)",
+            }}
           />
+          <div
+            className="absolute inset-0"
+            style={{
+              background:
+                "radial-gradient(50% 55% at 78% 30%, oklch(0.82 0.02 81 / 0.6) 0%, transparent 60%)",
+              transform: "translateX(9.86501px) translateY(-9.86501px)",
+            }}
+          />
+          <div className="absolute inset-0 bg-hero-fade" />
+          <GrainOverlay opacity={0.04} blendMode="multiply" />
         </div>
-        <div className="relative z-20 text-center px-4 max-w-3xl mx-auto">
-          <h1 className="text-4xl md:text-6xl lg:text-7xl font-serif text-white mb-6">
+        <div className="relative z-10 mx-auto container">
+          <p className="text-xs uppercase tracking-widest text-primary-foreground/50 mb-8">
             our philosophy
+          </p>
+          <h1
+            className="font-serif uppercase font-light text-primary-foreground leading-[1.05] mb-8"
+            style={{ fontSize: "clamp(2.6rem, 7vw, 6.5rem)" }}
+          >
+            <span>research grade. </span>
           </h1>
-        </div>
-      </section>
-
-      {/* Brand Story */}
-      <section className="py-24 px-4">
-        <div className="container mx-auto max-w-3xl text-center">
-          <p className="text-xl md:text-2xl text-primary font-serif leading-relaxed">
+          <p className="text-primary-foreground/65 text-sm md:text-base font-light leading-relaxed max-w-xl">
             we believe scientific progress is driven by curiosity, precision,
-            and a commitment to quality. viality exists to support research by
-            providing high quality materials and maintaining rigorous standards
-            of consistency and transparency. because every discovery starts with
-            a question.
+            and a commitment to quality.
+            <br />
+            <br />
+            viality exists to support research by providing high quality
+            materials and maintaining rigorous standards of consistency and
+            transparency.
+            <br />
+            <br />
+            because every discovery starts with a question.
           </p>
         </div>
       </section>
 
-      {/* Philosophy Section */}
-      <section className="py-12">
-        <div className="container mx-auto px-4 max-w-6xl">
-          <div className="flex flex-col md:flex-row items-center gap-12 lg:gap-24 py-16 border-t border-border/40">
-            <div className="md:w-1/2 flex justify-center order-2 md:order-1">
-              <div className="aspect-3/4 w-full max-w-md overflow-hidden rounded-2xl bg-muted">
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                  src="/images/product-blend.jpg"
-                  alt="Viality product assortment"
-                  className="w-full h-full object-cover"
-                />
-              </div>
-            </div>
-            <div className="md:w-1/2 order-1 md:order-2">
-              <h2 className="text-3xl md:text-4xl font-serif text-primary mb-6">
-                where science and discipline meet and neither is allowed to
-                compromise the other.
-              </h2>
-              <p className="text-foreground/70 leading-relaxed text-lg">
+      {/* Brand Philosophy */}
+      <section className="bg-background py-28 md:py-36 px-6 md:px-16">
+        <div className="mx-auto grid grid-cols-1 md:grid-cols-2 gap-16 md:gap-24 items-center">
+          <div className="max-w-lg mx-auto text-balance">
+            <p className="text-xs uppercase tracking-widest text-primary/40 mb-8">
+              brand philosophy
+            </p>
+            <h2 className="font-serif uppercase font-light text-3xl md:text-4xl text-primary mb-8 leading-snug">
+              where science and discipline meet and neither is allowed to
+              compromise the other.
+            </h2>
+            <div className="space-y-5 text-primary/60 text-sm leading-[1.85] font-light">
+              <p>
                 viality — signature formula. Every compound earns its place
                 through peer-reviewed science, not wellness trends.
               </p>
+            </div>
+          </div>
+          <div>
+            <div className="aspect-3-4 bg-surface-placeholder relative overflow-hidden flex items-center justify-center">
+              <Image
+                src="/images/product-blend.jpg"
+                alt="PRoduct assortment"
+                fill
+                className="object-cover"
+                sizes="(max-width: 768px) 100vw, 50vw"
+              />
+              <div className="absolute bottom-5 left-5 z-10">
+                <p className="text-xs uppercase tracking-widest text-primary/35">
+                  viality — signature formula
+                </p>
+              </div>
             </div>
           </div>
         </div>
       </section>
 
       {/* Three Principles */}
-      <section className="bg-primary text-primary-foreground py-24 px-4">
-        <div className="container mx-auto max-w-6xl">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-serif mb-6">
-              Three principles. No exceptions.
+      <section className="bg-surface-section py-12 md:py-36 px-6 md:px-16">
+        <div className="max-w-300 mx-auto">
+          <div className="mb-20">
+            <p className="text-xs uppercase tracking-widest text-primary/40 mb-5">
+              What We Stand For
+            </p>
+            <h2 className="text-balance font-serif uppercase font-light text-4xl md:text-5xl text-primary">
+              <span>Three principles. No exceptions.</span>
             </h2>
           </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-12 mt-16">
-            <div className="flex flex-col items-center text-center">
-              <div className="text-primary-foreground/30 text-5xl font-serif mb-4">
-                01
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-12 md:gap-8">
+            <div className="flex flex-col">
+              <div className="flex items-start gap-6 mb-8 pb-8 border-b border-primary/10">
+                <span className="font-serif uppercase font-light text-5xl text-primary/12 leading-none select-none">
+                  01
+                </span>
+                <h3 className="font-serif uppercase font-light text-3xl text-primary leading-none mt-1">
+                  Precision
+                </h3>
               </div>
-              <h3 className="text-xl font-serif mb-4">Precision</h3>
-              <p className="text-primary-foreground/70">
+              <p className="text-primary/55 text-sm leading-[1.9] font-light">
                 Every compound is selected through careful evaluation of
                 peer-reviewed evidence. We work with formulation experts who
                 understand that getting the dose, the form, and the
@@ -92,24 +129,32 @@ export default function AboutPage() {
                 a ritual that works.
               </p>
             </div>
-            <div className="flex flex-col items-center text-center">
-              <div className="text-primary-foreground/30 text-5xl font-serif mb-4">
-                02
+            <div className="flex flex-col">
+              <div className="flex items-start gap-6 mb-8 pb-8 border-b border-primary/10">
+                <span className="font-serif uppercase font-light text-5xl text-primary/12 leading-none select-none">
+                  02
+                </span>
+                <h3 className="font-serif uppercase font-light text-3xl text-primary leading-none mt-1">
+                  Purity
+                </h3>
               </div>
-              <h3 className="text-xl font-serif mb-4">Purity</h3>
-              <p className="text-primary-foreground/70">
+              <p className="text-primary/55 text-sm leading-[1.9] font-light">
                 Nothing enters our formulations without a reason, and nothing
                 unnecessary is permitted to remain. No fillers, no colorants, no
                 compromises. Every batch is independently tested before it
                 reaches you.
               </p>
             </div>
-            <div className="flex flex-col items-center text-center">
-              <div className="text-primary-foreground/30 text-5xl font-serif mb-4">
-                03
+            <div className="flex flex-col">
+              <div className="flex items-start gap-6 mb-8 pb-8 border-b border-primary/10">
+                <span className="font-serif uppercase font-light text-5xl text-primary/12 leading-none select-none">
+                  03
+                </span>
+                <h3 className="font-serif uppercase font-light text-3xl text-primary leading-none mt-1">
+                  Ritual
+                </h3>
               </div>
-              <h3 className="text-xl font-serif mb-4">Ritual</h3>
-              <p className="text-primary-foreground/70">
+              <p className="text-primary/55 text-sm leading-[1.9] font-light">
                 A quieter standard of vitality begins with consistency. viality
                 is designed to become a moment — unhurried, intentional, daily.
                 Not a chore. Not a trend. A permanent fixture of how you care
@@ -121,88 +166,90 @@ export default function AboutPage() {
       </section>
 
       {/* Our Standards */}
-      <section className="py-24 px-4">
-        <div className="container mx-auto max-w-6xl">
-          <div className="text-center mb-16">
-            <div className="text-secondary text-xs uppercase tracking-widest font-semibold mb-4">
-              Our Standards
-            </div>
-            <h2 className="text-4xl md:text-5xl text-primary mb-4">
-              the science is visible.
-            </h2>
-            <p className="text-foreground/60 max-w-xl mx-auto">
-              We operate with complete openness. Every claim we make is
-              verifiable.
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mt-16">
-            <div className="flex flex-col items-center text-center p-8 rounded-2xl border border-border/40">
-              <div className="w-16 h-16 border border-border/20 rounded-full flex items-center justify-center mb-6 text-secondary">
-                <Microscope size={24} />
+      <section className="bg-background py-28 md:py-36 px-6 md:px-16">
+        <div className="mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-16 md:gap-28 items-start">
+            <div className="md:sticky md:top-28">
+              <div className="aspect-3-4 bg-surface-placeholder relative overflow-hidden flex items-center justify-center">
+                <Image
+                  src="/images/RT20-Vanguard20COA.webp"
+                  alt="lean retatrutide"
+                  fill
+                  className="object-cover"
+                  sizes="(max-width: 768px) 100vw, 50vw"
+                />
+                <div className="absolute bottom-5 left-5 z-10">
+                  <p className="text-xs uppercase tracking-widest text-primary/35">
+                    Third-Party Verified
+                  </p>
+                </div>
               </div>
-              <h3 className="text-xl font-serif mb-4">
-                Independent Lab Testing
-              </h3>
-              <p className="text-foreground/70">
-                Every batch is third-party verified by an ISO-accredited
-                laboratory for identity, potency, and purity. We don&apos;t ask
-                you to take our word for it.
-              </p>
             </div>
-            <div className="flex flex-col items-center text-center p-8 rounded-2xl border border-border/40">
-              <div className="w-16 h-16 border border-border/20 rounded-full flex items-center justify-center mb-6 text-secondary">
-                <FlaskConical size={24} />
+            <div className="flex flex-col gap-14">
+              <div>
+                <p className="text-xs uppercase tracking-widest text-primary/40 mb-6">
+                  Our Standards
+                </p>
+                <h2 className="font-serif uppercase font-light text-4xl text-primary leading-snug mb-4">
+                  <span>the science is visible.</span>
+                </h2>
+                <p className="text-primary/55 text-sm leading-relaxed font-light">
+                  We operate with complete openness. Every claim we make is
+                  verifiable.
+                </p>
               </div>
-              <h3 className="text-xl font-serif mb-4">Traceable Sourcing</h3>
-              <p className="text-foreground/70">
-                Every raw material is sourced from verified, ethical suppliers
-                with full traceability. We know where it comes from — and you
-                should too.
-              </p>
-            </div>
-            <div className="flex flex-col items-center text-center p-8 rounded-2xl border border-border/40">
-              <div className="w-16 h-16 border border-border/20 rounded-full flex items-center justify-center mb-6 text-secondary">
-                <BookOpen size={24} />
+              <div className="border-t border-primary/10 pt-8">
+                <h4 className="text-xs uppercase tracking-widest font-semibold mb-3">
+                  Independent Lab Testing
+                </h4>
+                <p className="text-primary/55 text-sm leading-[1.85] font-light">
+                  Every batch is third-party verified by an ISO-accredited
+                  laboratory for identity, potency, and purity. We don&apos;t
+                  ask you to take our word for it.
+                </p>
               </div>
-              <h3 className="text-xl font-serif mb-4">Batch Transparency</h3>
-              <p className="text-foreground/70">
-                Each product carries a batch number tied directly to its
-                Certificate of Analysis. Clarity isn&apos;t a promise — it&apos;s
-                a policy.
-              </p>
-            </div>
-            <div className="flex flex-col items-center text-center p-8 rounded-2xl border border-border/40">
-              <div className="w-16 h-16 border border-border/20 rounded-full flex items-center justify-center mb-6 text-secondary">
-                <FlaskConical size={24} />
+              <div className="border-t border-primary/10 pt-8">
+                <h4 className="text-xs uppercase tracking-widest font-semibold mb-3">
+                  Traceable Sourcing
+                </h4>
+                <p className="text-primary/55 text-sm leading-[1.85] font-light">
+                  Every raw material is sourced from verified, ethical suppliers
+                  with full traceability. We know where it comes from — and you
+                  should too.
+                </p>
               </div>
-              <h3 className="text-xl font-serif mb-4">
-                No Proprietary Blends
-              </h3>
-              <p className="text-foreground/70">
-                Every ingredient and its exact dose is declared. No hidden
-                quantities, no blended obscurity. What you see is precisely what
-                you receive.
-              </p>
+              <div className="border-t border-primary/10 pt-8">
+                <h4 className="text-xs uppercase tracking-widest font-semibold mb-3">
+                  Batch Transparency
+                </h4>
+                <p className="text-primary/55 text-sm leading-[1.85] font-light">
+                  Each product carries a batch number tied directly to its
+                  Certificate of Analysis. Clarity isn&apos;t a promise —
+                  it&apos;s a policy.
+                </p>
+              </div>
+              <div className="border-t border-primary/10 pt-8">
+                <h4 className="text-xs uppercase tracking-widest font-semibold mb-3">
+                  No Proprietary Blends
+                </h4>
+                <p className="text-primary/55 text-sm leading-[1.85] font-light">
+                  Every ingredient and its exact dose is declared. No hidden
+                  quantities, no blended obscurity. What you see is precisely
+                  what you receive.
+                </p>
+              </div>
+              <div>
+                <Link
+                  href="/certificate-of-analysis"
+                  className="inline-block mt-2 text-xs uppercase tracking-widest border-b border-primary/30 pb-0.5 hover:border-primary transition-colors"
+                >
+                  Request Certificate of Analysis
+                </Link>
+              </div>
             </div>
           </div>
         </div>
       </section>
-
-      {/* Research Use Disclaimer */}
-      <section className="bg-background py-16 px-4 border-t border-border/20">
-        <div className="container mx-auto text-center max-w-3xl">
-          <p className="text-foreground/50 text-sm italic leading-relaxed">
-            These statements have not been evaluated by the Food and Drug
-            Administration. This product is intended strictly for research and
-            laboratory use and is not for human consumption. By completing your
-            purchase, you confirm that you are at least 18 years of age, that
-            this material will be handled responsibly, and that it will be used
-            solely for lawful research or analytical purposes in accordance with
-            all applicable regulations.
-          </p>
-        </div>
-      </section>
-    </div>
+    </>
   );
 }

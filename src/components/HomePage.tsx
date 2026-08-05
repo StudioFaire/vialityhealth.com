@@ -180,7 +180,7 @@ export function HomePage({ featuredProducts }: { featuredProducts: ShopifyProduc
                     className="group cursor-pointer"
                   >
                     <Link href={`/product/${product.handle}`}>
-                      <div className="aspect-3/4 mb-6 bg-surface-placeholder relative overflow-hidden flex items-center justify-center">
+                      <div className="aspect-3-4 mb-6 bg-surface-placeholder relative overflow-hidden flex items-center justify-center">
                         {image ? (
                           <Image
                             src={image.url}
