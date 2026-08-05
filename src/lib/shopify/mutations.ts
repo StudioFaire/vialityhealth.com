@@ -44,12 +44,12 @@ export const CreateCartMutation = /* GraphQL */ `
                     name
                     value
                   }
-                  sellingPlanAllocation {
-                    sellingPlan {
-                      id
-                      name
-                    }
-                  }
+                }
+              }
+              sellingPlanAllocation {
+                sellingPlan {
+                  id
+                  name
                 }
               }
             }
@@ -110,12 +110,12 @@ export const AddToCartMutation = /* GraphQL */ `
                     name
                     value
                   }
-                  sellingPlanAllocation {
-                    sellingPlan {
-                      id
-                      name
-                    }
-                  }
+                }
+              }
+              sellingPlanAllocation {
+                sellingPlan {
+                  id
+                  name
                 }
               }
             }
@@ -178,6 +178,12 @@ export const UpdateCartLinesMutation = /* GraphQL */ `
                   }
                 }
               }
+              sellingPlanAllocation {
+                sellingPlan {
+                  id
+                  name
+                }
+              }
             }
           }
         }
@@ -236,6 +242,12 @@ export const RemoveFromCartMutation = /* GraphQL */ `
                     name
                     value
                   }
+                }
+              }
+              sellingPlanAllocation {
+                sellingPlan {
+                  id
+                  name
                 }
               }
             }

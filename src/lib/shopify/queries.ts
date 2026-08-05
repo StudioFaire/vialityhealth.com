@@ -234,6 +234,12 @@ export const GetCartQuery = /* GraphQL */ `
                 }
               }
             }
+            sellingPlanAllocation {
+              sellingPlan {
+                id
+                name
+              }
+            }
           }
         }
       }

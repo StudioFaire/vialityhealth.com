@@ -25,11 +25,8 @@ import type {
 } from "./types";
 import { transformProduct } from "./types";
 
-function assertData<T>(data: T | undefined, operation: string, errors?: unknown): T {
-  if (!data) {
-    console.error(`Shopify error for ${operation}:`, errors);
-    throw new Error(`Shopify request failed: ${operation}`);
-  }
+function assertData<T>(data: T | undefined, operation: string): T {
+  if (!data) throw new Error(`Shopify request failed: ${operation}`);
   return data;
 }
 
@@ -56,13 +53,10 @@ export async function getProductByHandle(
 ): Promise<ShopifyProduct | null> {
   const cachedFn = unstable_cache(
     async () => {
-      const response = await shopifyClient.request<{
+      const { data } = await shopifyClient.request<{
         productByHandle: ShopifyProductRaw | null;
       }>(GetProductByHandleQuery, { variables: { handle } });
-      if (response.errors) {
-        console.error("Shopify GraphQL errors:", response.errors);
-      }
-      const raw = assertData(response.data, "getProductByHandle", response.errors).productByHandle;
+      const raw = assertData(data, "getProductByHandle").productByHandle;
       return raw ? transformProduct(raw) : null;
     },
     ["shopify", "product", handle],
@@ -136,8 +130,8 @@ export async function createCart(
   variantId: string,
   quantity = 1
 ): Promise<ShopifyCart> {
-  const { data } = await shopifyClient.request<{
-    cartCreate: { cart: ShopifyCart; userErrors: unknown[] };
+  const response = await shopifyClient.request<{
+    cartCreate: { cart: ShopifyCart; userErrors: { field: string[]; message: string }[] };
   }>(CreateCartMutation, {
     variables: {
       input: {
@@ -145,7 +139,17 @@ export async function createCart(
       },
     },
   });
-  return assertData(data, "createCart").cartCreate.cart;
+
+  if (!response.data) {
+    throw new Error("Shopify returned no data for cartCreate");
+  }
+
+  const result = response.data.cartCreate;
+  if (result.userErrors.length > 0) {
+    throw new Error(result.userErrors.map(e => e.message).join(", "));
+  }
+
+  return result.cart;
 }
 
 export async function addToCart(
