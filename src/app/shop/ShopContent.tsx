@@ -2,7 +2,9 @@
 
 import { useState } from "react";
 import { ChevronDown } from "lucide-react";
+import { motion } from "framer-motion";
 import { ProductCard } from "@/components/ProductCard";
+import { EASE_EDITORIAL } from "@/lib/motion";
 import type { ShopifyProduct } from "@/lib/shopify/types";
 
 type Collection = { id: string; title: string; handle: string };
@@ -57,7 +59,12 @@ export function ShopContent({
   return (
     <>
       {/* Filters and Sorting */}
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-10">
+      <motion.div
+        initial={{ opacity: 0, y: 16 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.7, ease: EASE_EDITORIAL }}
+        className="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-10"
+      >
         <div className="flex items-center gap-2 overflow-x-auto hide-scrollbar pb-2 md:pb-0">
           {categories.map((category) => (
             <button
@@ -92,13 +99,21 @@ export function ShopContent({
             />
           </div>
         </div>
-      </div>
+      </motion.div>
 
       {/* Product Grid */}
       {sortedProducts.length > 0 ? (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-          {sortedProducts.map((product) => (
-            <ProductCard key={product.id} product={product} description={product.resolvedDescription} />
+          {sortedProducts.map((product, i) => (
+            <motion.div
+              key={product.id}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-50px" }}
+              transition={{ duration: 0.6, delay: i * 0.08 }}
+            >
+              <ProductCard product={product} description={product.resolvedDescription} />
+            </motion.div>
           ))}
         </div>
       ) : (

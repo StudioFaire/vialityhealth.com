@@ -2,6 +2,7 @@ import { Suspense } from "react";
 import { getAllProducts, getAllCollections } from "@/lib/shopify";
 import type { ShopifyProduct } from "@/lib/shopify/types";
 import { ShopContent } from "./ShopContent";
+import { Reveal } from "@/components/Reveal";
 import { resolveProductDescriptionText } from "@/lib/shopify/description";
 
 export const metadata = {
@@ -32,14 +33,14 @@ export default async function ShopPage() {
   return (
     <div className="min-h-screen bg-background pt-10 pb-24">
       <div className="container mx-auto px-4">
-        <div className="mb-12">
+        <Reveal y={24} className="mb-12">
           <h1 className="text-4xl md:text-5xl font-serif text-primary mb-4">
             Shop
           </h1>
           <p className="text-foreground/60">
             {products.length} {products.length === 1 ? "product" : "products"}
           </p>
-        </div>
+        </Reveal>
 
         <Suspense
           fallback={

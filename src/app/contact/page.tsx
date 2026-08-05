@@ -57,7 +57,12 @@ export default function ContactPage() {
   return (
     <div className="min-h-screen bg-background pt-10 pb-24">
       <div className="container mx-auto px-4 max-w-6xl">
-        <div className="text-center mb-16">
+        <motion.div
+          initial={{ opacity: 0, y: 24 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.9, ease: [0.25, 0.1, 0.25, 1] }}
+          className="text-center mb-16"
+        >
           <h1 className="text-4xl md:text-5xl font-serif text-primary mb-4">
             Get in touch.
           </h1>
@@ -66,11 +71,16 @@ export default function ContactPage() {
             an order, or want to explore wholesale opportunities, we&apos;re
             here to help.
           </p>
-        </div>
+        </motion.div>
 
         <div className="flex flex-col lg:flex-row gap-16 mb-24">
           {/* Contact Form */}
-          <div className="lg:w-3/5">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.9, delay: 0.15, ease: [0.25, 0.1, 0.25, 1] }}
+            className="lg:w-3/5"
+          >
             <div className="bg-white p-8 md:p-12 rounded-3xl shadow-sm border border-border/40">
               <AnimatePresence mode="wait">
                 {state.success ? (
@@ -214,10 +224,16 @@ export default function ContactPage() {
                 )}
               </AnimatePresence>
             </div>
-          </div>
+          </motion.div>
 
           {/* Contact Info */}
-          <div className="lg:w-2/5 flex flex-col justify-center">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-60px" }}
+            transition={{ duration: 0.9, ease: [0.25, 0.1, 0.25, 1] }}
+            className="lg:w-2/5 flex flex-col justify-center"
+          >
             <div className="mb-12">
               <h3 className="font-serif text-2xl text-primary mb-6">
                 Contact Information
@@ -265,16 +281,22 @@ export default function ContactPage() {
                 Apply for Wholesale &rarr;
               </a>
             </div>
-          </div>
+          </motion.div>
         </div>
 
         {/* FAQs */}
         <div className="max-w-3xl mx-auto pt-16 border-t border-border/40">
-          <div className="text-center mb-12">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-60px" }}
+            transition={{ duration: 0.8 }}
+            className="text-center mb-12"
+          >
             <h2 className="text-3xl font-serif text-primary mb-4">
               Frequently Asked Questions
             </h2>
-          </div>
+          </motion.div>
 
           <div className="space-y-4">
             {faqs.map((faq) => (

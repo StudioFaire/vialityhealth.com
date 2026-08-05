@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { Reveal } from "@/components/Reveal";
 
 export const metadata = {
   title: "Certificate of Analysis",
@@ -12,7 +13,7 @@ export default function CertificateOfAnalysisPage() {
       <div className="mx-auto">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-16 md:gap-28 items-start">
           {/* Left: Sticky Image */}
-          <div className="md:sticky md:top-28">
+          <Reveal x={-24} y={0} className="md:sticky md:top-28">
             <div className="aspect-3-4 bg-surface-gallery relative overflow-hidden flex items-center justify-center">
               <Image
                 src="/images/RT20-Vanguard20COA.webp"
@@ -27,11 +28,11 @@ export default function CertificateOfAnalysisPage() {
                 </p>
               </div>
             </div>
-          </div>
+          </Reveal>
 
           {/* Right: Content */}
           <div className="flex flex-col gap-14">
-            <div>
+            <Reveal delay={0.1}>
               <p className="text-xs uppercase tracking-widest text-primary/40 mb-6">
                 At Viality, transparency is a core part of our commitment to quality.
               </p>
@@ -52,47 +53,53 @@ export default function CertificateOfAnalysisPage() {
                 </a>{" "}
                 with the product name and batch number.
               </p>
-            </div>
+            </Reveal>
 
-            <div className="border-t border-primary/10 pt-8">
-              <h4 className="text-xs uppercase tracking-widest font-semibold mb-3">
-                Research Grade Materials
-              </h4>
-              <p className="text-primary/55 text-sm leading-[1.85] font-light">
-                Every compound is sourced from verified suppliers and subjected
-                to rigorous identity and purity testing before release.
-              </p>
-            </div>
+            <Reveal delay={0.15}>
+              <div className="border-t border-primary/10 pt-8">
+                <h4 className="text-xs uppercase tracking-widest font-semibold mb-3">
+                  Research Grade Materials
+                </h4>
+                <p className="text-primary/55 text-sm leading-[1.85] font-light">
+                  Every compound is sourced from verified suppliers and subjected
+                  to rigorous identity and purity testing before release.
+                </p>
+              </div>
+            </Reveal>
 
-            <div className="border-t border-primary/10 pt-8">
-              <h4 className="text-xs uppercase tracking-widest font-semibold mb-3">
-                Third-Party Verification
-              </h4>
-              <p className="text-primary/55 text-sm leading-[1.85] font-light">
-                Each batch is independently tested by an ISO-accredited
-                laboratory. Results are documented and traceable.
-              </p>
-            </div>
+            <Reveal delay={0.2}>
+              <div className="border-t border-primary/10 pt-8">
+                <h4 className="text-xs uppercase tracking-widest font-semibold mb-3">
+                  Third-Party Verification
+                </h4>
+                <p className="text-primary/55 text-sm leading-[1.85] font-light">
+                  Each batch is independently tested by an ISO-accredited
+                  laboratory. Results are documented and traceable.
+                </p>
+              </div>
+            </Reveal>
 
-            <div className="border-t border-primary/10 pt-8">
-              <h4 className="text-xs uppercase tracking-widest font-semibold mb-3">
-                Batch Transparency
-              </h4>
-              <p className="text-primary/55 text-sm leading-[1.85] font-light">
-                Each product carries a batch number tied directly to its
-                Certificate of Analysis. Clarity isn&apos;t a promise — it&apos;s a
-                policy.
-              </p>
-            </div>
+            <Reveal delay={0.25}>
+              <div className="border-t border-primary/10 pt-8">
+                <h4 className="text-xs uppercase tracking-widest font-semibold mb-3">
+                  Batch Transparency
+                </h4>
+                <p className="text-primary/55 text-sm leading-[1.85] font-light">
+                  Each product carries a batch number tied directly to its
+                  Certificate of Analysis. Clarity isn&apos;t a promise — it&apos;s a
+                  policy.
+                </p>
+              </div>
+            </Reveal>
 
-            <div>
+            <Reveal delay={0.3}>
               <a
                 href="mailto:vialityhealth@gmail.com?subject=COA%20Request"
                 className="inline-block text-xs uppercase tracking-widest border-b border-primary/30 pb-0.5 hover:border-primary transition-colors"
               >
                 Request a COA
               </a>
-            </div>
+            </Reveal>
           </div>
         </div>
       </div>

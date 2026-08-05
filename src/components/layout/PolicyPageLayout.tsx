@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Reveal } from "@/components/Reveal";
 
 export function generatePolicyMetadata(title: string, description: string): Metadata {
   return {
@@ -21,14 +22,14 @@ export function PolicyPageLayout({
   return (
     <div className="min-h-screen bg-background pt-10 pb-24">
       <div className="container mx-auto px-4 max-w-3xl">
-        <div className="mb-12">
+        <Reveal y={24} className="mb-12">
           <h1 className="text-4xl md:text-5xl font-serif text-primary mb-4">
             {title}
           </h1>
           {lastUpdated && (
             <p className="text-foreground/50 text-sm">Last updated: {lastUpdated}</p>
           )}
-        </div>
+        </Reveal>
 
         {bodyHtml ? (
           <div

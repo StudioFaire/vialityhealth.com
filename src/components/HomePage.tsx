@@ -295,12 +295,24 @@ export function HomePage({ featuredProducts }: { featuredProducts: ShopifyProduc
       {/* ── Newsletter ────────────────────────────────────── */}
       <section className="bg-primary text-primary-foreground py-16 px-6 text-center">
         <div className="max-w-2xl mx-auto flex flex-col items-center">
-          <h2 className="font-sans uppercase text-balance text-4xl mb-4">
+          <motion.h2
+            initial={{ opacity: 0, y: 16 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8 }}
+            className="font-sans uppercase text-balance text-4xl mb-4"
+          >
             join our newsletter
-          </h2>
-          <p className="uppercase text-primary-foreground/65 mb-10 text-sm max-w-sm text-balance leading-relaxed">
+          </motion.h2>
+          <motion.p
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.25, duration: 0.8 }}
+            className="uppercase text-primary-foreground/65 mb-10 text-sm max-w-sm text-balance leading-relaxed"
+          >
             the latest in peptides, biohacking, longevity and human optimization
-          </p>
+          </motion.p>
           <form action={newsletterAction} className="w-full flex flex-col sm:flex-row gap-4 max-w-md">
             <input
               type="email"

@@ -4,8 +4,10 @@ import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { Minus, Plus, FileText, ExternalLink } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
 import { useCart } from "@/components/CartProvider";
 import { ProductCard } from "@/components/ProductCard";
+import { EASE_EDITORIAL } from "@/lib/motion";
 import type { ShopifyProduct } from "@/lib/shopify/types";
 import {
   getProductImages,
@@ -59,18 +61,27 @@ export function ProductPageClient({ product, description, relatedProducts }: { p
         {/* Left: Image Gallery */}
         <div className="relative bg-surface-gallery min-h-[50vh] lg:min-h-0 h-full order-1 lg:order-1">
           <div className="relative size-full overflow-hidden mb-8">
-            <div className="w-full">
+            <AnimatePresence mode="wait">
               {selectedImage && (
-                <Image
-                  src={selectedImage.url}
-                  alt={selectedImage.altText || product.title}
-                  fill
-                  className="w-full rounded-lg object-contain"
-                  sizes="(max-width: 1440px) 1440px, (max-width: 1024px) 1024px, (max-width: 768px) 768px"
-                  priority
-                />
+                <motion.div
+                  key={selectedImage.url}
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  transition={{ duration: 0.45 }}
+                  className="w-full"
+                >
+                  <Image
+                    src={selectedImage.url}
+                    alt={selectedImage.altText || product.title}
+                    fill
+                    className="w-full rounded-lg object-contain"
+                    sizes="(max-width: 1440px) 1440px, (max-width: 1024px) 1024px, (max-width: 768px) 768px"
+                    priority
+                  />
+                </motion.div>
               )}
-            </div>
+            </AnimatePresence>
           </div>
 
           {/* Thumbnail Carousel */}
@@ -112,7 +123,12 @@ export function ProductPageClient({ product, description, relatedProducts }: { p
 
         {/* Right: Sticky Sidebar */}
         <div className="lg:sticky lg:top-[72px] lg:h-[calc(100vh-72px)] overflow-y-auto order-1 lg:order-2 border-l border-border/40">
-          <div className="p-8 xl:p-12 flex flex-col gap-8 mt-8">
+          <motion.div
+            initial={{ opacity: 0, y: 18 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, ease: EASE_EDITORIAL }}
+            className="p-8 xl:p-12 flex flex-col gap-8 mt-8"
+          >
             {/* Header */}
             <header>
               <p className="text-xs uppercase tracking-widest text-primary/35 mb-3">Viality</p>
@@ -243,44 +259,58 @@ export function ProductPageClient({ product, description, relatedProducts }: { p
                 </p>
               </div>
             </div>
-          </div>
+          </motion.div>
         </div>
       </section>
 
       {/* Why Section */}
       <section className="bg-surface-warm py-24 md:py-32 px-6 md:px-16">
         <div className="mx-auto grid grid-cols-1 md:grid-cols-2 gap-16 md:gap-24 items-center justify-center">
-          <div className="w-fit">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-60px" }}
+            transition={{ duration: 0.9 }}
+            className="w-fit"
+          >
             <p className="text-xs uppercase tracking-widest text-primary/35 mb-6">Why {product.title}</p>
             <h2 className="font-serif uppercase font-light text-4xl md:text-5xl text-primary leading-tight">
               A quieter standard of vitality.
             </h2>
-          </div>
+          </motion.div>
           <div className="space-y-8">
-            <div className="border-l-2 border-accent/50 pl-5">
-              <h3 className="text-xs uppercase tracking-widest font-semibold mb-1.5">Designed for consistency</h3>
-              <p className="text-sm text-primary/55 font-light leading-[1.8]">
-                Where science meets ritual. Built to be taken daily, over time — not as an experiment, but as a permanent part of how you care for yourself.
-              </p>
-            </div>
-            <div className="border-l-2 border-accent/50 pl-5">
-              <h3 className="text-xs uppercase tracking-widest font-semibold mb-1.5">Modern rituals for internal balance</h3>
-              <p className="text-sm text-primary/55 font-light leading-[1.8]">
-                No complicated protocol. Designed to integrate into your morning with the same quiet ease as any other considered habit.
-              </p>
-            </div>
-            <div className="border-l-2 border-accent/50 pl-5">
-              <h3 className="text-xs uppercase tracking-widest font-semibold mb-1.5">Calm, sustained clarity</h3>
-              <p className="text-sm text-primary/55 font-light leading-[1.8]">
-                Selected to support mental steadiness without stimulants — the kind of clarity that comes from giving your body what it actually needs.
-              </p>
-            </div>
-            <div className="border-l-2 border-accent/50 pl-5">
-              <h3 className="text-xs uppercase tracking-widest font-semibold mb-1.5">A quieter standard</h3>
-              <p className="text-sm text-primary/55 font-light leading-[1.8]">
-                No aggressive claims. No overcrowded formula. Every ingredient earns its place through evidence, and its dose is disclosed without exception.
-              </p>
-            </div>
+            {[
+              {
+                title: "Designed for consistency",
+                body: "Where science meets ritual. Built to be taken daily, over time — not as an experiment, but as a permanent part of how you care for yourself.",
+              },
+              {
+                title: "Modern rituals for internal balance",
+                body: "No complicated protocol. Designed to integrate into your morning with the same quiet ease as any other considered habit.",
+              },
+              {
+                title: "Calm, sustained clarity",
+                body: "Selected to support mental steadiness without stimulants — the kind of clarity that comes from giving your body what it actually needs.",
+              },
+              {
+                title: "A quieter standard",
+                body: "No aggressive claims. No overcrowded formula. Every ingredient earns its place through evidence, and its dose is disclosed without exception.",
+              },
+            ].map((b, i) => (
+              <motion.div
+                key={i}
+                initial={{ opacity: 0, x: 16 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true, margin: "-30px" }}
+                transition={{ duration: 0.65, delay: i * 0.08 }}
+                className="border-l-2 border-accent/50 pl-5"
+              >
+                <h3 className="text-xs uppercase tracking-widest font-semibold mb-1.5">{b.title}</h3>
+                <p className="text-sm text-primary/55 font-light leading-[1.8]">
+                  {b.body}
+                </p>
+              </motion.div>
+            ))}
           </div>
         </div>
       </section>
@@ -289,7 +319,12 @@ export function ProductPageClient({ product, description, relatedProducts }: { p
       <section className="bg-background py-20 md:py-28 px-6 md:px-16 border-t border-border/30">
         <div className="mx-auto grid grid-cols-1 md:grid-cols-[200px_1fr] gap-10 md:gap-20 items-start">
           <p className="text-xs uppercase tracking-widest text-primary/35 md:pt-1">Usage Ritual</p>
-          <div>
+          <motion.div
+            initial={{ opacity: 0, y: 14 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8 }}
+          >
             <h2 className="font-serif uppercase font-light text-3xl md:text-4xl text-primary mb-6">
               Unhurried. Intentional. Daily.
             </h2>
@@ -299,7 +334,7 @@ export function ProductPageClient({ product, description, relatedProducts }: { p
             <p className="text-xs text-primary/40 font-light italic">
               Take as directed on packaging. Consult a qualified healthcare professional before beginning any new supplement routine, particularly if pregnant, nursing, or under medical supervision.
             </p>
-          </div>
+          </motion.div>
         </div>
       </section>
 
@@ -307,7 +342,12 @@ export function ProductPageClient({ product, description, relatedProducts }: { p
       <section className="bg-ink py-20 md:py-24 px-6 md:px-16 relative overflow-hidden">
         <div className="absolute inset-0 pointer-events-none opacity-[0.04]" style={{ backgroundImage: "url(\"data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E\")", backgroundRepeat: "repeat", backgroundSize: "128px", mixBlendMode: "screen" }} />
         <div className="relative z-10 mx-auto flex flex-col md:flex-row md:items-center md:justify-between gap-10">
-          <div>
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-60px" }}
+            transition={{ duration: 0.8, ease: EASE_EDITORIAL }}
+          >
             <p className="text-xs uppercase tracking-widest text-primary-foreground/25 mb-4">Verification</p>
             <h2 className="font-serif uppercase font-light text-3xl md:text-4xl text-primary-foreground/90 leading-tight max-w-md">
               <span>Verified clarity,</span>
@@ -316,8 +356,14 @@ export function ProductPageClient({ product, description, relatedProducts }: { p
             <p className="text-primary-foreground/40 text-sm font-light leading-relaxed mt-4 max-w-sm">
               Certificates of Analysis are available for every production run. We don't ask you to take our word for it — the data is there, and it belongs to you.
             </p>
-          </div>
-          <div className="flex flex-col sm:flex-row gap-4 shrink-0">
+          </motion.div>
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-60px" }}
+            transition={{ duration: 0.8, delay: 0.2, ease: EASE_EDITORIAL }}
+            className="flex flex-col sm:flex-row gap-4 shrink-0"
+          >
             <Link
               href="/lab-reports"
               className="flex items-center gap-3 px-7 py-4 border border-primary-foreground/20 text-primary-foreground/70 text-xs uppercase tracking-widest hover:border-primary-foreground/40 hover:text-primary-foreground/90 transition-all"
@@ -332,25 +378,39 @@ export function ProductPageClient({ product, description, relatedProducts }: { p
               <ExternalLink size={14} />
               View COA
             </Link>
-          </div>
+          </motion.div>
         </div>
       </section>
 
       {/* Related Products */}
       {relatedProducts.length > 0 && (
         <div className="py-20 border-t border-border/40">
-          <div className="text-center mb-12">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-60px" }}
+            transition={{ duration: 0.8 }}
+            className="text-center mb-12"
+          >
             <h2 className="text-3xl font-serif text-primary mb-4">
               Complete your collection
             </h2>
             <p className="text-foreground/60">
               Pair with these carefully selected research compounds.
             </p>
-          </div>
+          </motion.div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
-            {relatedProducts.map((rp) => (
-              <ProductCard key={rp.id} product={rp} description={rp.resolvedDescription} />
+            {relatedProducts.map((rp, i) => (
+              <motion.div
+                key={rp.id}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-50px" }}
+                transition={{ duration: 0.6, delay: i * 0.1 }}
+              >
+                <ProductCard product={rp} description={rp.resolvedDescription} />
+              </motion.div>
             ))}
           </div>
         </div>

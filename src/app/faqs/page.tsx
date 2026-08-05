@@ -67,7 +67,14 @@ export default function FaqsPage() {
       <div className="max-w-180 mx-auto">
         <div>
           {faqs.map((faq, index) => (
-            <div key={index} className="border-b border-border/60">
+            <motion.div
+              key={index}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-40px" }}
+              transition={{ duration: 0.6, delay: index * 0.05 }}
+              className="border-b border-border/60"
+            >
               <button
                 type="button"
                 onClick={() =>
@@ -102,7 +109,7 @@ export default function FaqsPage() {
                   </motion.div>
                 )}
               </AnimatePresence>
-            </div>
+            </motion.div>
           ))}
         </div>
       </div>
