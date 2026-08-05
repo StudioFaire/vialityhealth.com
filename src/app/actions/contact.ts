@@ -42,7 +42,7 @@ export async function sendContactMessage(
     `;
 
     await resend.emails.send({
-      from: "Viality Health <noreply@vialityhealth.com>",
+      from: "Viality Health <noreply@updates.vialityhealth.com>",
       to: "vialityhealth@gmail.com",
       replyTo: email,
       subject: `[Contact] ${subject} — ${name}`,
