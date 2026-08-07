@@ -74,13 +74,13 @@ export function CartDrawer() {
 
                     return (
                       <div key={line.id} className="flex gap-4">
-                        <div className="w-20 h-24 bg-muted rounded-md overflow-hidden shrink-0 relative">
+                        <div className="w-20 h-32 bg-muted rounded-md overflow-hidden shrink-0 relative">
                           {image && (
                             <Image
                               src={image.url}
                               alt={image.altText || product.title}
                               fill
-                              className="object-cover"
+                              className="object-cover aspect-auto"
                               sizes="80px"
                             />
                           )}
