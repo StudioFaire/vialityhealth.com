@@ -16,7 +16,7 @@ import {
   getSubscriptionPrice,
 } from "@/lib/shopify/types";
 
-export function ProductPageClient({ product, description, relatedProducts, mainImageUrl }: { product: ShopifyProduct; description: string; relatedProducts: (ShopifyProduct & { resolvedDescription: string; mainImageUrl?: string })[]; mainImageUrl?: string }) {
+export function ProductPageClient({ product, description, relatedProducts, mainImageUrl, freeShippingText }: { product: ShopifyProduct; description: string; relatedProducts: (ShopifyProduct & { resolvedDescription: string; mainImageUrl?: string })[]; mainImageUrl?: string; freeShippingText?: string }) {
   const { addItem } = useCart();
   const images = mainImageUrl
     ? [{ url: mainImageUrl, altText: null, width: 0, height: 0 }]
@@ -247,9 +247,9 @@ export function ProductPageClient({ product, description, relatedProducts, mainI
               </div>
             </div>
 
-            <p className="text-xs text-primary/30 leading-relaxed">
-              Free shipping on orders over $200.
-            </p>
+            {freeShippingText && <p className="text-xs text-primary/30 leading-relaxed">
+              {freeShippingText}
+            </p>}
 
             {/* Description */}
             <div className="text-sm text-primary/60 font-light leading-[1.8] max-w-sm">

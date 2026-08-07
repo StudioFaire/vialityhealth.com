@@ -7,14 +7,23 @@ import Image from "next/image";
 import { useCart } from "@/components/CartProvider";
 import { formatPrice } from "@/lib/utils";
 
-export function CartDrawer() {
+export function CartDrawer({
+  freeShippingThreshold,
+}: {
+  freeShippingThreshold?: number;
+}) {
   const { isCartOpen, setIsCartOpen, lines, cartCount, subtotal, updateQuantity, removeItem, checkout, isLoading } =
     useCart();
 
-  const freeShippingThreshold = 200;
   const subtotalNum = parseFloat(subtotal);
-  const awayFromFreeShipping = Math.max(0, freeShippingThreshold - subtotalNum);
-  const progressPercent = Math.min(100, (subtotalNum / freeShippingThreshold) * 100);
+  const awayFromFreeShipping =
+    freeShippingThreshold != null
+      ? Math.max(0, freeShippingThreshold - subtotalNum)
+      : 0;
+  const progressPercent =
+    freeShippingThreshold != null
+      ? Math.min(100, (subtotalNum / freeShippingThreshold) * 100)
+      : 0;
 
   return (
     <AnimatePresence>
@@ -50,21 +59,23 @@ export function CartDrawer() {
             {cartCount > 0 ? (
               <>
                 {/* Free shipping progress */}
-                <div className="p-6 pb-0">
-                  <div className="bg-muted p-4 rounded-lg">
-                    <p className="text-sm text-center mb-3 text-foreground/80">
-                      {awayFromFreeShipping > 0
-                        ? `You're $${awayFromFreeShipping.toFixed(2)} away from free shipping.`
-                        : "You've unlocked free shipping!"}
-                    </p>
-                    <div className="h-1.5 w-full bg-background rounded-full overflow-hidden">
-                      <div
-                        className="h-full bg-primary transition-all duration-500 ease-out"
-                        style={{ width: `${progressPercent}%` }}
-                      />
+                {freeShippingThreshold != null && (
+                  <div className="p-6 pb-0">
+                    <div className="bg-muted p-4 rounded-lg">
+                      <p className="text-sm text-center mb-3 text-foreground/80">
+                        {awayFromFreeShipping > 0
+                          ? `You're $${awayFromFreeShipping.toFixed(2)} away from free shipping.`
+                          : "You've unlocked free shipping!"}
+                      </p>
+                      <div className="h-1.5 w-full bg-background rounded-full overflow-hidden">
+                        <div
+                          className="h-full bg-primary transition-all duration-500 ease-out"
+                          style={{ width: `${progressPercent}%` }}
+                        />
+                      </div>
                     </div>
                   </div>
-                </div>
+                )}
 
                 {/* Items */}
                 <div className="flex-1 overflow-y-auto p-6 space-y-6">

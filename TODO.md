@@ -1,6 +1,6 @@
 - [ ] Replace vialityhealth@gmail.com
 - [ ] Setup hello@vialityhealth.com
-- [ ] Connect contact form to Resend
+- [x] Connect contact form to Resend
 - [ ] Make subscription option work
 - [ ] Add favicon
 - [ ] Augment the Viality product images and descriptions with additional data from the CMS
@@ -11,9 +11,11 @@
 - [ ] Add policies
 - [ ] Add consent manager
 - [ ] Discuss Resend and Klaviyo with Ivy
-- [ ] Migrate MenuQueryHandler from /Users/karlpodger/Sites/uncnsrdlabel.com/apps/web/src/components/molecules/GlobalFooter/GlobalFooter.tsx
+- [x] Migrate MenuQueryHandler from /Users/karlpodger/Sites/uncnsrdlabel.com/apps/web/src/components/molecules/GlobalFooter/GlobalFooter.tsx
 - [ ] Migrate "Are you 18 or older?" dialog
 - [ ] Migrate "Your VIP Pass" popover
-- [ ] Add URL to full product image
+- [x] Add URL to full product image
 - [ ] Set SEO metadata without placeholders
-- [ ] Show size when there is only 1 size variant
+- [x] Show size when there is only 1 size variant
+- [ ] Implement first paragraph for all products
+- [ ] Implement footer menu content

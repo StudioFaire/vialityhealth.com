@@ -1,4 +1,8 @@
-export function AnnouncementBar() {
+export function AnnouncementBar({
+  text,
+}: {
+  text?: string;
+}) {
   return (
     <div className="bg-primary text-primary-foreground overflow-hidden py-2">
       <div className="flex whitespace-nowrap animate-marquee-banner">
@@ -7,7 +11,7 @@ export function AnnouncementBar() {
             key={i}
             className="text-xs tracking-widest uppercase mx-8 flex items-center gap-3"
           >
-            Free shipping on orders over $200
+            {text}
             <span className="text-primary-foreground/30">•</span>
           </span>
         ))}

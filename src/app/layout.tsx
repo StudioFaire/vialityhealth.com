@@ -8,6 +8,8 @@ import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { CartDrawer } from "@/components/CartDrawer";
 import { getMenu } from "@/lib/shopify";
+import type { ShopifyMenu } from "@/lib/shopify/types";
+import { getFreeShippingConfig } from "@/lib/shopify/discount";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -67,15 +69,27 @@ export default async function RootLayout({
   const followUsMenu = await getMenu("follow-us-viality");
   const followUsUrls =
     followUsMenu?.items.map((item) => item.url).filter(Boolean) ?? [];
+  const shopMenu = await getMenu("shop-viality");
+  const companyMenu = await getMenu("company-viality");
+  const policiesMenu = await getMenu("policies-viality");
+  const menuItems = (menu: ShopifyMenu | null) =>
+    menu?.items.map(({ title, url }) => ({ title, url })) ?? [];
+  const freeShipping = await getFreeShippingConfig();
+  const freeShippingThreshold = freeShipping?.threshold ?? undefined;
   return (
     <html lang="en" className={[iosevkaCharon.variable, inter.variable].filter(Boolean).join(" ")}>
       <body className="group/body min-h-screen flex flex-col">
         <CartProvider>
-          <AnnouncementBar />
+          {freeShipping?.text ? <AnnouncementBar text={freeShipping.text} /> : null}
           <Navbar />
-          <CartDrawer />
+          <CartDrawer freeShippingThreshold={freeShippingThreshold} />
           <main className="flex-1">{children}</main>
-          <Footer followUsUrls={followUsUrls} />
+          <Footer
+            followUsUrls={followUsUrls}
+            shopItems={menuItems(shopMenu)}
+            companyItems={menuItems(companyMenu)}
+            policiesItems={menuItems(policiesMenu)}
+          />
         </CartProvider>
       </body>
     </html>
