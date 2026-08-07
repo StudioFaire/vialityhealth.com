@@ -5,7 +5,19 @@ import Link from "next/link";
 import { subscribeToNewsletter } from "@/app/actions/newsletter";
 import { SocialMenu } from "@/components/SocialMenu";
 
-export function Footer({ followUsUrls = [] }: { followUsUrls?: string[] }) {
+type MenuItem = { title: string; url: string };
+
+export function Footer({
+  followUsUrls = [],
+  shopItems = [],
+  companyItems = [],
+  policiesItems = [],
+}: {
+  followUsUrls?: string[];
+  shopItems?: MenuItem[];
+  companyItems?: MenuItem[];
+  policiesItems?: MenuItem[];
+ }) {
   const [state, formAction, isPending] = useActionState(subscribeToNewsletter, {
     success: false,
     message: "",
@@ -43,80 +55,40 @@ export function Footer({ followUsUrls = [] }: { followUsUrls?: string[] }) {
             <h4 className="font-medium text-sm tracking-widest uppercase mb-6 opacity-70">
               Shop
             </h4>
-            <ul className="space-y-4 text-sm">
-              <li>
-                <Link
-                  href="/shop"
-                  className="hover:opacity-70 transition-opacity"
-                >
-                  All Products
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/shop?category=Capsules"
-                  className="hover:opacity-70 transition-opacity"
-                >
-                  Capsules
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/shop?category=Gel"
-                  className="hover:opacity-70 transition-opacity"
-                >
-                  Sea Moss Gel
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/shop?category=Bundles"
-                  className="hover:opacity-70 transition-opacity"
-                >
-                  Bundles
-                </Link>
-              </li>
-            </ul>
+            {shopItems.length > 0 && (
+              <ul className="space-y-4 text-sm">
+                {shopItems.map((item) => (
+                  <li key={item.url}>
+                    <Link
+                      href={item.url}
+                      className="hover:opacity-70 transition-opacity"
+                    >
+                      {item.title}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            )}
           </div>
 
           <div className="lg:col-span-2">
             <h4 className="font-medium text-sm tracking-widest uppercase mb-6 opacity-70">
               Company
             </h4>
-            <ul className="space-y-4 text-sm">
-              <li>
-                <Link
-                  href="/about"
-                  className="hover:opacity-70 transition-opacity"
-                >
-                  Our Story
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/about#sourcing"
-                  className="hover:opacity-70 transition-opacity"
-                >
-                  Sourcing
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/about#quality"
-                  className="hover:opacity-70 transition-opacity"
-                >
-                  Quality & Testing
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/contact"
-                  className="hover:opacity-70 transition-opacity"
-                >
-                  Contact Us
-                </Link>
-              </li>
-            </ul>
+            {companyItems.length > 0 && (
+              <ul className="space-y-4 text-sm">
+                {companyItems.map((item) => (
+                  <li key={item.url}>
+                    <Link
+                      href={item.url}
+                      className="hover:opacity-70 transition-opacity"
+                    >
+                      {item.title}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            )}
           </div>
 
           {/* Policies Column */}
@@ -124,64 +96,20 @@ export function Footer({ followUsUrls = [] }: { followUsUrls?: string[] }) {
             <h4 className="font-medium text-sm tracking-widest uppercase mb-6 opacity-70">
               Policies
             </h4>
-            <ul className="space-y-4 text-sm">
-              <li>
-                <Link
-                  href="/policies/returns-and-refund"
-                  className="hover:opacity-70 transition-opacity"
-                >
-                  Returns & Refunds
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/policies/shipping"
-                  className="hover:opacity-70 transition-opacity"
-                >
-                  Shipping
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/policies/privacy"
-                  className="hover:opacity-70 transition-opacity"
-                >
-                  Privacy Policy
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/policies/terms-of-service"
-                  className="hover:opacity-70 transition-opacity"
-                >
-                  Terms of Service
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/policies/cancellation-policy"
-                  className="hover:opacity-70 transition-opacity"
-                >
-                  Cancellation Policy
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/policies/legal-notice"
-                  className="hover:opacity-70 transition-opacity"
-                >
-                  Legal Notice
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/policies/contact-information"
-                  className="hover:opacity-70 transition-opacity"
-                >
-                  Contact Info
-                </Link>
-              </li>
-            </ul>
+            {policiesItems.length > 0 && (
+              <ul className="space-y-4 text-sm">
+                {policiesItems.map((item) => (
+                  <li key={item.url}>
+                    <Link
+                      href={item.url}
+                      className="hover:opacity-70 transition-opacity"
+                    >
+                      {item.title}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            )}
           </div>
 
         </div>
