@@ -12,6 +12,7 @@ import {
   getProductVariants,
   getPrice,
 } from "@/lib/shopify/types";
+import { getFirstParagraph } from "@/lib/shopify/description";
 
 export function StarRating({
   rating,
@@ -68,10 +69,10 @@ export function ProductCard({ product, description, mainImageUrl }: { product: S
     <Link href={`/product/${product.handle}`}>
       <div className="group cursor-pointer flex flex-col h-full bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-all duration-300 transform hover:-translate-y-1">
         {/* Image Container */}
-        <div className="relative aspect-4/5 bg-muted overflow-hidden">
-          <div className="absolute top-3 left-3 z-10 px-3 py-1 bg-white/90 backdrop-blur text-primary text-[10px] uppercase tracking-widest font-semibold rounded-full shadow-sm">
+        <div className="relative aspect-5/8 bg-muted overflow-hidden">
+          {productType && <div className="absolute top-3 left-3 z-10 px-3 py-1 bg-white/90 backdrop-blur text-primary text-[10px] uppercase tracking-widest font-semibold rounded-full shadow-sm">
             {productType}
-          </div>
+          </div>}
           {image && (
             <Image
               src={image.url}
@@ -88,8 +89,10 @@ export function ProductCard({ product, description, mainImageUrl }: { product: S
           <h3 className="font-serif text-lg text-primary mb-1">
             {product.title}
           </h3>
-          <p className="text-sm text-foreground/70 mb-4 flex-1 line-clamp-2">
-            {description || product.description}
+          <p className="text-sm text-foreground/70 mb-4 flex-1">
+            {getFirstParagraph(
+              description || product.descriptionHtml || product.description
+            )}
           </p>
 
           <div className="flex items-center justify-between mt-auto pt-4 border-t border-border/40">

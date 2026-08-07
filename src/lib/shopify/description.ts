@@ -20,7 +20,18 @@ export function resolveProductDescription(product: ShopifyProduct): string {
     .replace(/<span><\/span>/g, "");
 }
 
+export function getFirstParagraph(text: string): string {
+  const html = String(text ?? "");
+  const match = html.match(/<p[^>]*>([\s\S]*?)<\/p>/i);
+  const source = match ? match[1] : html;
+  return source
+    .replace(/<br\s*\/?>/g, "\n")
+    .replace(/<[^>]*>/g, "")
+    .split(/\r?\n/)[0]
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
 export function resolveProductDescriptionText(product: ShopifyProduct): string {
-  const html = resolveProductDescription(product);
-  return html.replace(/<[^>]*>/g, "").replace(/\s+/g, " ").trim();
+  return getFirstParagraph(resolveProductDescription(product));
 }
