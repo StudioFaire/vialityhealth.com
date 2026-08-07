@@ -16,9 +16,11 @@ import {
   getSubscriptionPrice,
 } from "@/lib/shopify/types";
 
-export function ProductPageClient({ product, description, relatedProducts }: { product: ShopifyProduct; description: string; relatedProducts: (ShopifyProduct & { resolvedDescription: string })[] }) {
+export function ProductPageClient({ product, description, relatedProducts, mainImageUrl }: { product: ShopifyProduct; description: string; relatedProducts: (ShopifyProduct & { resolvedDescription: string; mainImageUrl?: string })[]; mainImageUrl?: string }) {
   const { addItem } = useCart();
-  const images = getProductImages(product);
+  const images = mainImageUrl
+    ? [{ url: mainImageUrl, altText: null, width: 0, height: 0 }]
+    : getProductImages(product);
   const variants = getProductVariants(product);
   const sellingPlans = getSellingPlans(product);
   const activeSellingPlan = sellingPlans.length > 0 ? sellingPlans[0] : null;
@@ -409,7 +411,7 @@ export function ProductPageClient({ product, description, relatedProducts }: { p
                 viewport={{ once: true, margin: "-50px" }}
                 transition={{ duration: 0.6, delay: i * 0.1 }}
               >
-                <ProductCard product={rp} description={rp.resolvedDescription} />
+                <ProductCard product={rp} description={rp.resolvedDescription} mainImageUrl={rp.mainImageUrl} />
               </motion.div>
             ))}
           </div>

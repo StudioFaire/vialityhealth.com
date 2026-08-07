@@ -42,11 +42,13 @@ export function StarRating({
   );
 }
 
-export function ProductCard({ product, description }: { product: ShopifyProduct; description?: string }) {
+export function ProductCard({ product, description, mainImageUrl }: { product: ShopifyProduct; description?: string; mainImageUrl?: string }) {
   const { addItem } = useCart();
   const [isAdding, setIsAdding] = useState(false);
 
-  const image = getProductImage(product);
+  const image = mainImageUrl
+    ? { url: mainImageUrl, altText: null, width: 0, height: 0 }
+    : getProductImage(product);
   const variants = getProductVariants(product);
   const firstVariant = variants[0];
   const hasComparePrice =

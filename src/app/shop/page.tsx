@@ -4,6 +4,7 @@ import type { ShopifyProduct } from "@/lib/shopify/types";
 import { ShopContent } from "./ShopContent";
 import { Reveal } from "@/components/Reveal";
 import { resolveProductDescriptionText } from "@/lib/shopify/description";
+import { resolveProductMainImageUrl } from "@/lib/shopify/image";
 
 export const metadata = {
   title: "Shop",
@@ -28,6 +29,7 @@ export default async function ShopPage() {
   const productsWithDescriptions = products.map((product) => ({
     ...product,
     resolvedDescription: resolveProductDescriptionText(product),
+    mainImageUrl: resolveProductMainImageUrl(product),
   }));
 
   return (

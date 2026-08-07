@@ -13,7 +13,7 @@ export function ShopContent({
   products,
   collections,
 }: {
-  products: (ShopifyProduct & { resolvedDescription: string })[];
+  products: (ShopifyProduct & { resolvedDescription: string; mainImageUrl?: string })[];
   collections: Collection[];
 }) {
   const [activeCategory, setActiveCategory] = useState<string>("All");
@@ -112,7 +112,7 @@ export function ShopContent({
               viewport={{ once: true, margin: "-50px" }}
               transition={{ duration: 0.6, delay: i * 0.08 }}
             >
-              <ProductCard product={product} description={product.resolvedDescription} />
+              <ProductCard product={product} description={product.resolvedDescription} mainImageUrl={product.mainImageUrl} />
             </motion.div>
           ))}
         </div>

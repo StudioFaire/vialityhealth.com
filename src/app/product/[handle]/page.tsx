@@ -4,6 +4,7 @@ import type { Metadata } from "next";
 import { getProductByHandle, getAllProducts } from "@/lib/shopify";
 import { ProductPageClient } from "./ProductPageClient";
 import { resolveProductDescription, resolveProductDescriptionText } from "@/lib/shopify/description";
+import { resolveProductMainImageUrl } from "@/lib/shopify/image";
 
 type Props = {
   params: Promise<{ handle: string }>;
@@ -45,6 +46,7 @@ export default async function ProductPage({ params }: Props) {
   }
 
   const description = resolveProductDescription(product);
+  const mainImageUrl = resolveProductMainImageUrl(product);
 
   const allProducts = await getAllProducts(6);
   const relatedProducts = allProducts
@@ -53,6 +55,7 @@ export default async function ProductPage({ params }: Props) {
     .map((p) => ({
       ...p,
       resolvedDescription: resolveProductDescriptionText(p),
+      mainImageUrl: resolveProductMainImageUrl(p),
     }));
 
   const jsonLd = {
@@ -78,7 +81,7 @@ export default async function ProductPage({ params }: Props) {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
-      <ProductPageClient product={product} description={description} relatedProducts={relatedProducts} />
+      <ProductPageClient product={product} description={description} relatedProducts={relatedProducts} mainImageUrl={mainImageUrl} />
     </>
   );
 }
