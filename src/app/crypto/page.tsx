@@ -2,6 +2,7 @@
 
 import { useActionState } from "react";
 import { encryptData, decryptData } from "@/app/actions/crypto";
+import { CopyOutput } from "@/components/CopyOutput";
 
 export default function CryptoPage() {
   const [encryptState, encryptAction, encryptPending] = useActionState(
@@ -55,14 +56,7 @@ export default function CryptoPage() {
               {encryptState.message && (
                 <div className="pt-4">
                   {encryptState.success && encryptState.result ? (
-                    <div>
-                      <p className="text-xs uppercase tracking-widest text-foreground/70 mb-2">
-                        Encrypted Result
-                      </p>
-                      <output className="p-4 bg-muted rounded-lg break-all font-mono text-sm w-full block">
-                        {encryptState.result}
-                      </output>
-                    </div>
+                    <CopyOutput label="Encrypted Result" value={encryptState.result} />
                   ) : (
                     <p className="text-sm text-red-600">{encryptState.message}</p>
                   )}
@@ -100,14 +94,7 @@ export default function CryptoPage() {
               {decryptState.message && (
                 <div className="pt-4">
                   {decryptState.success && decryptState.result ? (
-                    <div>
-                      <p className="text-xs uppercase tracking-widest text-foreground/70 mb-2">
-                        Decrypted Result
-                      </p>
-                      <output className="p-4 bg-muted rounded-lg break-all font-mono text-sm w-full block">
-                        {decryptState.result}
-                      </output>
-                    </div>
+                    <CopyOutput label="Decrypted Result" value={decryptState.result} />
                   ) : (
                     <p className="text-sm text-red-600">{decryptState.message}</p>
                   )}
