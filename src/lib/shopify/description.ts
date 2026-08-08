@@ -6,7 +6,9 @@ export function resolveProductDescription(product: ShopifyProduct): string {
   const shortName = product.short_name ? decryptAndReverse(product.short_name) : "";
 
   return (product.descriptionHtml || product.description)
+    .replaceAll("{{m}}", "melanocortin")
     .replaceAll("{{np}}", "neuropeptide")
+    .replaceAll("{{MC_3_and_4_R}}", "MC3R and MC4R")
     .replaceAll("{{p}}", "peptide")
     .replaceAll("{{sp}}", "synthetic peptide")
     .replaceAll("{{pre}}", "preclinical")
