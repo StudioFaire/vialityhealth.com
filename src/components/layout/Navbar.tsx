@@ -54,7 +54,7 @@ export function Navbar() {
           <MobileMenu links={links} />
         </div>
 
-        {/* Logo — left */}
+        {/* Logo - left */}
         <Link
           href="/"
           className={cn(
@@ -71,7 +71,7 @@ export function Navbar() {
           />
         </Link>
 
-        {/* Center nav links — desktop only */}
+        {/* Center nav links - desktop only */}
         <div className="hidden md:flex items-center gap-10 absolute left-1/2 -translate-x-1/2">
           {links.map((link) => (
             <Link
@@ -87,7 +87,7 @@ export function Navbar() {
           ))}
         </div>
 
-        {/* Right — account + cart */}
+        {/* Right - account + cart */}
         <div className="flex items-center gap-4 shrink-0 [&_svg]:size-6">
           <Link
             href="/account"

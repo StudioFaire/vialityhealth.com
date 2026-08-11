@@ -53,11 +53,11 @@ const iosevkaCharon = localFont({
 
 export const metadata: Metadata = {
   title: {
-    default: "viality — Wellness, refined.",
+    default: "viality - Wellness, refined.",
     template: "%s | Viality",
   },
   description:
-    "viality — modern rituals for internal balance. Premium clinical wellness, formulated with precision and held to a quieter standard.",
+    "viality - modern rituals for internal balance. Premium clinical wellness, formulated with precision and held to a quieter standard.",
   metadataBase: new URL(
     process.env.NEXT_PUBLIC_SITE_URL || "https://vialityhealth.com"
   ),

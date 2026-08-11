@@ -86,7 +86,7 @@ export default function CertificateOfAnalysisPage() {
                 </h4>
                 <p className="text-primary/55 text-sm leading-[1.85] font-light">
                   Each product carries a batch number tied directly to its
-                  Certificate of Analysis. Clarity isn&apos;t a promise — it&apos;s a
+                  Certificate of Analysis. Clarity isn&apos;t a promise - it&apos;s a
                   policy.
                 </p>
               </div>

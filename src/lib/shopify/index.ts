@@ -113,7 +113,7 @@ export async function getAllCollections(
   return cachedFn();
 }
 
-// ── Cart (uncached — user-specific mutations) ──────────────
+// ── Cart (uncached - user-specific mutations) ──────────────
 
 export async function getCart(cartId: string): Promise<ShopifyCart | null> {
   try {

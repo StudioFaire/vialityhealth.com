@@ -21,7 +21,7 @@ const pillars = [
   {
     number: "03",
     title: "Ritual",
-    body: "A quieter standard of vitality begins with consistency. viality is designed to become a moment — unhurried, intentional, daily. Not a chore. Not a trend. A permanent fixture of how you care for yourself.",
+    body: "A quieter standard of vitality begins with consistency. viality is designed to become a moment - unhurried, intentional, daily. Not a chore. Not a trend. A permanent fixture of how you care for yourself.",
   },
 ];
 
@@ -34,12 +34,12 @@ const trustItems = [
   {
     label: "Traceable Sourcing",
     detail:
-      "Every raw material is sourced from verified, ethical suppliers with full traceability. We know where it comes from — and you should too.",
+      "Every raw material is sourced from verified, ethical suppliers with full traceability. We know where it comes from - and you should too.",
   },
   {
     label: "Batch Transparency",
     detail:
-      "Each product carries a batch number tied directly to its Certificate of Analysis. Clarity isn't a promise — it's a policy.",
+      "Each product carries a batch number tied directly to its Certificate of Analysis. Clarity isn't a promise - it's a policy.",
   },
   {
     label: "No Proprietary Blends",
@@ -169,7 +169,7 @@ export function AboutPageClient() {
               className="space-y-5 text-primary/60 text-sm leading-[1.85] font-light"
             >
               <p>
-                viality — signature formula. Every compound earns its place
+                viality - signature formula. Every compound earns its place
                 through peer-reviewed science, not wellness trends.
               </p>
             </motion.div>
@@ -191,7 +191,7 @@ export function AboutPageClient() {
               />
               <div className="absolute bottom-5 left-5 z-10">
                 <p className="text-xs uppercase tracking-widest text-primary/35">
-                  viality — signature formula
+                  viality - signature formula
                 </p>
               </div>
             </div>

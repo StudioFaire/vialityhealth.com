@@ -207,7 +207,7 @@ export function ProductPageClient({ product, description, relatedProducts, mainI
                     ? "Added ✓"
                     : !selectedVariant?.availableForSale
                       ? "Out of Stock"
-                      : `Add to Cart — ${basePrice.toFixed(2)}`}
+                      : `Add to Cart - ${basePrice.toFixed(2)}`}
                 </button>
               </div>
               <button
@@ -284,7 +284,7 @@ export function ProductPageClient({ product, description, relatedProducts, mainI
             {[
               {
                 title: "Designed for consistency",
-                body: "Where science meets ritual. Built to be taken daily, over time — not as an experiment, but as a permanent part of how you care for yourself.",
+                body: "Where science meets ritual. Built to be taken daily, over time - not as an experiment, but as a permanent part of how you care for yourself.",
               },
               {
                 title: "Modern rituals for internal balance",
@@ -292,7 +292,7 @@ export function ProductPageClient({ product, description, relatedProducts, mainI
               },
               {
                 title: "Calm, sustained clarity",
-                body: "Selected to support mental steadiness without stimulants — the kind of clarity that comes from giving your body what it actually needs.",
+                body: "Selected to support mental steadiness without stimulants - the kind of clarity that comes from giving your body what it actually needs.",
               },
               {
                 title: "A quieter standard",
@@ -331,7 +331,7 @@ export function ProductPageClient({ product, description, relatedProducts, mainI
               Unhurried. Intentional. Daily.
             </h2>
             <p className="text-primary/60 text-sm font-light leading-[1.9] max-w-lg mb-4">
-              Two capsules each morning with water, ideally alongside a meal. The ritual is simple by design — consistency is where the value accumulates. We recommend a minimum 30-day commitment before forming any assessment.
+              Two capsules each morning with water, ideally alongside a meal. The ritual is simple by design - consistency is where the value accumulates. We recommend a minimum 30-day commitment before forming any assessment.
             </p>
             <p className="text-xs text-primary/40 font-light italic">
               Take as directed on packaging. Consult a qualified healthcare professional before beginning any new supplement routine, particularly if pregnant, nursing, or under medical supervision.
@@ -356,7 +356,7 @@ export function ProductPageClient({ product, description, relatedProducts, mainI
               <span><br />batch by batch.</span>
             </h2>
             <p className="text-primary-foreground/40 text-sm font-light leading-relaxed mt-4 max-w-sm">
-              Certificates of Analysis are available for every production run. We don't ask you to take our word for it — the data is there, and it belongs to you.
+              Certificates of Analysis are available for every production run. We don't ask you to take our word for it - the data is there, and it belongs to you.
             </p>
           </motion.div>
           <motion.div

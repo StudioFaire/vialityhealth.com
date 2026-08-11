@@ -9,7 +9,7 @@ import { resolveProductMainImageUrl } from "@/lib/shopify/image";
 export const metadata = {
   title: "Shop",
   description:
-    "Browse our collection of research grade peptides — 99% purity, third-party verified, batch transparency.",
+    "Browse our collection of research grade peptides - 99% purity, third-party verified, batch transparency.",
 };
 
 export default async function ShopPage() {
