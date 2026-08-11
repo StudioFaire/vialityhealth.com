@@ -1,5 +1,5 @@
 import { Suspense } from "react";
-import { getAllProducts } from "@/lib/shopify";
+import { getCollectionByIdentifier } from "@/lib/shopify";
 import type { ShopifyProduct } from "@/lib/shopify/types";
 import { ShopContent } from "./ShopContent";
 import { Reveal } from "@/components/Reveal";
@@ -15,7 +15,8 @@ export const metadata = {
 export default async function ShopPage() {
   let products: ShopifyProduct[] = [];
   try {
-    products = await getAllProducts(50);
+    const collection = await getCollectionByIdentifier("plp-viality", 50);
+    products = collection?.products.edges.map((e) => e.node) ?? [];
   } catch {
     // Shopify not configured yet
   }
