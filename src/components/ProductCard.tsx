@@ -89,15 +89,15 @@ export function ProductCard({ product, description, mainImageUrl }: { product: S
 
         {/* Content */}
         <div className="p-5 flex flex-col flex-1">
-          <h3 className="font-serif text-lg text-primary mb-1">
+          <h3 className="font-serif text-lg text-primary mb-1 uppercase">
             {product.title}
           </h3>
           <p className="text-sm text-foreground/70 mb-4 flex-1">
             {getFirstParagraph(
               summaryText ||
-                description ||
-                product.descriptionHtml ||
-                product.description
+              description ||
+              product.descriptionHtml ||
+              product.description
             )}
           </p>
 

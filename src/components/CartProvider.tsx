@@ -103,7 +103,11 @@ export function CartProvider({ children }: { children: ReactNode }) {
   );
 
   const checkout = useCallback(() => {
-    if (cart?.checkoutUrl) {
+    console.log("checkout", process.env.NEXT_PUBLIC_SHOPIFY_APP_URL_ALTERNATIVE)
+    if (!cart) return;
+    if (process.env.NEXT_PUBLIC_SHOPIFY_APP_URL_ALTERNATIVE) {
+      window.location.href = `${process.env.NEXT_PUBLIC_SHOPIFY_APP_URL_ALTERNATIVE}/cart?cartId=${cart.id}`;
+    } else if (cart.checkoutUrl) {
       window.location.href = cart.checkoutUrl;
     }
   }, [cart]);

@@ -1,24 +1,24 @@
-- [ ] Replace vialityhealth@gmail.com
-- [ ] Setup hello@vialityhealth.com
-- [x] Connect contact form to Resend
-- [x] Make subscription option work
-- [ ] Add favicon
-- [x] Augment the Viality product images and descriptions with additional data from the CMS
-- [ ] Review the site content and design with Ivy
 - [ ] Set up the payout account
-- [ ] Set up shipping rules
-- [ ] Set up ABN
 - [ ] Add policies
-- [ ] Add consent manager
+- [ ] Set up ABN
+- [ ] Review the site content and design with Ivy
 - [ ] Discuss Resend and Klaviyo with Ivy
-- [x] Migrate MenuQueryHandler from /Users/karlpodger/Sites/uncnsrdlabel.com/apps/web/src/components/molecules/GlobalFooter/GlobalFooter.tsx
+- [ ] Implement summary field data for all products
 - [ ] Migrate "Are you 18 or older?" dialog
 - [ ] Migrate "Your VIP Pass" popover
-- [x] Add URL to full product image
+- [ ] Replace vialityhealth@gmail.com
+- [ ] Setup hello@vialityhealth.com
+- [ ] Set up shipping rules
+- [ ] Add consent manager
 - [ ] Set SEO metadata without placeholders
+- [ ] Add favicon
+- [x] Connect contact form to Resend
+- [x] Make subscription option work
+- [x] Augment the Viality product images and descriptions with additional data from the CMS
+- [x] Migrate MenuQueryHandler from /Users/karlpodger/Sites/uncnsrdlabel.com/apps/web/src/components/molecules/GlobalFooter/GlobalFooter.tsx
+- [x] Add URL to full product image
 - [x] Show size when there is only 1 size variant
 - [x] Implement first paragraph for all products
-- [ ] Implement summary field metafield for product
-- [ ] Implement summary field data for all products
+- [x] Implement summary field metafield for product
 - [x] Implement footer menu content
 - [x] Add faceted search/filters to PLP
