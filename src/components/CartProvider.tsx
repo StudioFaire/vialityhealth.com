@@ -16,6 +16,16 @@ import {
   getCart,
 } from "@/lib/shopify";
 import type { ShopifyCart, ShopifyCartLine } from "@/lib/shopify/types";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+} from "@/components/ui/alert-dialog";
 
 type CartContextType = {
   cart: ShopifyCart | null;
@@ -39,6 +49,8 @@ export function CartProvider({ children }: { children: ReactNode }) {
   const [cart, setCart] = useState<ShopifyCart | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [isCartOpen, setIsCartOpen] = useState(false);
+  const [isCheckoutAlertOpen, setIsCheckoutAlertOpen] = useState(false);
+  const [checkoutUrl, setCheckoutUrl] = useState<string | null>(null);
 
   // Load cart on mount
   useEffect(() => {
@@ -103,10 +115,12 @@ export function CartProvider({ children }: { children: ReactNode }) {
   );
 
   const checkout = useCallback(() => {
-    console.log("checkout", process.env.NEXT_PUBLIC_SHOPIFY_APP_URL_ALTERNATIVE)
     if (!cart) return;
     if (process.env.NEXT_PUBLIC_SHOPIFY_APP_URL_ALTERNATIVE) {
-      window.location.href = `${process.env.NEXT_PUBLIC_SHOPIFY_APP_URL_ALTERNATIVE}/cart?cartId=${cart.id}`;
+      setCheckoutUrl(
+        `${process.env.NEXT_PUBLIC_SHOPIFY_APP_URL_ALTERNATIVE}/cart?cartId=${cart.id}`
+      );
+      setIsCheckoutAlertOpen(true);
     } else if (cart.checkoutUrl) {
       window.location.href = cart.checkoutUrl;
     }
@@ -133,6 +147,29 @@ export function CartProvider({ children }: { children: ReactNode }) {
       }}
     >
       {children}
+      <AlertDialog
+        open={isCheckoutAlertOpen}
+        onOpenChange={setIsCheckoutAlertOpen}
+      >
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>Continue to checkout</AlertDialogTitle>
+            <AlertDialogDescription>
+              Opening the checkout on our parent company&apos;s site.
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel>Cancel</AlertDialogCancel>
+            <AlertDialogAction
+              onClick={() => {
+                if (checkoutUrl) window.location.href = checkoutUrl;
+              }}
+            >
+              Continue
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
     </CartContext.Provider>
   );
 }

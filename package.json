@@ -11,6 +11,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@base-ui/react": "^1.7.0",
     "@novatize-mattheri/shopify-richtext-renderer": "^0.0.14",
     "@shopify/storefront-api-client": "^1.0.10",
     "class-variance-authority": "^0.7.1",
