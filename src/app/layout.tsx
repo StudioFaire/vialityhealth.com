@@ -4,6 +4,7 @@ import localFont from 'next/font/local';
 import "./globals.css";
 import { CartProvider } from "@/components/CartProvider";
 import { AgeVerification } from "@/components/AgeVerification";
+import { VipPassDialog } from "@/components/VipPassDialog";
 import { AnnouncementBar } from "@/components/layout/AnnouncementBar";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
@@ -85,6 +86,7 @@ export default async function RootLayout({
           <Navbar />
           <CartDrawer freeShippingThreshold={freeShippingThreshold} />
           <AgeVerification />
+          <VipPassDialog />
           <main className="flex-1">{children}</main>
           <Footer
             followUsUrls={followUsUrls}

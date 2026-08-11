@@ -4,7 +4,6 @@
 - [ ] Review the site content and design with Ivy
 - [ ] Discuss Resend and Klaviyo with Ivy
 - [ ] Implement summary field data for all products
-- [ ] Migrate "Your VIP Pass" popover
 - [ ] Replace vialityhealth@gmail.com
 - [ ] Setup hello@vialityhealth.com
 - [ ] Set up shipping rules
@@ -12,6 +11,7 @@
 - [ ] Set SEO metadata without placeholders
 - [ ] Add favicon
 - [x] Migrate "Are you 18 or older?" dialog
+- [x] Migrate "Your VIP Pass" popover
 - [x] Set up the payout account
 - [x] Add vector logo to header
 - [x] Connect contact form to Resend
