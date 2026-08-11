@@ -1,5 +1,5 @@
-- [ ] Set up the payout account
 - [ ] Add policies
+- [ ] Sign up for a plan
 - [ ] Set up ABN
 - [ ] Review the site content and design with Ivy
 - [ ] Discuss Resend and Klaviyo with Ivy
@@ -12,6 +12,8 @@
 - [ ] Add consent manager
 - [ ] Set SEO metadata without placeholders
 - [ ] Add favicon
+- [x] Set up the payout account
+- [x] Add vector logo to header
 - [x] Connect contact form to Resend
 - [x] Make subscription option work
 - [x] Augment the Viality product images and descriptions with additional data from the CMS

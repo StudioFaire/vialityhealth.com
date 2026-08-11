@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -47,7 +48,7 @@ export function Navbar() {
         transparent ? "bg-transparent" : "bg-background/95 backdrop-blur-md"
       )}
     >
-      <div className="h-18 container mx-auto px-8 sm:px-0 flex items-center justify-between gap-6">
+      <div className="h-18 container mx-auto px-8 sm:px-0 flex items-center justify-between gap-6 py-2">
         {/* Mobile menu trigger */}
         <div className="block flex-none md:hidden">
           <MobileMenu links={links} />
@@ -57,11 +58,17 @@ export function Navbar() {
         <Link
           href="/"
           className={cn(
-            "hover:opacity-60 logo max-w-2/6 md:max-w-1/6 relative shrink-0 text-3xl text-foreground transition-opacity w-full",
+            "hover:opacity-60 logo max-w-2/6 md:max-w-1/6 relative shrink-0 text-3xl text-foreground transition-opacity size-full",
             transparent ? "text-foreground" : "text-foreground"
           )}
         >
-          viality
+          <Image
+            src="/images/logo.svg"
+            alt="Viality logo"
+            fill
+            className="object-cover"
+            sizes="(max-width: 768px) 50vw, 20vw"
+          />
         </Link>
 
         {/* Center nav links — desktop only */}
