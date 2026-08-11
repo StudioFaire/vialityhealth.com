@@ -132,6 +132,9 @@ export const ProductFragment = /* GraphQL */ `
     fullImageUrlMetafield: metafield(namespace: "custom", key: "full_image_url") {
       value
     }
+    summaryMetafield: metafield(namespace: "custom", key: "summary") {
+      value
+    }
   }
 `;
 

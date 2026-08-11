@@ -85,6 +85,9 @@ export type ShopifyProductRaw = {
   fullImageUrlMetafield?: {
     value: string;
   } | null;
+  summaryMetafield?: {
+    value: string;
+  } | null;
 };
 
 export type ShopifyProduct = {
@@ -116,6 +119,7 @@ export type ShopifyProduct = {
   full_name?: string;
   short_name?: string;
   full_image_url?: string;
+  summary?: string;
 };
 
 export type ShopifyCartLine = {
@@ -218,6 +222,7 @@ export function transformProduct(raw: ShopifyProductRaw): ShopifyProduct {
     full_name: raw.fullNameMetafield?.value,
     short_name: raw.shortNameMetafield?.value,
     full_image_url: raw.fullImageUrlMetafield?.value,
+    summary: raw.summaryMetafield?.value,
   };
 }
 

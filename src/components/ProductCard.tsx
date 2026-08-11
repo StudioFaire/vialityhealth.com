@@ -12,7 +12,7 @@ import {
   getProductVariants,
   getPrice,
 } from "@/lib/shopify/types";
-import { getFirstParagraph } from "@/lib/shopify/description";
+import { getFirstParagraph, applyStaticReplacements } from "@/lib/shopify/description";
 
 export function StarRating({
   rating,
@@ -55,6 +55,9 @@ export function ProductCard({ product, description, mainImageUrl }: { product: S
   const hasComparePrice =
     parseFloat(product.compareAtPriceRange.minVariantPrice.amount) > 0;
   const productType = product.productType;
+  const summaryText = product.summary
+    ? applyStaticReplacements(product.summary)
+    : "";
 
   const handleAdd = (e: React.MouseEvent) => {
     e.preventDefault();
@@ -91,7 +94,10 @@ export function ProductCard({ product, description, mainImageUrl }: { product: S
           </h3>
           <p className="text-sm text-foreground/70 mb-4 flex-1">
             {getFirstParagraph(
-              description || product.descriptionHtml || product.description
+              summaryText ||
+                description ||
+                product.descriptionHtml ||
+                product.description
             )}
           </p>
 

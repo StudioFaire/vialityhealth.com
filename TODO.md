@@ -1,9 +1,9 @@
 - [ ] Replace vialityhealth@gmail.com
 - [ ] Setup hello@vialityhealth.com
 - [x] Connect contact form to Resend
-- [ ] Make subscription option work
+- [x] Make subscription option work
 - [ ] Add favicon
-- [ ] Augment the Viality product images and descriptions with additional data from the CMS
+- [x] Augment the Viality product images and descriptions with additional data from the CMS
 - [ ] Review the site content and design with Ivy
 - [ ] Set up the payout account
 - [ ] Set up shipping rules
@@ -18,6 +18,7 @@
 - [ ] Set SEO metadata without placeholders
 - [x] Show size when there is only 1 size variant
 - [x] Implement first paragraph for all products
-- [ ] Implement summary field for all products
+- [ ] Implement summary field metafield for product
+- [ ] Implement summary field data for all products
 - [x] Implement footer menu content
 - [x] Add faceted search/filters to PLP

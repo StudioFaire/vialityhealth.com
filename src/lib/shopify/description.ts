@@ -1,25 +1,34 @@
 import { decryptAndReverse } from "@/lib/crypto";
 import type { ShopifyProduct } from "@/lib/shopify/types";
 
+const STATIC_REPLACEMENTS: [string, string][] = [
+  ["{{m}}", "melanocortin"],
+  ["{{np}}", "neuropeptide"],
+  ["{{MC_3_and_4_R}}", "MC3R and MC4R"],
+  ["{{p}}", "peptide"],
+  ["{{sp}}", "synthetic peptide"],
+  ["{{pre}}", "preclinical"],
+  ["{{syn}}", "synthetic"],
+  ["{{act}}", "ACTH"],
+  ["{{sc}}", "stem cell"],
+  ["{{cr}}", "controlled research"],
+];
+
+export function applyStaticReplacements(text: string): string {
+  let result = String(text ?? "");
+  for (const [token, value] of STATIC_REPLACEMENTS) {
+    result = result.replaceAll(token, value);
+  }
+  return result.replace(/<br\s*\/?>/g, "").replace(/<span><\/span>/g, "");
+}
+
 export function resolveProductDescription(product: ShopifyProduct): string {
   const fullName = product.full_name ? decryptAndReverse(product.full_name) : "";
   const shortName = product.short_name ? decryptAndReverse(product.short_name) : "";
 
-  return (product.descriptionHtml || product.description)
-    .replaceAll("{{m}}", "melanocortin")
-    .replaceAll("{{np}}", "neuropeptide")
-    .replaceAll("{{MC_3_and_4_R}}", "MC3R and MC4R")
-    .replaceAll("{{p}}", "peptide")
-    .replaceAll("{{sp}}", "synthetic peptide")
-    .replaceAll("{{pre}}", "preclinical")
-    .replaceAll("{{syn}}", "synthetic")
-    .replaceAll("{{act}}", "ACTH")
-    .replaceAll("{{sc}}", "stem cell")
-    .replaceAll("{{cr}}", "controlled research")
+  return applyStaticReplacements(product.descriptionHtml || product.description)
     .replaceAll("{{full_name}}", fullName)
-    .replaceAll("{{short_name}}", shortName)
-    .replace(/<br\s*\/?>/g, "")
-    .replace(/<span><\/span>/g, "");
+    .replaceAll("{{short_name}}", shortName);
 }
 
 export function getFirstParagraph(text: string): string {
