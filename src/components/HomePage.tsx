@@ -86,7 +86,7 @@ export function HomePage({ featuredProducts }: { featuredProducts: ShopifyProduc
 
         <div className="relative z-20 flex flex-col items-center justify-center h-full text-center px-6">
           <motion.p
-            className="text-lg font-sans font-light text-white mb-8"
+            className="text-lg font-sans font-light text-white mb-8 lowercase"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 1.4, ease: "easeOut" }}
@@ -95,21 +95,27 @@ export function HomePage({ featuredProducts }: { featuredProducts: ShopifyProduc
           </motion.p>
 
           <motion.h1
-            className="logo text-7xl text-white"
+            className="logo text-7xl text-white w-full h-24 max-w-2/6 md:max-w-1/6 relative invert"
             initial={{ opacity: 0, y: 24 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1.2, ease: [0.25, 0.1, 0.25, 1] }}
           >
-            viality
+            <Image
+              src="/images/logotype.svg"
+              alt="Viality logo"
+              fill
+              className="object-contain"
+              sizes="(max-width: 768px) 50vw, 20vw"
+            />
           </motion.h1>
 
           <motion.p
-            className="text-lg font-sans font-light text-white mt-2 md:mt-4 max-w-xs"
+            className="text-lg font-sans font-light text-white mt-2 md:mt-4 max-w-xs lowercase"
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.55, duration: 1, ease: "easeOut" }}
           >
-            where science meets performance
+            Where science meets performance
           </motion.p>
 
           <motion.div

@@ -1,8 +1,10 @@
-- [ ] Check the order of products is the same as the Shopify backend
 - [ ] Add policies
 - [ ] Sign up for a plan
 - [ ] Set up ABN
 - [ ] Review the site content and design with Ivy
+- [ ] Reduce Navbar logo height
+- [ ] Add SVG logo to home hero
+- [ ] Set home hero text to lowercase
 - [ ] Check Klaviyo signup works
 - [ ] Create Klaviyo email templates
 - [ ] Create Klaviyo email campaigns
@@ -12,6 +14,7 @@
 - [ ] Set up shipping rules
 - [ ] Add consent manager
 - [ ] Set SEO metadata without placeholders
+- [x] Check the order of products is the same as the Shopify backend
 - [x] Implement summary field data for all products
 - [x] Add favicon
 - [x] Migrate "Are you 18 or older?" dialog

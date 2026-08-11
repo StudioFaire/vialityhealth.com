@@ -58,15 +58,15 @@ export function Navbar() {
         <Link
           href="/"
           className={cn(
-            "hover:opacity-60 logo max-w-2/6 md:max-w-1/6 relative shrink-0 text-3xl text-foreground transition-opacity size-full",
+            "hover:opacity-60 logo max-w-2/6 md:max-w-1/6 relative shrink-0 text-3xl text-foreground transition-opacity size-full max-h-10",
             transparent ? "text-foreground" : "text-foreground"
           )}
         >
           <Image
-            src="/images/logo.svg"
+            src="/images/logotype.svg"
             alt="Viality logo"
             fill
-            className="object-cover"
+            className="object-contain"
             sizes="(max-width: 768px) 50vw, 20vw"
           />
         </Link>
