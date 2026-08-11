@@ -1,15 +1,19 @@
+- [ ] Check the order of products is the same as the Shopify backend
 - [ ] Add policies
 - [ ] Sign up for a plan
 - [ ] Set up ABN
 - [ ] Review the site content and design with Ivy
+- [ ] Check Klaviyo signup works
+- [ ] Create Klaviyo email templates
+- [ ] Create Klaviyo email campaigns
 - [ ] Discuss Resend and Klaviyo with Ivy
-- [ ] Implement summary field data for all products
 - [ ] Replace vialityhealth@gmail.com
 - [ ] Setup hello@vialityhealth.com
 - [ ] Set up shipping rules
 - [ ] Add consent manager
 - [ ] Set SEO metadata without placeholders
-- [ ] Add favicon
+- [x] Implement summary field data for all products
+- [x] Add favicon
 - [x] Migrate "Are you 18 or older?" dialog
 - [x] Migrate "Your VIP Pass" popover
 - [x] Set up the payout account

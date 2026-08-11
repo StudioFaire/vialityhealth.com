@@ -237,13 +237,36 @@ export function resolveLiquidVariables(
 
 // ── Menus ───────────────────────────────────────────────
 
+const storeDomain = process.env.NEXT_PUBLIC_SHOPIFY_STORE_DOMAIN ?? "";
+const storeOrigin = `https://${storeDomain}`;
+
+function toRelativeUrl(rawUrl: string): string {
+  try {
+    const parsed = new URL(rawUrl);
+    if (parsed.origin === storeOrigin) {
+      return `${parsed.pathname}${parsed.search}${parsed.hash}`;
+    }
+  } catch {
+    // Not an absolute URL, leave as-is.
+  }
+  return rawUrl;
+}
+
 export async function getMenu(handle: string): Promise<ShopifyMenu | null> {
   const cachedFn = unstable_cache(
     async () => {
       const { data } = await shopifyClient.request<{
         menu: ShopifyMenu | null;
       }>(GetMenuQuery, { variables: { handle } });
-      return assertData(data, "getMenu").menu;
+      const menu = assertData(data, "getMenu").menu;
+      if (!menu) return null;
+      return {
+        ...menu,
+        items: menu.items.map((item) => ({
+          ...item,
+          url: toRelativeUrl(item.url),
+        })),
+      };
     },
     ["shopify", "menu", handle],
     { revalidate: REVALIDATE_SECONDS, tags: ["shopify-menus"] }
