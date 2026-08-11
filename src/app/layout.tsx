@@ -3,6 +3,7 @@ import { Inter } from "next/font/google";
 import localFont from 'next/font/local';
 import "./globals.css";
 import { CartProvider } from "@/components/CartProvider";
+import { AgeVerification } from "@/components/AgeVerification";
 import { AnnouncementBar } from "@/components/layout/AnnouncementBar";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
@@ -83,6 +84,7 @@ export default async function RootLayout({
           {freeShipping?.text ? <AnnouncementBar text={freeShipping.text} /> : null}
           <Navbar />
           <CartDrawer freeShippingThreshold={freeShippingThreshold} />
+          <AgeVerification />
           <main className="flex-1">{children}</main>
           <Footer
             followUsUrls={followUsUrls}
