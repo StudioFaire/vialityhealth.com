@@ -17,5 +17,7 @@
 - [x] Add URL to full product image
 - [ ] Set SEO metadata without placeholders
 - [x] Show size when there is only 1 size variant
-- [ ] Implement first paragraph for all products
-- [ ] Implement footer menu content
+- [x] Implement first paragraph for all products
+- [ ] Implement summary field for all products
+- [x] Implement footer menu content
+- [x] Add faceted search/filters to PLP

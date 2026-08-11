@@ -1,5 +1,5 @@
 import { Suspense } from "react";
-import { getAllProducts, getAllCollections } from "@/lib/shopify";
+import { getAllProducts } from "@/lib/shopify";
 import type { ShopifyProduct } from "@/lib/shopify/types";
 import { ShopContent } from "./ShopContent";
 import { Reveal } from "@/components/Reveal";
@@ -12,16 +12,10 @@ export const metadata = {
     "Browse our collection of research grade peptides — 99% purity, third-party verified, batch transparency.",
 };
 
-type Collection = { id: string; title: string; handle: string };
-
 export default async function ShopPage() {
   let products: ShopifyProduct[] = [];
-  let collections: Collection[] = [];
   try {
-    [products, collections] = await Promise.all([
-      getAllProducts(50),
-      getAllCollections(20),
-    ]);
+    products = await getAllProducts(50);
   } catch {
     // Shopify not configured yet
   }
@@ -60,7 +54,7 @@ export default async function ShopPage() {
             </div>
           }
         >
-          <ShopContent products={productsWithDescriptions} collections={collections} />
+          <ShopContent products={productsWithDescriptions} />
         </Suspense>
       </div>
     </div>
