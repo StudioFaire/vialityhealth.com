@@ -1,3 +1,4 @@
+import { GoogleTagManager } from "@next/third-parties/google";
 import type { Metadata } from "next";
 import Script from "next/script";
 import { Inter } from "next/font/google";
@@ -82,26 +83,14 @@ export default async function RootLayout({
     menu?.items.map(({ title, url }) => ({ title, url })) ?? [];
   const freeShipping = await getFreeShippingConfig();
   const freeShippingThreshold = freeShipping?.threshold ?? undefined;
-  const gaMeasurementId = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID;
   return (
     <html lang="en" className={[iosevkaCharon.variable, inter.variable].filter(Boolean).join(" ")}>
+      <head>
+        {process.env.NEXT_PUBLIC_GOOGLE_TAG_MANAGER_ID && (
+          <GoogleTagManager gtmId={process.env.NEXT_PUBLIC_GOOGLE_TAG_MANAGER_ID} />
+        )}
+      </head>
       <body className="group/body min-h-screen flex flex-col">
-        <Script id="consent-mode" strategy="beforeInteractive">
-          {`window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('consent','default',{ad_storage:'denied',ad_user_data:'denied',ad_personalization:'denied',analytics_storage:'denied',personalization_storage:'denied',functionality_storage:'granted',security_storage:'granted',wait_for_update:500});`}
-        </Script>
-        {gaMeasurementId ? (
-          <>
-            <script
-              async
-              src={`https://www.googletagmanager.com/gtag/js?id=${gaMeasurementId}`}
-            />
-            <script
-              dangerouslySetInnerHTML={{
-                __html: `window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','${gaMeasurementId}');`,
-              }}
-            />
-          </>
-        ) : null}
         <CookieConsentManager />
         <CartProvider>
           {freeShipping?.text ? <AnnouncementBar text={freeShipping.text} /> : null}

@@ -1,8 +1,9 @@
+- [ ] Integrate dataLayer events
+- [ ] Add consent manager
 - [ ] Add policies
 - [ ] Set SEO metadata without placeholders
 - [ ] Sign up for a plan
 - [ ] Review the site content and design with Ivy
-- [ ] Add consent manager
 - [ ] Replace vialityhealth@gmail.com
 - [ ] Setup hello@vialityhealth.com
 - [ ] Check Klaviyo signup works
