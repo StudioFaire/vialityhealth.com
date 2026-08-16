@@ -1,19 +1,18 @@
 - [ ] Add policies
-- [ ] Sign up for a plan
-- [ ] Set up ABN
-- [ ] Review the site content and design with Ivy
-- [ ] Reduce Navbar logo height
-- [ ] Add SVG logo to home hero
-- [ ] Set home hero text to lowercase
 - [ ] Check Klaviyo signup works
 - [ ] Create Klaviyo email templates
 - [ ] Create Klaviyo email campaigns
-- [ ] Discuss Resend and Klaviyo with Ivy
 - [ ] Replace vialityhealth@gmail.com
 - [ ] Setup hello@vialityhealth.com
-- [ ] Set up shipping rules
-- [ ] Add consent manager
 - [ ] Set SEO metadata without placeholders
+- [ ] Sign up for a plan
+- [ ] Review the site content and design with Ivy
+- [ ] Add consent manager
+- [x] Set up ABN
+- [x] Reduce Navbar logo height
+- [x] Add SVG logo to home hero
+- [x] Set up shipping rules
+- [x] Set home hero text to lowercase
 - [x] Check the order of products is the same as the Shopify backend
 - [x] Implement summary field data for all products
 - [x] Add favicon

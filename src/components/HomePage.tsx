@@ -299,7 +299,7 @@ export function HomePage({ featuredProducts }: { featuredProducts: ShopifyProduc
 
 
       {/* ── Newsletter ────────────────────────────────────── */}
-      <section className="bg-primary text-primary-foreground py-16 px-6 text-center">
+      {/* <section className="bg-primary text-primary-foreground py-16 px-6 text-center">
         <div className="max-w-2xl mx-auto flex flex-col items-center">
           <motion.h2
             initial={{ opacity: 0, y: 16 }}
@@ -317,7 +317,7 @@ export function HomePage({ featuredProducts }: { featuredProducts: ShopifyProduc
             transition={{ delay: 0.25, duration: 0.8 }}
             className="uppercase text-primary-foreground/65 mb-10 text-sm max-w-sm text-balance leading-relaxed"
           >
-            the latest in peptides, biohacking, longevity and human optimization
+            the latest in peptides, longevity and human optimization
           </motion.p>
           <form action={newsletterAction} className="w-full flex flex-col sm:flex-row gap-4 max-w-md">
             <input
@@ -341,7 +341,7 @@ export function HomePage({ featuredProducts }: { featuredProducts: ShopifyProduc
             </p>
           )}
         </div>
-      </section>
+      </section> */}
 
       {/* ── Philosophy ────────────────────────────────────── */}
       <section className="py-36 px-6 bg-background">
