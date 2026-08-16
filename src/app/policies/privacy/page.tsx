@@ -14,7 +14,7 @@ export default async function PrivacyPolicyPage() {
   const bodyHtml = policy
     ? resolveLiquidVariables(policy.body, {
       shop_name: "Mossé",
-      email: "hello@vialityhealth.com",
+      email: "vialityhealth@gmail.com",
       phone: "",
       address: "",
       last_updated: "July 2026",

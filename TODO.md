@@ -1,13 +1,13 @@
 - [ ] Add policies
-- [ ] Check Klaviyo signup works
-- [ ] Create Klaviyo email templates
-- [ ] Create Klaviyo email campaigns
-- [ ] Replace vialityhealth@gmail.com
-- [ ] Setup hello@vialityhealth.com
 - [ ] Set SEO metadata without placeholders
 - [ ] Sign up for a plan
 - [ ] Review the site content and design with Ivy
 - [ ] Add consent manager
+- [ ] Replace vialityhealth@gmail.com
+- [ ] Setup hello@vialityhealth.com
+- [ ] Check Klaviyo signup works
+- [ ] Create Klaviyo email templates
+- [ ] Create Klaviyo email campaigns
 - [x] Set up ABN
 - [x] Reduce Navbar logo height
 - [x] Add SVG logo to home hero
