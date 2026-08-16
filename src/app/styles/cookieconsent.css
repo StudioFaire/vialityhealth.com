@@ -1,0 +1,63 @@
+/* CookieConsent (orestbida) theme — matches the site's warm light palette.
+   Palette values mirror the tokens in src/app/styles/layout.css. */
+
+#cc-main {
+  --cc-font-family: var(--font-sans), Inter, ui-sans-serif, system-ui, sans-serif;
+  --cc-modal-border-radius: 0.75rem;
+  --cc-btn-border-radius: 0.5rem;
+  --cc-modal-margin: 1rem;
+  --cc-z-index: 2147483647;
+
+  --cc-bg: hsl(40 25% 98%); /* --color-card */
+  --cc-primary-color: hsl(220 15% 18%); /* --color-foreground */
+  --cc-secondary-color: hsl(220 10% 50%); /* --color-muted-foreground */
+
+  --cc-btn-primary-bg: hsl(220 15% 18%); /* --color-primary */
+  --cc-btn-primary-color: hsl(40 30% 96%); /* --color-primary-foreground */
+  --cc-btn-primary-border-color: hsl(220 15% 18%);
+  --cc-btn-primary-hover-bg: hsl(43 40% 78%); /* --color-accent */
+  --cc-btn-primary-hover-color: hsl(220 15% 18%); /* --color-accent-foreground */
+  --cc-btn-primary-hover-border-color: hsl(43 40% 78%);
+
+  --cc-btn-secondary-bg: hsl(40 20% 90%); /* --color-secondary */
+  --cc-btn-secondary-color: hsl(220 15% 25%); /* --color-secondary-foreground */
+  --cc-btn-secondary-border-color: hsl(40 20% 90%);
+  --cc-btn-secondary-hover-bg: hsl(40 15% 92%); /* --color-muted */
+  --cc-btn-secondary-hover-color: hsl(220 15% 18%);
+  --cc-btn-secondary-hover-border-color: hsl(40 15% 92%);
+
+  --cc-separator-border-color: hsl(40 20% 88%); /* --color-border */
+
+  --cc-toggle-on-bg: hsl(220 15% 18%);
+  --cc-toggle-off-bg: hsl(220 10% 50%);
+  --cc-toggle-on-knob-bg: hsl(40 30% 96%);
+  --cc-toggle-off-knob-bg: hsl(40 30% 96%);
+  --cc-toggle-enabled-icon-color: hsl(40 30% 96%);
+  --cc-toggle-disabled-icon-color: hsl(40 30% 96%);
+  --cc-toggle-readonly-bg: hsl(40 15% 92%);
+  --cc-toggle-readonly-knob-bg: hsl(40 25% 98%);
+  --cc-toggle-readonly-knob-icon-color: hsl(40 15% 92%);
+
+  --cc-section-category-border: hsl(40 20% 88%);
+  --cc-cookie-category-block-bg: hsl(40 15% 92%); /* --color-muted */
+  --cc-cookie-category-block-border: hsl(40 20% 88%);
+  --cc-cookie-category-block-hover-bg: hsl(40 20% 90%);
+  --cc-cookie-category-block-hover-border: hsl(40 20% 88%);
+  --cc-cookie-category-expanded-block-bg: transparent;
+  --cc-cookie-category-expanded-block-hover-bg: hsl(40 20% 90%);
+
+  --cc-overlay-bg: rgba(30, 24, 18, 0.45);
+
+  --cc-footer-bg: hsl(40 15% 92%);
+  --cc-footer-color: hsl(220 10% 50%);
+  --cc-footer-border-color: hsl(40 20% 88%);
+
+  --cc-link-color: hsl(220 15% 18%);
+}
+
+#cc-main .cm__title,
+#cc-main .pm__title {
+  font-family: var(--font-serif), Georgia, serif;
+  font-weight: 400;
+  letter-spacing: -0.01em;
+}
