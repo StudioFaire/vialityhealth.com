@@ -312,54 +312,6 @@ export function HomePage({ featuredProducts }: { featuredProducts: ShopifyProduc
           )}
         </div>
       </section> */}
-
-      {/* ── Philosophy ────────────────────────────────────── */}
-      <section className="py-36 px-6 bg-background">
-        <div className="max-w-4xl mx-auto text-center">
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-80px" }}
-            transition={{ duration: 0.9 }}
-            className="font-serif uppercase font-light text-2xl md:text-4xl leading-relaxed text-primary/90"
-          >
-            where science and discipline meet and neither is allowed to
-            compromise the other.
-          </motion.p>
-          <motion.div
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.3, duration: 0.8 }}
-            className="mt-12"
-          >
-            <Link
-              href="/about"
-              className="inline-block border-b border-primary/30 pb-1 text-xs uppercase tracking-widest hover:border-primary transition-colors"
-            >
-              Our Philosophy
-            </Link>
-          </motion.div>
-        </div>
-      </section>
-
-      {/* ── Shipping Info ────────────────────────────────── */}
-      <section className="py-16 px-6 bg-surface-section border-t border-border/30">
-        <div className="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-3 gap-8 text-center">
-          {[
-            { label: "Complimentary Shipping", detail: "On all orders over $200" },
-            { label: "Batch Verified", detail: "Third-party COA available for every formulation" },
-            { label: "Research Use Only", detail: "Not for human or animal consumption" },
-          ].map((item) => (
-            <div key={item.label} className="flex flex-col gap-2">
-              <p className="text-xs uppercase tracking-widest font-semibold">
-                {item.label}
-              </p>
-              <p className="text-xs text-primary/50">{item.detail}</p>
-            </div>
-          ))}
-        </div>
-      </section>
     </>
   );
 }
