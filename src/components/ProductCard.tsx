@@ -70,7 +70,7 @@ export function ProductCard({ product, description, mainImageUrl }: { product: S
 
   return (
     <Link href={`/product/${product.handle}`}>
-      <div className="group cursor-pointer flex flex-col h-full bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-all duration-300 transform hover:-translate-y-1">
+      <article className="group cursor-pointer flex flex-col h-full bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-all duration-300 transform hover:-translate-y-1">
         {/* Image Container */}
         <div className="relative aspect-5/8 bg-muted overflow-hidden">
           {productType && <div className="absolute top-3 left-3 z-10 px-3 py-1 bg-white/90 backdrop-blur text-primary text-[10px] uppercase tracking-widest font-semibold rounded-full shadow-sm">
@@ -88,10 +88,29 @@ export function ProductCard({ product, description, mainImageUrl }: { product: S
         </div>
 
         {/* Content */}
-        <div className="p-5 flex flex-col flex-1">
-          <h3 className="font-serif text-lg text-primary mb-1 uppercase">
-            {product.title}
-          </h3>
+        <div className="p-5 pb-1 flex flex-col flex-1">
+          <header className="flex flex-row gap-4 justify-between mb-4">
+            <h3 className="font-serif text-lg text-primary mb-1 uppercase">
+              {product.title}
+            </h3>
+            <div className="flex items-center gap-2">
+              <span className="font-medium text-primary">
+                {formatPrice(
+                  product.priceRange.minVariantPrice.amount,
+                  product.priceRange.minVariantPrice.currencyCode
+                )}
+              </span>
+              {hasComparePrice && (
+                <span className="text-sm text-foreground/50 line-through">
+                  {formatPrice(
+                    product.compareAtPriceRange.minVariantPrice.amount,
+                    product.compareAtPriceRange.minVariantPrice.currencyCode
+                  )}
+                </span>
+              )}
+            </div>
+          </header>
+
           <p className="text-sm text-foreground/70 mb-4 flex-1">
             {getFirstParagraph(
               summaryText ||
@@ -101,7 +120,7 @@ export function ProductCard({ product, description, mainImageUrl }: { product: S
             )}
           </p>
 
-          <div className="flex items-center justify-between mt-auto pt-4 border-t border-border/40">
+          {/* <footer className="flex items-center justify-between mt-auto pt-4 border-t border-border/40">
             <div className="flex items-center gap-2">
               <span className="font-medium text-primary">
                 {formatPrice(
@@ -125,9 +144,9 @@ export function ProductCard({ product, description, mainImageUrl }: { product: S
             >
               {isAdding ? "Added ✓" : "Add"}
             </button>
-          </div>
+          </footer> */}
         </div>
-      </div>
+      </article>
     </Link>
   );
 }
