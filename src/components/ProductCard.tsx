@@ -70,9 +70,9 @@ export function ProductCard({ product, description, mainImageUrl }: { product: S
 
   return (
     <Link href={`/product/${product.handle}`}>
-      <article className="group cursor-pointer flex flex-col h-full bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-all duration-300 transform hover:-translate-y-1">
+      <article className="group cursor-pointer flex flex-col h-full overflow-hidden">
         {/* Image Container */}
-        <div className="relative aspect-5/8 bg-muted overflow-hidden">
+        <div className="relative aspect-5/8 bg-muted overflow-hidden mb-4">
           {productType && <div className="absolute top-3 left-3 z-10 px-3 py-1 bg-white/90 backdrop-blur text-primary text-[10px] uppercase tracking-widest font-semibold rounded-full shadow-sm">
             {productType}
           </div>}
@@ -88,13 +88,13 @@ export function ProductCard({ product, description, mainImageUrl }: { product: S
         </div>
 
         {/* Content */}
-        <div className="p-5 pb-1 flex flex-col flex-1">
+        <div className="flex flex-col flex-1">
           <header className="flex flex-row gap-4 justify-between mb-4">
-            <h3 className="font-serif text-lg text-primary mb-1 uppercase">
+            <h3 className="font-serif text-primary mb-1 uppercase text-2xl">
               {product.title}
             </h3>
-            <div className="flex items-center gap-2">
-              <span className="font-medium text-primary">
+            <div className="flex items-center gap-2 text-lg">
+              <span className="text-primary">
                 {formatPrice(
                   product.priceRange.minVariantPrice.amount,
                   product.priceRange.minVariantPrice.currencyCode
