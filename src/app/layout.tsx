@@ -78,9 +78,8 @@ export default async function RootLayout({
     followUsMenu?.items.map((item) => item.url).filter(Boolean) ?? [];
   const shopMenu = await getMenu("shop-viality");
   const companyMenu = await getMenu("company-viality");
-  const policiesMenu = await getMenu("policies-viality");
-  const menuItems = (menu: ShopifyMenu | null) =>
-    menu?.items.map(({ title, url }) => ({ title, url })) ?? [];
+  const legalMenu = await getMenu("legal-viality");
+  const supportMenu = await getMenu("support-viality");
   const freeShipping = await getFreeShippingConfig();
   const freeShippingThreshold = freeShipping?.threshold ?? undefined;;
   return (
@@ -104,9 +103,10 @@ export default async function RootLayout({
           <main className="flex-1">{children}</main>
           <Footer
             followUsUrls={followUsUrls}
-            shopItems={menuItems(shopMenu)}
-            companyItems={menuItems(companyMenu)}
-            policiesItems={menuItems(policiesMenu)}
+            shopMenu={shopMenu}
+            companyMenu={companyMenu}
+            legalMenu={legalMenu}
+            supportMenu={supportMenu}
           />
         </CartProvider>
       </body>

@@ -335,7 +335,7 @@ export function AboutPageClient() {
                 transition={{ duration: 0.8, delay: 0.3 }}
               >
                 <Link
-                  href="/certificate-of-analysis"
+                  href="/lab-reports"
                   className="inline-block mt-2 text-xs uppercase tracking-widest border-b border-primary/30 pb-0.5 hover:border-primary transition-colors"
                 >
                   Request Certificate of Analysis

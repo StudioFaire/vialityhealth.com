@@ -231,7 +231,7 @@ export function resolveLiquidVariables(
   result = result.replace(LIQUID_IF_RE, "");
   result = result.replace(LIQUID_VAR_RE, (_, key: string) => vars[key] ?? "");
   result = result.replaceAll("Mossé", "Viality");
-  result = result.replaceAll("vialityhealth.com", "vialityhealth.com");
+  result = result.replaceAll("mossewellness.com", "vialityhealth.com");
   return result;
 }
 

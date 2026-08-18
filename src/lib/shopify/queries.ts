@@ -306,6 +306,7 @@ export const GetMenuQuery = /* GraphQL */ `
   query GetMenu($handle: String!) {
     menu(handle: $handle) {
       id
+      title
       items {
         id
         title

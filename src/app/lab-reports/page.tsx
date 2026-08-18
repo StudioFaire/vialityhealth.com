@@ -2,7 +2,7 @@ import Image from "next/image";
 import { Reveal } from "@/components/Reveal";
 
 export const metadata = {
-  title: "Certificate of Analysis",
+  title: "Lab Reports",
   description:
     "Certificates of Analysis (COAs) are available upon request for eligible products and batches at Viality.",
 };

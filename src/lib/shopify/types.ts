@@ -177,6 +177,7 @@ export type ShopifyMenuItem = {
 
 export type ShopifyMenu = {
   id: string;
+  title: string;
   items: ShopifyMenuItem[];
 };
 
