@@ -91,7 +91,7 @@ export function HomePage({ featuredProducts }: { featuredProducts: ShopifyProduc
             animate={{ opacity: 1 }}
             transition={{ duration: 1.4, ease: "easeOut" }}
           >
-            99% Purity. Research Grade Peptides.
+            Research Grade Peptides.  Verified by data.
           </motion.p>
 
           <motion.h1
@@ -115,7 +115,7 @@ export function HomePage({ featuredProducts }: { featuredProducts: ShopifyProduc
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.55, duration: 1, ease: "easeOut" }}
           >
-            Where science meets performance
+            99% purity.  Third-party tested.  Bath verified.
           </motion.p>
 
           <motion.div
@@ -186,7 +186,7 @@ export function HomePage({ featuredProducts }: { featuredProducts: ShopifyProduc
                     className="group cursor-pointer"
                   >
                     <Link href={`/product/${product.handle}`}>
-                      <div className="aspect-3-4 mb-6 bg-surface-placeholder relative overflow-hidden flex items-center justify-center">
+                      <div className="aspect-3-4 mb-4 bg-surface-placeholder relative overflow-hidden flex items-center justify-center">
                         {image ? (
                           <Image
                             src={image.url}
@@ -202,11 +202,11 @@ export function HomePage({ featuredProducts }: { featuredProducts: ShopifyProduc
                         )}
                       </div>
                       <div className="flex flex-col gap-2">
-                        <div className="flex justify-between items-center">
-                          <h3 className="uppercase tracking-widest text-xs font-medium">
+                        <div className="flex justify-between items-center text-xl">
+                          <h3 className="uppercase tracking-widest font-medium">
                             {product.title}
                           </h3>
-                          <span className="text-sm font-light">
+                          <span className="font-light">
                             {formatPrice(product.priceRange.minVariantPrice)}
                           </span>
                         </div>
