@@ -6,7 +6,7 @@ import Image from "next/image";
 import { motion } from "framer-motion";
 import { GrainOverlay } from "@/components/GrainOverlay";
 import type { ShopifyProduct } from "@/lib/shopify/types";
-import { getProductImage, formatPrice } from "@/lib/shopify/types";
+import { ProductCard } from "@/components/ProductCard";
 import { subscribeToNewsletter } from "@/app/actions/newsletter";
 
 function VideoPanel({ src }: { src: string }) {
@@ -174,47 +174,17 @@ export function HomePage({ featuredProducts }: { featuredProducts: ShopifyProduc
 
           {featuredProducts.length > 0 ? (
             <div className="grid grid-cols-2 md:grid-cols-3 gap-8">
-              {featuredProducts.map((product, i) => {
-                const image = getProductImage(product);
-                return (
-                  <motion.article
-                    key={product.id}
-                    initial={{ opacity: 0, y: 30 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true, margin: "-50px" }}
-                    transition={{ duration: 0.6, delay: i * 0.1 }}
-                    className="group cursor-pointer"
-                  >
-                    <Link href={`/product/${product.handle}`}>
-                      <div className="aspect-3-4 mb-4 bg-surface-placeholder relative overflow-hidden flex items-center justify-center">
-                        {image ? (
-                          <Image
-                            src={image.url}
-                            alt={image.altText || product.title}
-                            fill
-                            className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
-                            sizes="(max-width: 768px) 50vw, 33vw"
-                          />
-                        ) : (
-                          <div className="text-primary/20 font-serif uppercase font-light text-6xl tracking-wider">
-                            v
-                          </div>
-                        )}
-                      </div>
-                      <div className="flex flex-col gap-2">
-                        <div className="flex justify-between items-center text-xl">
-                          <h3 className="uppercase tracking-widest font-medium">
-                            {product.title}
-                          </h3>
-                          <span className="font-light">
-                            {formatPrice(product.priceRange.minVariantPrice)}
-                          </span>
-                        </div>
-                      </div>
-                    </Link>
-                  </motion.article>
-                );
-              })}
+              {featuredProducts.map((product, i) => (
+                <motion.div
+                  key={product.id}
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, margin: "-50px" }}
+                  transition={{ duration: 0.6, delay: i * 0.1 }}
+                >
+                  <ProductCard product={product} />
+                </motion.div>
+              ))}
             </div>
           ) : (
             <div className="text-center py-12">
