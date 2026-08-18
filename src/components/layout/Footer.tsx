@@ -1,6 +1,7 @@
 "use client";
 
 import { useActionState } from "react";
+import Image from "next/image";
 import Link from "next/link";
 import { subscribeToNewsletter } from "@/app/actions/newsletter";
 import { SocialMenu } from "@/components/SocialMenu";
@@ -17,7 +18,7 @@ export function Footer({
   shopItems?: MenuItem[];
   companyItems?: MenuItem[];
   policiesItems?: MenuItem[];
- }) {
+}) {
   const [state, formAction, isPending] = useActionState(subscribeToNewsletter, {
     success: false,
     message: "",
@@ -30,14 +31,20 @@ export function Footer({
           {/* Brand Column */}
           <div className="lg:col-span-6">
             <Link
+              className="relative block h-16 w-40 mb-4"
               href="/"
-              className="font-serif text-4xl mb-4 inline-block"
             >
-              Viality
+              <Image
+                className="invert object-contain"
+                src="/images/logotype.svg"
+                alt="Viality logo"
+                fill
+                sizes="(max-width: 768px) 50vw, 20vw"
+              />
             </Link>
-            <p className="text-primary-foreground/80 max-w-sm text-sm leading-relaxed mb-6">
+            {/* <p className="text-primary-foreground/80 max-w-sm text-sm leading-relaxed mb-6">
               We operate with complete openness. Every claim we make is verifiable. Every detail disclosed, every claim supported by evidence.
-            </p>
+            </p> */}
 
             <br />
 
