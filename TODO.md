@@ -1,4 +1,4 @@
-- [ ] Update FAQs from email
+- [x] Update FAQs from email
 - [ ] Sign up for a plan
 - [ ] Replace hero logo on mobile viewport
 - [ ] Integrate dataLayer events
@@ -9,7 +9,7 @@
 - [ ] Create Klaviyo email templates
 - [ ] Create Klaviyo email campaigns
 - [ ] Review the site content and design with Ivy
-- [x] Replace hello@vialityhealth.com
+- [x] Replace vialityhealth@gmail.com with hello@vialityhealth.com
 - [x] Setup hello@vialityhealth.com
 - [x] Add consent manager
 - [x] Set up ABN

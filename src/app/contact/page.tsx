@@ -8,33 +8,43 @@ import { sendContactMessage } from "@/app/actions/contact";
 const faqs = [
   {
     id: "1",
-    q: "Where is my order?",
-    a: "Once your order has shipped, you will receive a confirmation email with tracking information. You can use this to monitor your delivery in real time.",
+    q: "How long does delivery take?",
+    a: "Most orders are delivered within approximately 4–5 business days after dispatch, depending on your location and the postal network. Regional and remote locations may require additional delivery time.",
   },
   {
     id: "2",
-    q: "How long does shipping take?",
-    a: "Standard shipping takes 3-5 business days. Express shipping takes 1-2 business days. International orders typically arrive within 7-14 business days.",
+    q: "Will I receive tracking information?",
+    a: "Yes. Once your order has been dispatched, tracking information will be sent to the email address provided at checkout. Please allow some time for tracking information to become active after your parcel has been processed by the carrier.",
   },
   {
     id: "3",
-    q: "What is your returns policy?",
-    a: "We offer a 30-day money-back guarantee. If you are not completely satisfied, contact our team and we will arrange a return or exchange.",
+    q: "Can I change or cancel my order?",
+    a: "If you need to change or cancel an order, contact us as soon as possible. Once an order has entered fulfilment or has been dispatched, we may no longer be able to modify or cancel it.",
   },
   {
     id: "4",
-    q: "Does Viality Health supply research peptides in Australia?",
-    a: "We currently ship to select international destinations. Please contact us directly to confirm availability for your region.",
+    q: "Do you accept returns?",
+    a: "Due to the nature of our products and the importance of maintaining product integrity, we generally cannot accept returns once an order has been delivered. If there is an issue with your order, please contact us as soon as possible so our team can review the circumstances.",
   },
   {
     id: "5",
-    q: "Are your products for human use?",
-    a: "No. All Viality products are intended strictly for laboratory and research purposes. They are not for human or animal consumption.",
+    q: "What if my order arrives damaged?",
+    a: "If your order arrives damaged, contact us promptly and provide your order number, photographs of the external packaging, photographs of the affected product, and a description of the issue. Our team will assess the situation and determine the appropriate resolution.",
   },
   {
     id: "6",
-    q: "How should I store my peptides?",
-    a: "Store in a cool, dry place away from direct sunlight. For reconstituted peptides, refrigerate and use within 30 days. Lyophilized peptides can be stored frozen for longer shelf life.",
+    q: "Are your products third-party tested?",
+    a: "Where specified, products are independently tested to verify identity and/or purity. Testing information may vary by product and batch.",
+  },
+  {
+    id: "7",
+    q: "How should products be stored?",
+    a: "Storage requirements can vary depending on the specific compound and format. Always refer to the storage information provided with the product or on the relevant product page. Products should generally be kept securely stored, protected from unnecessary exposure to heat, moisture and direct sunlight, and handled using appropriate laboratory practices.",
+  },
+  {
+    id: "8",
+    q: "Are Viality Health research peptides intended for human consumption?",
+    a: "No. Products identified as research compounds are supplied strictly for laboratory and research purposes only and are not intended for human or veterinary consumption. They are not supplied for therapeutic, diagnostic or medicinal use.",
   },
 ];
 
