@@ -51,10 +51,10 @@ export function PolicyPageLayout({
               This policy is currently being updated. If you have any questions, please
               contact us at{" "}
               <a
-                href="mailto:vialityhealth@gmail.com"
+                href="mailto:hello@vialityhealth.com"
                 className="text-primary underline hover:text-secondary transition-colors"
               >
-                vialityhealth@gmail.com
+                hello@vialityhealth.com
               </a>
               .
             </p>

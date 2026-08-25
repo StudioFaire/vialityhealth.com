@@ -245,10 +245,10 @@ export default function ContactPage() {
                     Email
                   </h4>
                   <a
-                    href="mailto:vialityhealth@gmail.com"
+                    href="mailto:hello@vialityhealth.com"
                     className="text-lg text-primary hover:text-secondary transition-colors"
                   >
-                    vialityhealth@gmail.com
+                    hello@vialityhealth.com
                   </a>
                 </div>
 
@@ -257,10 +257,10 @@ export default function ContactPage() {
                     Press Inquiries
                   </h4>
                   <a
-                    href="mailto:vialityhealth@gmail.com"
+                    href="mailto:hello@vialityhealth.com"
                     className="text-primary hover:text-secondary transition-colors"
                   >
-                    vialityhealth@gmail.com
+                    hello@vialityhealth.com
                   </a>
                 </div>
               </div>
@@ -275,7 +275,7 @@ export default function ContactPage() {
                 research facility, or wellness center?
               </p>
               <a
-                href="mailto:vialityhealth@gmail.com"
+                href="mailto:hello@vialityhealth.com"
                 className="inline-flex font-medium text-primary hover:text-secondary transition-colors text-sm uppercase tracking-widest"
               >
                 Apply for Wholesale &rarr;

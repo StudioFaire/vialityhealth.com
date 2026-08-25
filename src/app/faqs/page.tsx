@@ -27,7 +27,7 @@ const faqs = [
   },
   {
     q: "I didn't receive my order confirmation. What do I do?",
-    a: "Please check your spam or junk folder. If you still cannot find it, contact us at vialityhealth@gmail.com with your order details and we will resend it.",
+    a: "Please check your spam or junk folder. If you still cannot find it, contact us at hello@vialityhealth.com with your order details and we will resend it.",
   },
   {
     q: "Can I update my shipping address after ordering?",

@@ -46,10 +46,10 @@ export default function CertificateOfAnalysisPage() {
                 <br />
                 To request a COA, please contact our team at{" "}
                 <a
-                  href="mailto:vialityhealth@gmail.com"
+                  href="mailto:hello@vialityhealth.com"
                   className="underline hover:text-primary transition-colors"
                 >
-                  vialityhealth@gmail.com
+                  hello@vialityhealth.com
                 </a>{" "}
                 with the product name and batch number.
               </p>
@@ -94,7 +94,7 @@ export default function CertificateOfAnalysisPage() {
 
             <Reveal delay={0.3}>
               <a
-                href="mailto:vialityhealth@gmail.com?subject=COA%20Request"
+                href="mailto:hello@vialityhealth.com?subject=COA%20Request"
                 className="inline-block text-xs uppercase tracking-widest border-b border-primary/30 pb-0.5 hover:border-primary transition-colors"
               >
                 Request a COA

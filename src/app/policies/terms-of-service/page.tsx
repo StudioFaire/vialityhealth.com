@@ -14,7 +14,7 @@ export default async function TermsOfServicePage() {
   const bodyHtml = policy
     ? resolveLiquidVariables(policy.body, {
       shop_name: "Mossé",
-      email: "vialityhealth@gmail.com",
+      email: "hello@vialityhealth.com",
     })
     : undefined;
 
