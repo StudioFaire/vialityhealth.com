@@ -3,7 +3,7 @@ import Link from "next/link";
 import type { Metadata } from "next";
 import { getProductByHandle, getAllProducts } from "@/lib/shopify";
 import { ProductPageClient } from "./ProductPageClient";
-import { resolveProductDescription, resolveProductDescriptionText } from "@/lib/shopify/description";
+import { resolveProductDescription, resolveProductDescriptionText, resolveProductMetaTitle, resolveProductMetaDescription } from "@/lib/shopify/description";
 import { resolveProductMainImageUrl } from "@/lib/shopify/image";
 import { getFreeShippingConfig } from "@/lib/shopify/discount";
 
@@ -17,13 +17,15 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   if (!product) return { title: "Product Not Found" };
 
   const image = product.images.edges[0]?.node;
+  const metaTitle = resolveProductMetaTitle(product);
+  const metaDescription = resolveProductMetaDescription(product);
 
   return {
-    title: product.title,
-    description: product.description.slice(0, 160),
+    title: metaTitle,
+    description: metaDescription,
     openGraph: {
-      title: product.title,
-      description: product.description.slice(0, 160),
+      title: metaTitle,
+      description: metaDescription,
       images: image ? [{ url: image.url, width: image.width, height: image.height }] : [],
     },
   };

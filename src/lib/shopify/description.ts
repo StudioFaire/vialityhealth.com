@@ -46,3 +46,13 @@ export function getFirstParagraph(text: string): string {
 export function resolveProductDescriptionText(product: ShopifyProduct): string {
   return getFirstParagraph(resolveProductDescription(product));
 }
+
+export function resolveProductMetaTitle(product: ShopifyProduct): string {
+  const shortName = product.short_name ? decryptAndReverse(product.short_name) : "";
+  return shortName || product.title;
+}
+
+export function resolveProductMetaDescription(product: ShopifyProduct): string {
+  const resolved = resolveProductDescriptionText(product);
+  return resolved.length > 160 ? resolved.slice(0, 157) + "..." : resolved;
+}
