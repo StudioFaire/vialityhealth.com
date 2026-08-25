@@ -270,7 +270,7 @@ export default function ContactPage() {
                     href="mailto:hello@vialityhealth.com"
                     className="text-primary hover:text-secondary transition-colors"
                   >
-                    hello@vialityhealth.com
+                    press@vialityhealth.com
                   </a>
                 </div>
               </div>
