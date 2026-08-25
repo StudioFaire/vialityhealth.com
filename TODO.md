@@ -1,14 +1,16 @@
+- [ ] Update FAQs from email
+- [ ] Sign up for a plan
+- [ ] Replace hero logo on mobile viewport
 - [ ] Integrate dataLayer events
 - [ ] Add policies
 - [ ] Update `/policies/contact-information`
 - [ ] Set SEO metadata without placeholders
-- [ ] Sign up for a plan
-- [ ] Review the site content and design with Ivy
-- [ ] Replace vialityhealth@gmail.com
-- [ ] Setup hello@vialityhealth.com
 - [ ] Check Klaviyo signup works
 - [ ] Create Klaviyo email templates
 - [ ] Create Klaviyo email campaigns
+- [ ] Review the site content and design with Ivy
+- [x] Replace hello@vialityhealth.com
+- [x] Setup hello@vialityhealth.com
 - [x] Add consent manager
 - [x] Set up ABN
 - [x] Reduce Navbar logo height
