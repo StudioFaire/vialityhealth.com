@@ -265,81 +265,6 @@ export function ProductPageClient({ product, description, relatedProducts, mainI
         </div>
       </section>
 
-      {/* Why Section */}
-      <section className="bg-surface-warm py-24 md:py-32 px-6 md:px-16">
-        <div className="mx-auto grid grid-cols-1 md:grid-cols-2 gap-16 md:gap-24 items-center justify-center">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-60px" }}
-            transition={{ duration: 0.9 }}
-            className="w-fit"
-          >
-            <p className="text-xs uppercase tracking-widest text-primary/35 mb-6">Why {product.title}</p>
-            <h2 className="font-serif uppercase font-light text-4xl md:text-5xl text-primary leading-tight">
-              A quieter standard of vitality.
-            </h2>
-          </motion.div>
-          <div className="space-y-8">
-            {[
-              {
-                title: "Designed for consistency",
-                body: "Where science meets ritual. Built to be taken daily, over time - not as an experiment, but as a permanent part of how you care for yourself.",
-              },
-              {
-                title: "Modern rituals for internal balance",
-                body: "No complicated protocol. Designed to integrate into your morning with the same quiet ease as any other considered habit.",
-              },
-              {
-                title: "Calm, sustained clarity",
-                body: "Selected to support mental steadiness without stimulants - the kind of clarity that comes from giving your body what it actually needs.",
-              },
-              {
-                title: "A quieter standard",
-                body: "No aggressive claims. No overcrowded formula. Every ingredient earns its place through evidence, and its dose is disclosed without exception.",
-              },
-            ].map((b, i) => (
-              <motion.div
-                key={i}
-                initial={{ opacity: 0, x: 16 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true, margin: "-30px" }}
-                transition={{ duration: 0.65, delay: i * 0.08 }}
-                className="border-l-2 border-accent/50 pl-5"
-              >
-                <h3 className="text-xs uppercase tracking-widest font-semibold mb-1.5">{b.title}</h3>
-                <p className="text-sm text-primary/55 font-light leading-[1.8]">
-                  {b.body}
-                </p>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Usage Ritual Section */}
-      <section className="bg-background py-20 md:py-28 px-6 md:px-16 border-t border-border/30">
-        <div className="mx-auto grid grid-cols-1 md:grid-cols-[200px_1fr] gap-10 md:gap-20 items-start">
-          <p className="text-xs uppercase tracking-widest text-primary/35 md:pt-1">Usage Ritual</p>
-          <motion.div
-            initial={{ opacity: 0, y: 14 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8 }}
-          >
-            <h2 className="font-serif uppercase font-light text-3xl md:text-4xl text-primary mb-6">
-              Unhurried. Intentional. Daily.
-            </h2>
-            <p className="text-primary/60 text-sm font-light leading-[1.9] max-w-lg mb-4">
-              Two capsules each morning with water, ideally alongside a meal. The ritual is simple by design - consistency is where the value accumulates. We recommend a minimum 30-day commitment before forming any assessment.
-            </p>
-            <p className="text-xs text-primary/40 font-light italic">
-              Take as directed on packaging. Consult a qualified healthcare professional before beginning any new supplement routine, particularly if pregnant, nursing, or under medical supervision.
-            </p>
-          </motion.div>
-        </div>
-      </section>
-
       {/* Verification Section */}
       <section className="bg-ink py-20 md:py-24 px-6 md:px-16 relative overflow-hidden">
         <div className="absolute inset-0 pointer-events-none opacity-[0.04]" style={{ backgroundImage: "url(\"data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E\")", backgroundRepeat: "repeat", backgroundSize: "128px", mixBlendMode: "screen" }} />
@@ -356,7 +281,7 @@ export function ProductPageClient({ product, description, relatedProducts, mainI
               <span><br />batch by batch.</span>
             </h2>
             <p className="text-primary-foreground/40 text-sm font-light leading-relaxed mt-4 max-w-sm">
-              Certificates of Analysis are available for every production run. We don't ask you to take our word for it - the data is there, and it belongs to you.
+              Certificates of Analysis are available for every production run.
             </p>
           </motion.div>
           <motion.div
