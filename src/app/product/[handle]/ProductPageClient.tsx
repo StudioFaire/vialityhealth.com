@@ -309,39 +309,6 @@ export function ProductPageClient({ product, description, relatedProducts, mainI
         </div>
       </section>
 
-      {/* Related Products */}
-      {relatedProducts.length > 0 && (
-        <div className="py-20 border-t border-border/40">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-60px" }}
-            transition={{ duration: 0.8 }}
-            className="text-center mb-12"
-          >
-            <h2 className="text-3xl font-serif text-primary mb-4">
-              Complete your collection
-            </h2>
-            <p className="text-foreground/60">
-              Pair with these carefully selected research compounds.
-            </p>
-          </motion.div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
-            {relatedProducts.map((rp, i) => (
-              <motion.div
-                key={rp.id}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-50px" }}
-                transition={{ duration: 0.6, delay: i * 0.1 }}
-              >
-                <ProductCard product={rp} description={rp.resolvedDescription} mainImageUrl={rp.mainImageUrl} />
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      )}
     </div>
   );
 }
