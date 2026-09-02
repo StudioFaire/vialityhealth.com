@@ -262,17 +262,6 @@ export default function ContactPage() {
                   </a>
                 </div>
 
-                <div>
-                  <h4 className="text-xs font-semibold uppercase tracking-widest text-foreground/50 mb-1">
-                    Press Inquiries
-                  </h4>
-                  <a
-                    href="mailto:hello@vialityhealth.com"
-                    className="text-primary hover:text-secondary transition-colors"
-                  >
-                    press@vialityhealth.com
-                  </a>
-                </div>
               </div>
             </div>
 
