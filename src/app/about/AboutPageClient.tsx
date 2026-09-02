@@ -21,7 +21,7 @@ const pillars = [
   {
     number: "03",
     title: "Ritual",
-    body: "A quieter standard of vitality begins with consistency. viality is designed to become a moment - unhurried, intentional, daily. Not a chore. Not a trend. A permanent fixture of how you care for yourself.",
+    body: "A quieter standard of vitality begins with consistency. viality is designed to become a moment - unhurried, intentional, daily.",
   },
 ];
 
