@@ -36,6 +36,7 @@ type CartContextType = {
   isCartOpen: boolean;
   setIsCartOpen: (open: boolean) => void;
   addItem: (variantId: string, quantity?: number, sellingPlanId?: string) => Promise<void>;
+  buyNow: (variantId: string, quantity?: number, sellingPlanId?: string) => Promise<void>;
   removeItem: (lineId: string) => Promise<void>;
   updateQuantity: (lineId: string, quantity: number) => Promise<void>;
   checkout: () => void;
@@ -84,6 +85,30 @@ export function CartProvider({ children }: { children: ReactNode }) {
       }
     },
     [cart, setIsCartOpen]
+  );
+
+  const buyNow = useCallback(
+    async (variantId: string, quantity = 1, sellingPlanId?: string) => {
+      setIsLoading(true);
+      try {
+        let resultingCart: ShopifyCart;
+        if (cart) {
+          resultingCart = await addShopifyToCart(cart.id, variantId, quantity, sellingPlanId);
+        } else {
+          resultingCart = await createShopifyCart(variantId, quantity);
+          localStorage.setItem(CART_ID_KEY, resultingCart.id);
+        }
+        setCart(resultingCart);
+        if (process.env.NEXT_PUBLIC_SHOPIFY_APP_URL_ALTERNATIVE) {
+          window.location.href = `${process.env.NEXT_PUBLIC_SHOPIFY_APP_URL_ALTERNATIVE}/cart?cartId=${resultingCart.id}`;
+        } else if (resultingCart.checkoutUrl) {
+          window.location.href = resultingCart.checkoutUrl;
+        }
+      } finally {
+        setIsLoading(false);
+      }
+    },
+    [cart]
   );
 
   const removeItem = useCallback(
@@ -141,6 +166,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
         isCartOpen,
         setIsCartOpen,
         addItem,
+        buyNow,
         removeItem,
         updateQuantity,
         checkout,

@@ -17,7 +17,7 @@ import {
 } from "@/lib/shopify/types";
 
 export function ProductPageClient({ product, description, relatedProducts, mainImageUrl, freeShippingText }: { product: ShopifyProduct; description: string; relatedProducts: (ShopifyProduct & { resolvedDescription: string; mainImageUrl?: string })[]; mainImageUrl?: string; freeShippingText?: string }) {
-  const { addItem } = useCart();
+  const { addItem, buyNow } = useCart();
   const images = mainImageUrl
     ? [{ url: mainImageUrl, altText: null, width: 0, height: 0 }]
     : getProductImages(product);
@@ -55,6 +55,12 @@ export function ProductPageClient({ product, description, relatedProducts, mainI
     setIsAdding(true);
     addItem(selectedVariant.id, quantity);
     setTimeout(() => setIsAdding(false), 1500);
+  };
+
+  const handleBuyNow = () => {
+    if (!selectedVariant) return;
+    setIsAdding(true);
+    buyNow(selectedVariant.id, quantity);
   };
 
   return (
@@ -213,7 +219,9 @@ export function ProductPageClient({ product, description, relatedProducts, mainI
               <button
                 aria-label="Buy Now"
                 type="button"
-                className="w-full h-11 border text-xs uppercase tracking-widest transition-colors border-primary/25 text-primary hover:border-primary/50"
+                onClick={handleBuyNow}
+                disabled={isAdding || !selectedVariant?.availableForSale}
+                className="w-full h-11 border text-xs uppercase tracking-widest transition-colors border-primary/25 text-primary hover:border-primary/50 disabled:opacity-50"
               >
                 Buy Now
               </button>
@@ -258,6 +266,9 @@ export function ProductPageClient({ product, description, relatedProducts, mainI
                 <br />
                 <p className="italic">
                   This product is intended strictly for laboratory and research purposes only. Not intended for human consumption.
+                </p>
+                <p className="italic">
+                  Due to hygiene and safety reasons, this item is final sale.
                 </p>
               </div>
             </div>
