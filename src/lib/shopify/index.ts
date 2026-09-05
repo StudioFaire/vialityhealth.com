@@ -252,6 +252,20 @@ function toRelativeUrl(rawUrl: string): string {
   return rawUrl;
 }
 
+// Shopify's default policy handles differ from this site's route names.
+// Map Shopify policy URLs to the routes defined under src/app/policies.
+const POLICY_ROUTE_MAP: Record<string, string> = {
+  "/policies/refund-policy": "/policies/returns-and-refund",
+  "/policies/privacy-policy": "/policies/privacy",
+  "/policies/shipping-policy": "/policies/shipping",
+  "/policies/subscription-policy": "/policies/cancellation-policy",
+  "/shipping": "/policies/shipping",
+};
+
+function mapMenuUrl(relativeUrl: string): string {
+  return POLICY_ROUTE_MAP[relativeUrl] ?? relativeUrl;
+}
+
 export async function getMenu(handle: string): Promise<ShopifyMenu | null> {
   const cachedFn = unstable_cache(
     async () => {
@@ -264,7 +278,7 @@ export async function getMenu(handle: string): Promise<ShopifyMenu | null> {
         ...menu,
         items: menu.items.map((item) => ({
           ...item,
-          url: toRelativeUrl(item.url),
+          url: mapMenuUrl(toRelativeUrl(item.url)),
         })),
       };
     },
