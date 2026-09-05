@@ -3,6 +3,30 @@
   --font-serif: "EB Garamond", Georgia, serif;
 }
 
+/* Custom `prose-primary` color modifier for the typography plugin.
+   Maps prose colors onto the site's palette so the default slate/gray
+   values don't clash with the brand styling. */
+.prose-primary {
+  --tw-prose-body: var(--color-foreground);
+  --tw-prose-headings: var(--color-foreground);
+  --tw-prose-lead: hsl(220 10% 45%);
+  --tw-prose-links: var(--color-primary);
+  --tw-prose-bold: var(--color-foreground);
+  --tw-prose-counters: hsl(220 10% 55%);
+  --tw-prose-bullets: hsl(220 10% 75%);
+  --tw-prose-hr: var(--color-border);
+  --tw-prose-quotes: var(--color-foreground);
+  --tw-prose-quote-borders: var(--color-border);
+  --tw-prose-captions: hsl(220 10% 50%);
+  --tw-prose-kbd: var(--color-foreground);
+  --tw-prose-kbd-shadows: hsl(220 0% 0% / 10%);
+  --tw-prose-code: var(--color-foreground);
+  --tw-prose-pre-code: hsl(40 30% 96%);
+  --tw-prose-pre-bg: hsl(220 15% 15%);
+  --tw-prose-th-borders: var(--color-border);
+  --tw-prose-td-borders: var(--color-border);
+}
+
 @layer base {
   h1,
   h2,
