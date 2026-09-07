@@ -58,7 +58,7 @@ export function Footer({
         <div className="grid grid-cols-full lg:grid-cols-12 gap-12 lg:gap-8 mb-16">
           {/* Brand Column */}
           <div className="lg:col-span-4 grid justify-center lg:justify-start">
-            <Link className="relative block h-24 aspect-15/4" href="/">
+            <Link className="relative block h-16 md:h-20 lg:h-24 aspect-15/4" href="/">
               <Image
                 className="invert object-contain"
                 src="/images/logotype.svg"
