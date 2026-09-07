@@ -283,62 +283,6 @@ export default function ContactPage() {
           </motion.div>
         </div>
 
-        {/* FAQs */}
-        <div className="max-w-3xl mx-auto pt-16 border-t border-border/40">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-60px" }}
-            transition={{ duration: 0.8 }}
-            className="text-center mb-12"
-          >
-            <h2 className="text-3xl font-serif text-primary mb-4">
-              Frequently Asked Questions
-            </h2>
-          </motion.div>
-
-          <div className="space-y-4">
-            {faqs.map((faq) => (
-              <div
-                key={faq.id}
-                className="border-b border-border/40 pb-4"
-              >
-                <button
-                  onClick={() =>
-                    setOpenFaq(openFaq === faq.id ? null : faq.id)
-                  }
-                  className="w-full flex items-center justify-between py-4 text-left group"
-                >
-                  <span className="font-medium text-primary pr-8">
-                    {faq.q}
-                  </span>
-                  <ChevronDown
-                    size={20}
-                    className={`text-foreground/50 transition-transform duration-300 shrink-0 ${openFaq === faq.id
-                      ? "rotate-180 text-primary"
-                      : "group-hover:text-primary"
-                      }`}
-                  />
-                </button>
-                <AnimatePresence>
-                  {openFaq === faq.id && (
-                    <motion.div
-                      initial={{ height: 0, opacity: 0 }}
-                      animate={{ height: "auto", opacity: 1 }}
-                      exit={{ height: 0, opacity: 0 }}
-                      transition={{ duration: 0.3, ease: "easeInOut" }}
-                      className="overflow-hidden"
-                    >
-                      <p className="py-2 pb-6 text-foreground/70 leading-relaxed">
-                        {faq.a}
-                      </p>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
-              </div>
-            ))}
-          </div>
-        </div>
       </div>
     </div>
   );
