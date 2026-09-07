@@ -33,7 +33,7 @@ export function PolicyPageLayout({
 
         {bodyHtml ? (
           <div
-            className="prose prose-lg prose-primary max-w-none
+            className="prose prose-primary max-w-none
               prose-headings:font-serif prose-headings:text-primary
               prose-h2:text-2xl prose-h2:mt-10 prose-h2:mb-4
               prose-h3:text-lg prose-h3:mt-8 prose-h3:mb-3
@@ -44,9 +44,9 @@ export function PolicyPageLayout({
             dangerouslySetInnerHTML={{ __html: bodyHtml }}
           />
         ) : children ? (
-          <div className="prose prose-lg prose-primary max-w-none">{children}</div>
+          <div className="prose prose-primary max-w-none">{children}</div>
         ) : (
-          <div className="prose prose-lg prose-primary max-w-none">
+          <div className="prose prose-primary max-w-none">
             <p className="text-foreground/70 leading-relaxed">
               This policy is currently being updated. If you have any questions, please
               contact us at{" "}
