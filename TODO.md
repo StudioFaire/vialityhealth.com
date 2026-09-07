@@ -1,27 +1,27 @@
-- [x] Homepage: Change to 2 featured products on mobile
-- [ ] Homepage: Change products to Reta and BBC, TB500
-- [x] Homepage: Remove "We operate with complete openness. Every claim we make is verifiable. Every detail disclosed, every claim supported by evidence." and move "View lab reports" button below 4 points
-- [x] Global footer: Make 2 columns on mobile
-- [ ] Global footer: Remove collections link
-- [x] Global footer: Make logo bigger
-- [ ] Global: Remove all lowercase treatment
-- [x] Lab reports: Remove "Third party verified" text overlayed on certificate image
-- [x] Lab reports: Remove "At Viality, transparency is a core part of our commitment to quality."
-- [x] Text wrap balance all headings
 - [ ] Global menu on mobile - check potential opening bug
-- [x] PDP - make image taller and object fit cover on mobile
-- [ ] About page: Replace with single section and wording from PDF
-- [x] Shop all page: Make 2 columns on mobile
 - [ ] PDP - replace wholesale text - Ivy to supply
-- [ ] Global - check for htmlentities such as &nbsp;
-- [x] Contact page - remove FAQs
 - [ ] Sign up for a plan
 - [ ] Integrate dataLayer events
 - [ ] Add policies
 - [ ] Check Klaviyo signup works
 - [ ] Create Klaviyo email templates
 - [ ] Create Klaviyo email campaigns
-- [ ] Review the site content and design with Ivy
+- [x] Homepage: Change products to Reta and BBC, TB500
+- [x] Global footer: Remove collections link
+- [x] About page: Replace with single section and wording from PDF
+- [x] Global - check for htmlentities such as &nbsp;
+- [x] Global: Remove all lowercase treatment
+- [x] Homepage: Change to 2 featured products on mobile
+- [x] Homepage: Remove "We operate with complete openness. Every claim we make is verifiable. Every detail disclosed, every claim supported by evidence." and move "View lab reports" button below 4 points
+- [x] Global footer: Make 2 columns on mobile
+- [x] Global footer: Make logo bigger
+- [x] Lab reports: Remove "Third party verified" text overlayed on certificate image
+- [x] Lab reports: Remove "At Viality, transparency is a core part of our commitment to quality."
+- [x] Text wrap balance all headings
+- [x] PDP - make image taller and object fit cover on mobile
+- [x] Shop all page: Make 2 columns on mobile
+- [x] Contact page - remove FAQs
+- [x] Review the site content and design with Ivy
 - [x] Set SEO metadata without placeholders
 - [x] Update `/policies/contact-information`
 - [x] Update FAQs from email
