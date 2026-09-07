@@ -1,9 +1,9 @@
 import { revalidateTag } from "next/cache";
 
 export function revalidateShopifyProducts() {
-  revalidateTag("shopify-products");
+  revalidateTag("shopify-products", "hours");
 }
 
 export function revalidateShopifyCollections() {
-  revalidateTag("shopify-collections");
+  revalidateTag("shopify-collections", "hours");
 }
