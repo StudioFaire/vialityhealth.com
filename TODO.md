@@ -1,5 +1,7 @@
 - [ ] Global menu on mobile - check potential opening bug
 - [ ] PDP - replace wholesale text - Ivy to supply
+- [ ] Add a calculator, see https://peptilabau.com/reconstitution-calculator/
+- [ ] See https://diynad.com/
 - [ ] Sign up for a plan
 - [ ] Integrate dataLayer events
 - [ ] Add policies
