@@ -2,6 +2,7 @@
 
 import { useState, type FormEvent } from "react";
 import { m } from "motion/react";
+import { InputGroup, InputGroupAddon, InputGroupInput } from "@/components/ui/input-group";
 import {
   calculateReconstitutionVolume,
   type DosageUnit,
@@ -51,75 +52,70 @@ export function CalculatorClient() {
         </m.div>
 
         <form onSubmit={handleCalculate} className="space-y-10">
-          <div>
-            <label
-              htmlFor="peptide-amount"
-              className="text-xs uppercase tracking-widest text-foreground/70 block mb-1"
-            >
-              Peptide in Vial
-            </label>
-            <input
-              id="peptide-amount"
-              type="number"
-              step="0.01"
-              min="0"
-              inputMode="decimal"
-              value={peptideAmount}
-              onChange={(e) => setPeptideAmount(e.target.value)}
-              placeholder="Amount in mg"
-              className="w-full bg-transparent border-b border-border/60 py-3 focus:outline-none focus:border-primary transition-colors placeholder:text-muted-foreground"
-            />
-          </div>
-
-          <div>
-            <label
-              htmlFor="desired-dosage"
-              className="text-xs uppercase tracking-widest text-foreground/70 block mb-1"
-            >
-              Desired Dosage
-            </label>
-            <input
-              id="desired-dosage"
-              type="number"
-              step="0.01"
-              min="0"
-              inputMode="decimal"
-              value={desiredDosage}
-              onChange={(e) => setDesiredDosage(e.target.value)}
-              placeholder="Enter dosage"
-              className="w-full bg-transparent border-b border-border/60 py-3 focus:outline-none focus:border-primary transition-colors placeholder:text-muted-foreground"
-            />
-          </div>
-
-          <fieldset>
-            <legend className="text-xs uppercase tracking-widest text-foreground/70 block mb-3">
-              Dosage Unit
-            </legend>
-            <div className="flex gap-6">
-              <label className="flex items-center gap-2 cursor-pointer">
-                <input
-                  type="radio"
-                  name="dosage-unit"
-                  value="mcg"
-                  checked={dosageUnit === "mcg"}
-                  onChange={() => setDosageUnit("mcg")}
-                  className="accent-primary"
-                />
-                <span className="text-sm text-primary/70">mcg</span>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
+            <div>
+              <label
+                htmlFor="peptide-amount"
+                className="text-xs uppercase tracking-widest text-foreground/70 block mb-3"
+              >
+                Peptide in Vial
               </label>
-              <label className="flex items-center gap-2 cursor-pointer">
-                <input
-                  type="radio"
-                  name="dosage-unit"
-                  value="mg"
-                  checked={dosageUnit === "mg"}
-                  onChange={() => setDosageUnit("mg")}
-                  className="accent-primary"
+              <InputGroup className="border-b border-border/60 transition-colors focus-within:border-primary">
+                <InputGroupInput
+                  id="peptide-amount"
+                  type="number"
+                  step="0.01"
+                  min="0"
+                  inputMode="decimal"
+                  value={peptideAmount}
+                  onChange={(e) => setPeptideAmount(e.target.value)}
+                  placeholder="0.00"
                 />
-                <span className="text-sm text-primary/70">mg</span>
-              </label>
+                <InputGroupAddon>mg</InputGroupAddon>
+              </InputGroup>
             </div>
-          </fieldset>
+
+            <div>
+              <label
+                htmlFor="desired-dosage"
+                className="text-xs uppercase tracking-widest text-foreground/70 block mb-3"
+              >
+                Desired Dosage
+              </label>
+              <InputGroup className="border-b border-border/60 transition-colors focus-within:border-primary">
+                <InputGroupInput
+                  id="desired-dosage"
+                  type="number"
+                  step="0.01"
+                  min="0"
+                  inputMode="decimal"
+                  value={desiredDosage}
+                  onChange={(e) => setDesiredDosage(e.target.value)}
+                  placeholder="0.00"
+                />
+                <InputGroupAddon aria-label="Dosage unit">
+                  <div className="flex items-center divide-x divide-border/60">
+                    <button
+                      type="button"
+                      onClick={() => setDosageUnit("mcg")}
+                      aria-pressed={dosageUnit === "mcg"}
+                      className="px-1.5 py-0.5 text-xs uppercase tracking-widest transition-colors cursor-pointer aria-pressed:text-primary aria-pressed:font-medium text-primary/40 hover:text-primary/70"
+                    >
+                      mcg
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => setDosageUnit("mg")}
+                      aria-pressed={dosageUnit === "mg"}
+                      className="px-1.5 py-0.5 text-xs uppercase tracking-widest transition-colors cursor-pointer aria-pressed:text-primary aria-pressed:font-medium text-primary/40 hover:text-primary/70"
+                    >
+                      mg
+                    </button>
+                  </div>
+                </InputGroupAddon>
+              </InputGroup>
+            </div>
+          </div>
 
           <button
             type="submit"
