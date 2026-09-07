@@ -1,13 +1,11 @@
 "use client";
 
-import { useActionState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { GrainOverlay } from "@/components/GrainOverlay";
 import type { ShopifyProduct } from "@/lib/shopify/types";
 import { ProductCard } from "@/components/ProductCard";
-import { subscribeToNewsletter } from "@/app/actions/newsletter";
 
 function VideoPanel({ src }: { src: string }) {
   return (
@@ -40,11 +38,6 @@ function VideoPanel({ src }: { src: string }) {
 }
 
 export function HomePage({ featuredProducts }: { featuredProducts: ShopifyProduct[] }) {
-  const [newsletterState, newsletterAction, newsletterPending] = useActionState(
-    subscribeToNewsletter,
-    { success: false, message: "" }
-  );
-
   return (
     <>
       {/* ── Hero ────────────────────────────────────────────── */}
