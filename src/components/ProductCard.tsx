@@ -1,16 +1,10 @@
-"use client";
-
-import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { Star } from "lucide-react";
-import { useCart } from "@/components/CartProvider";
 import { formatPrice } from "@/lib/utils";
 import type { ShopifyProduct } from "@/lib/shopify/types";
 import {
   getProductImage,
-  getProductVariants,
-  getPrice,
 } from "@/lib/shopify/types";
 import { getFirstParagraph, applyStaticReplacements } from "@/lib/shopify/description";
 
@@ -43,30 +37,14 @@ export function StarRating({
   );
 }
 
-export function ProductCard({ product, description, mainImageUrl }: { product: ShopifyProduct; description?: string; mainImageUrl?: string }) {
-  const { addItem } = useCart();
-  const [isAdding, setIsAdding] = useState(false);
-
-  const image = mainImageUrl
-    ? { url: mainImageUrl, altText: null, width: 0, height: 0 }
-    : getProductImage(product);
-  const variants = getProductVariants(product);
-  const firstVariant = variants[0];
+export function ProductCard({ product }: { product: ShopifyProduct; }) {
+  const image = getProductImage(product);
   const hasComparePrice =
     parseFloat(product.compareAtPriceRange.minVariantPrice.amount) > 0;
   const productType = product.productType;
   const summaryText = product.summary
     ? applyStaticReplacements(product.summary)
     : "";
-
-  const handleAdd = (e: React.MouseEvent) => {
-    e.preventDefault();
-    e.stopPropagation();
-    if (!firstVariant) return;
-    setIsAdding(true);
-    addItem(firstVariant.id, 1);
-    setTimeout(() => setIsAdding(false), 1500);
-  };
 
   return (
     <Link href={`/product/${product.handle}`}>
@@ -114,7 +92,6 @@ export function ProductCard({ product, description, mainImageUrl }: { product: S
           <p className="text-sm text-foreground/70 mb-4 flex-1">
             {getFirstParagraph(
               summaryText ||
-              description ||
               product.descriptionHtml ||
               product.description
             )}

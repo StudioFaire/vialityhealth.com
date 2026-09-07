@@ -308,8 +308,6 @@ export function ShopContent({
               >
                 <ProductCard
                   product={product}
-                  description={product.resolvedDescription}
-                  mainImageUrl={product.mainImageUrl}
                 />
               </motion.div>
             ))}

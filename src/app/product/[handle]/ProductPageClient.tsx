@@ -6,14 +6,12 @@ import Image from "next/image";
 import { Minus, Plus, FileText, ExternalLink } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useCart } from "@/components/CartProvider";
-import { ProductCard } from "@/components/ProductCard";
 import { EASE_EDITORIAL } from "@/lib/motion";
 import type { ShopifyProduct } from "@/lib/shopify/types";
 import {
   getProductImages,
   getProductVariants,
   getSellingPlans,
-  getSubscriptionPrice,
 } from "@/lib/shopify/types";
 
 export function ProductPageClient({ product, description, relatedProducts, mainImageUrl, freeShippingText }: { product: ShopifyProduct; description: string; relatedProducts: (ShopifyProduct & { resolvedDescription: string; mainImageUrl?: string })[]; mainImageUrl?: string; freeShippingText?: string }) {
