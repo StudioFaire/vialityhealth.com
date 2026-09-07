@@ -67,7 +67,7 @@ export function ProductPageClient({ product, description, relatedProducts, mainI
     <div className="min-h-screen bg-background pt-18">
       <section className="grid grid-cols-1 lg:grid-cols-[1fr_480px] xl:grid-cols-[1fr_520px] min-h-[calc(100vh-72px)]">
         {/* Left: Image Gallery */}
-        <div className="relative bg-surface-gallery min-h-[50vh] lg:min-h-0 h-full order-1 lg:order-1">
+        <div className="relative bg-surface-gallery min-h-[50vh] lg:min-h-0 h-full order-1 lg:order-1 aspect-9/16 md:aspect-auto">
           <div className="relative size-full overflow-hidden mb-8">
             <AnimatePresence mode="wait">
               {selectedImage && (
@@ -83,7 +83,7 @@ export function ProductPageClient({ product, description, relatedProducts, mainI
                     src={selectedImage.url}
                     alt={selectedImage.altText || product.title}
                     fill
-                    className="w-full rounded-lg object-contain"
+                    className="w-full rounded-lg object-cover md:object-contain"
                     sizes="(max-width: 1440px) 1440px, (max-width: 1024px) 1024px, (max-width: 768px) 768px"
                     priority
                   />
