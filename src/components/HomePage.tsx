@@ -86,7 +86,7 @@ export function HomePage({ featuredProducts }: { featuredProducts: ShopifyProduc
 
         <div className="relative z-20 flex flex-col items-center justify-center h-full text-center px-6">
           <motion.p
-            className="text-lg font-sans font-light text-white mb-8 lowercase"
+            className="text-lg font-sans font-light text-white mb-8"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 1.4, ease: "easeOut" }}
@@ -110,12 +110,12 @@ export function HomePage({ featuredProducts }: { featuredProducts: ShopifyProduc
           </motion.h1>
 
           <motion.p
-            className="text-lg font-sans font-light text-white mt-2 md:mt-4 max-w-xs lowercase"
+            className="text-lg font-sans font-light text-white mt-2 md:mt-4 max-w-xs"
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.55, duration: 1, ease: "easeOut" }}
           >
-            99% purity.  Third-party tested.  Bath verified.
+            99% purity.  Third-party tested.
           </motion.p>
 
           <motion.div
@@ -176,6 +176,7 @@ export function HomePage({ featuredProducts }: { featuredProducts: ShopifyProduc
             <div className="grid grid-cols-2 md:grid-cols-3 gap-8">
               {featuredProducts.map((product, i) => (
                 <motion.div
+                  className="last:hidden md:last:block"
                   key={product.id}
                   initial={{ opacity: 0, y: 30 }}
                   whileInView={{ opacity: 1, y: 0 }}
@@ -252,11 +253,6 @@ export function HomePage({ featuredProducts }: { featuredProducts: ShopifyProduc
             <h2 className="font-serif uppercase font-light text-4xl mb-6">
               our standards
             </h2>
-            <p className="text-primary/65 mb-10 leading-relaxed max-w-md">
-              We operate with complete openness. Every claim we make is
-              verifiable. Every detail disclosed, every claim supported by
-              evidence.
-            </p>
             <Link
               href="/lab-reports"
               className="px-8 py-4 bg-primary text-primary-foreground text-xs uppercase tracking-widest hover:bg-primary/88 transition-colors inline-block"
@@ -266,52 +262,6 @@ export function HomePage({ featuredProducts }: { featuredProducts: ShopifyProduc
           </div>
         </div>
       </section>
-
-
-      {/* ── Newsletter ────────────────────────────────────── */}
-      {/* <section className="bg-primary text-primary-foreground py-16 px-6 text-center">
-        <div className="max-w-2xl mx-auto flex flex-col items-center">
-          <motion.h2
-            initial={{ opacity: 0, y: 16 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8 }}
-            className="font-sans uppercase text-balance text-4xl mb-4"
-          >
-            join our newsletter
-          </motion.h2>
-          <motion.p
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.25, duration: 0.8 }}
-            className="uppercase text-primary-foreground/65 mb-10 text-sm max-w-sm text-balance leading-relaxed"
-          >
-            the latest in peptides, longevity and human optimization
-          </motion.p>
-          <form action={newsletterAction} className="w-full flex flex-col sm:flex-row gap-4 max-w-md">
-            <input
-              type="email"
-              name="email"
-              placeholder="Email address"
-              className="flex-1 bg-transparent border-b border-primary-foreground/25 px-4 py-3 text-xs focus:outline-none focus:border-accent placeholder:text-primary-foreground/30 uppercase tracking-widest transition-colors"
-              required
-            />
-            <button
-              type="submit"
-              disabled={newsletterPending}
-              className="px-8 py-3 bg-accent text-accent-foreground text-xs uppercase tracking-widest hover:bg-accent/88 transition-colors disabled:opacity-50"
-            >
-              {newsletterPending ? "Signing Up..." : "Sign Up"}
-            </button>
-          </form>
-          {newsletterState.message && (
-            <p className={`mt-4 text-xs uppercase tracking-widest ${newsletterState.success ? "text-accent" : "text-red-400"}`}>
-              {newsletterState.message}
-            </p>
-          )}
-        </div>
-      </section> */}
     </>
   );
 }
