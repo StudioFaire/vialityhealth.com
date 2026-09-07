@@ -5,6 +5,7 @@ import { formatPrice } from "@/lib/utils";
 import type { ShopifyProduct } from "@/lib/shopify/types";
 import {
   getProductImage,
+  getProductShortName,
 } from "@/lib/shopify/types";
 import { getFirstParagraph, applyStaticReplacements } from "@/lib/shopify/description";
 
@@ -69,7 +70,7 @@ export function ProductCard({ product }: { product: ShopifyProduct; }) {
         <div className="flex flex-col flex-1">
           <header className="flex flex-row gap-4 justify-between mb-4">
             <h3 className="font-serif text-primary mb-1 uppercase text-2xl">
-              {product.title}
+              {getProductShortName(product) || product.title}
             </h3>
             <div className="flex items-center gap-2 text-lg">
               <span className="text-primary">

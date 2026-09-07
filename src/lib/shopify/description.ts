@@ -1,4 +1,3 @@
-import { decryptAndReverse } from "@/lib/crypto";
 import type { ShopifyProduct } from "@/lib/shopify/types";
 
 const STATIC_REPLACEMENTS: [string, string][] = [
@@ -23,8 +22,8 @@ export function applyStaticReplacements(text: string): string {
 }
 
 export function resolveProductDescription(product: ShopifyProduct): string {
-  const fullName = product.full_name ? decryptAndReverse(product.full_name) : "";
-  const shortName = product.short_name ? decryptAndReverse(product.short_name) : "";
+  const fullName = product.full_name ?? "";
+  const shortName = product.short_name ?? "";
 
   return applyStaticReplacements(product.descriptionHtml || product.description)
     .replaceAll("{{full_name}}", fullName)
@@ -48,8 +47,7 @@ export function resolveProductDescriptionText(product: ShopifyProduct): string {
 }
 
 export function resolveProductMetaTitle(product: ShopifyProduct): string {
-  const shortName = product.short_name ? decryptAndReverse(product.short_name) : "";
-  return shortName || product.title;
+  return product.short_name || product.title;
 }
 
 export function resolveProductMetaDescription(product: ShopifyProduct): string {
