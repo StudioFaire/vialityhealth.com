@@ -17,6 +17,12 @@ export function CalculatorClient() {
     ? calculateReconstitutionVolume({ peptideMg, dosage, unit: dosageUnit }).bacWaterMl
     : null;
 
+  // Only flag a field that has been given a value which is not a positive number.
+  // A field that is still empty is considered "not yet entered", not an error.
+  const hasInvalidEntry =
+    (peptideAmount !== "" && !(Number.parseFloat(peptideAmount) > 0)) ||
+    (desiredDosage !== "" && !(Number.parseFloat(desiredDosage) > 0));
+
   return (
     <section className="bg-background py-28 md:py-36 px-6 md:px-16">
       <div className="mx-auto max-w-2xl">
@@ -102,7 +108,7 @@ export function CalculatorClient() {
         </div>
 
         <output htmlFor="peptide-amount desired-dosage" aria-live="polite" className="block pt-10">
-          {!isValid && (peptideAmount !== "" || desiredDosage !== "") && (
+          {hasInvalidEntry && (
             <p className="text-sm text-red-600">Please enter a valid amount for every field.</p>
           )}
           {isValid && bacWaterMl !== null && (
