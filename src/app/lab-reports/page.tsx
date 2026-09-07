@@ -22,20 +22,12 @@ export default function CertificateOfAnalysisPage() {
                 className="object-cover"
                 sizes="(max-width: 768px) 100vw, 50vw"
               />
-              <div className="absolute bottom-5 left-5 z-10">
-                <p className="text-xs uppercase tracking-widest text-primary/35">
-                  Third-Party Verified
-                </p>
-              </div>
             </div>
           </Reveal>
 
           {/* Right: Content */}
           <div className="flex flex-col gap-14">
             <Reveal delay={0.1}>
-              <p className="text-xs uppercase tracking-widest text-primary/40 mb-6">
-                At Viality, transparency is a core part of our commitment to quality.
-              </p>
               <h2 className="font-serif uppercase font-light text-4xl text-primary leading-snug mb-4">
                 <span>Certificate of Analysis (COA)</span>
               </h2>
