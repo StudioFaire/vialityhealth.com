@@ -1,6 +1,6 @@
 import { adminGraphQL } from "./admin";
 
-export const WEBHOOK_TOPICS = [
+const WEBHOOK_TOPICS = [
   "PRODUCTS_CREATE",
   "PRODUCTS_UPDATE",
   "PRODUCTS_DELETE",
@@ -63,7 +63,7 @@ const CreateWebhookSubscriptionMutation = /* GraphQL */ `
   }
 `;
 
-export function getWebhookCallbackUrl(): string {
+function getWebhookCallbackUrl(): string {
   const appUrl =
     process.env.SHOPIFY_APP_URL ??
     (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : "");

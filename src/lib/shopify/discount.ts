@@ -3,7 +3,7 @@ import { adminGraphQL } from "./admin";
 
 const FREE_SHIPPING_DISCOUNT_ID = process.env.SHOPIFY_FREE_SHIPPING_DISCOUNT_ID ?? "1356928319628";
 
-export type FreeShippingDiscount = {
+type FreeShippingDiscount = {
   title: string | null;
   summary: string | null;
   status: string | null;

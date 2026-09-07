@@ -11,7 +11,6 @@
     "fallow": "fallow dead-code",
     "format:check": "oxfmt --check \"**/*.{ts,tsx,md}\"",
     "format": "oxfmt --write \"**/*.{ts,tsx,md}\"",
-    "hutch:dev": "cd desktop && hutch install && hutch electrobun sync && hutch run dev",
     "knip": "knip",
     "lint": "oxlint -c .oxlintrc.json",
     "prepare": "husky",

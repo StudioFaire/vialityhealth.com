@@ -1,8 +1,8 @@
-export const ADMIN_API_VERSION = "2026-07";
+const ADMIN_API_VERSION = "2026-07";
 
 let cachedToken: { token: string; expiresAt: number } | null = null;
 
-export async function getAdminAccessToken(): Promise<string> {
+async function getAdminAccessToken(): Promise<string> {
   const shopDomain = process.env.NEXT_PUBLIC_SHOPIFY_STORE_DOMAIN;
   const clientId = process.env.SHOPIFY_CLIENT_ID;
   const clientSecret = process.env.SHOPIFY_CLIENT_SECRET;

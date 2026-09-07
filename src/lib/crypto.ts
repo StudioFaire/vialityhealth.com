@@ -18,11 +18,7 @@ function getEncryptionKey(): string {
   return key;
 }
 
-export function keyGen() {
-  return crypto.randomBytes(32).toString("hex");
-}
-
-export function encrypt(plainText: string, keyHex?: string): string {
+function encrypt(plainText: string, keyHex?: string): string {
   const key = keyHex ?? getEncryptionKey();
   const iv = crypto.randomBytes(IV_LENGTH);
   const cipher = crypto.createCipheriv("aes-256-cbc", Buffer.from(key, "hex"), iv);
@@ -37,7 +33,7 @@ export function encryptAndReverse(text: string, keyHex?: string): string {
   return encrypted;
 }
 
-export function decrypt(text: string, keyHex?: string): string {
+function decrypt(text: string, keyHex?: string): string {
   const [ivHex, encryptedHex] = text.split(":");
   if (!ivHex || !encryptedHex) {
     throw new Error("Invalid or corrupted cipher format");

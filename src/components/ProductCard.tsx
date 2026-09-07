@@ -1,27 +1,9 @@
 import Link from "next/link";
 import Image from "next/image";
-import { Star } from "lucide-react";
 import { formatPrice } from "@/lib/utils";
 import type { ShopifyProduct } from "@/lib/shopify/types";
 import { getProductImage, getProductShortName } from "@/lib/shopify/types";
 import { getFirstParagraph, applyStaticReplacements } from "@/lib/shopify/description";
-
-export function StarRating({ rating, count }: { rating: number; count?: number }) {
-  return (
-    <div className="flex items-center space-x-1.5">
-      <div className="flex text-accent">
-        {[1, 2, 3, 4, 5].map((star) => (
-          <Star
-            key={star}
-            size={12}
-            className={star <= Math.round(rating) ? "fill-current" : "text-border fill-transparent"}
-          />
-        ))}
-      </div>
-      {count !== undefined && <span className="text-xs text-foreground/60">({count})</span>}
-    </div>
-  );
-}
 
 export function ProductCard({ product }: { product: ShopifyProduct }) {
   const image = getProductImage(product);

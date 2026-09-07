@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { ChevronDown, Search, X } from "lucide-react";
 
-export type FacetValue = {
+type FacetValue = {
   value: string;
   label: string;
   count: number;

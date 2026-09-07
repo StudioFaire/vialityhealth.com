@@ -1,4 +1,4 @@
-export const ProductFragment = /* GraphQL */ `
+const ProductFragment = /* GraphQL */ `
   fragment ProductFields on Product {
     id
     title
@@ -173,20 +173,6 @@ export const GetCollectionByIdentifierQuery = /* GraphQL */ `
           node {
             ...ProductFields
           }
-        }
-      }
-    }
-  }
-`;
-
-export const GetAllCollectionsQuery = /* GraphQL */ `
-  query GetAllCollections($first: Int!) {
-    collections(first: $first) {
-      edges {
-        node {
-          id
-          title
-          handle
         }
       }
     }

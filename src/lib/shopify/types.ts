@@ -7,12 +7,12 @@ export type ShopifyImage = {
   height: number;
 };
 
-export type ShopifyPrice = {
+type ShopifyPrice = {
   amount: string;
   currencyCode: string;
 };
 
-export type ShopifySellingPlan = {
+type ShopifySellingPlan = {
   id: string;
   name: string;
   priceAdjustments: {
@@ -23,7 +23,7 @@ export type ShopifySellingPlan = {
   }[];
 };
 
-export type ShopifySellingPlanAllocation = {
+type ShopifySellingPlanAllocation = {
   sellingPlan: ShopifySellingPlan;
 };
 
@@ -39,14 +39,14 @@ export type ShopifyProductVariant = {
   };
 };
 
-export type ShopifySellingPlanGroup = {
+type ShopifySellingPlanGroup = {
   name: string;
   sellingPlans: {
     edges: { node: ShopifySellingPlan }[];
   };
 };
 
-export type ShopifyProductOption = {
+type ShopifyProductOption = {
   id: string;
   name: string;
   values: string[];
@@ -171,7 +171,7 @@ export type ShopifyCollection = {
   };
 };
 
-export type ShopifyMenuItem = {
+type ShopifyMenuItem = {
   id: string;
   title: string;
   url: string;
@@ -183,7 +183,7 @@ export type ShopifyMenu = {
   items: ShopifyMenuItem[];
 };
 
-export type ShopifyShopPolicy = {
+type ShopifyShopPolicy = {
   title: string;
   handle: string;
   body: string;
@@ -239,10 +239,6 @@ export function transformProduct(raw: ShopifyProductRaw): ShopifyProduct {
   };
 }
 
-export function getProductFullName(product: ShopifyProduct): string | undefined {
-  return product.full_name;
-}
-
 export function getProductShortName(product: ShopifyProduct): string | undefined {
   return product.short_name;
 }
@@ -259,63 +255,4 @@ export function getProductImage(product: ShopifyProduct): ShopifyImage | null {
 // Helper to get all variants
 export function getProductVariants(product: ShopifyProduct): ShopifyProductVariant[] {
   return product.variants.edges.map((e) => e.node);
-}
-
-// Helper to get product price as number
-export function getPrice(price: ShopifyPrice): number {
-  return parseFloat(price.amount);
-}
-
-// Helper to format price for display
-export function formatPrice(price: ShopifyPrice): string {
-  return new Intl.NumberFormat("en-US", {
-    style: "currency",
-    currency: price.currencyCode,
-  }).format(parseFloat(price.amount));
-}
-
-// Helper to get cart lines
-export function getCartLines(cart: ShopifyCart): ShopifyCartLine[] {
-  return cart.lines.edges.map((e) => e.node);
-}
-
-// Helper to get selling plan groups from a product
-export function getSellingPlanGroups(product: ShopifyProduct): ShopifySellingPlanGroup[] {
-  return product.sellingPlanGroups.edges.map((e) => e.node);
-}
-
-// Helper to get all selling plans from a product (flattened from groups)
-export function getSellingPlans(product: ShopifyProduct): ShopifySellingPlan[] {
-  return getSellingPlanGroups(product).flatMap((group) =>
-    group.sellingPlans.edges.map((e) => e.node),
-  );
-}
-
-// Helper to get the first selling plan (if any)
-export function getFirstSellingPlan(product: ShopifyProduct): ShopifySellingPlan | null {
-  return getSellingPlans(product)[0] ?? null;
-}
-
-// Helper to get selling plan allocation for a variant
-export function getSellingPlanAllocations(
-  variant: ShopifyProductVariant,
-): ShopifySellingPlanAllocation[] {
-  return variant.sellingPlanAllocations.edges.map((e) => e.node);
-}
-
-// Helper to calculate the subscription price for a selling plan
-export function getSubscriptionPrice(basePrice: number, sellingPlan: ShopifySellingPlan): number {
-  for (const adjustment of sellingPlan.priceAdjustments) {
-    const value = adjustment.adjustmentValue;
-    if ("adjustmentPercentage" in value) {
-      return basePrice * (1 - value.adjustmentPercentage / 100);
-    }
-    if ("adjustmentAmount" in value) {
-      return basePrice - parseFloat(value.adjustmentAmount.amount);
-    }
-    if ("price" in value) {
-      return parseFloat(value.price.amount);
-    }
-  }
-  return basePrice;
 }

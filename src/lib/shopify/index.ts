@@ -4,7 +4,6 @@ import {
   GetAllProductsQuery,
   GetProductByHandleQuery,
   GetCollectionByIdentifierQuery,
-  GetAllCollectionsQuery,
   GetCartQuery,
   GetMenuQuery,
   GetShopPoliciesQuery,
@@ -92,24 +91,6 @@ export async function getCollectionByIdentifier(
   );
   return cachedFn();
 }
-
-export async function getAllCollections(
-  first = 20,
-): Promise<{ id: string; title: string; handle: string }[]> {
-  const cachedFn = unstable_cache(
-    async () => {
-      const { data } = await shopifyClient.request<{
-        collections: { edges: { node: { id: string; title: string; handle: string } }[] };
-      }>(GetAllCollectionsQuery, { variables: { first } });
-      return assertData(data, "getAllCollections").collections.edges.map((e) => e.node);
-    },
-    ["shopify", "collections"],
-    { revalidate: REVALIDATE_SECONDS, tags: ["shopify-collections"] },
-  );
-  return cachedFn();
-}
-
-// ── Cart (uncached - user-specific mutations) ──────────────
 
 export async function getCart(cartId: string): Promise<ShopifyCart | null> {
   try {
