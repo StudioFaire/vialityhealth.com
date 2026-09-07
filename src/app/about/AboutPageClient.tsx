@@ -293,6 +293,9 @@ export function AboutPageClient() {
                 >
                   Our Standards
                 </motion.p>
+              </motion.div>
+
+              <section>
                 <motion.h2
                   variants={fadeUp}
                   custom={0}
@@ -300,33 +303,25 @@ export function AboutPageClient() {
                 >
                   <span>the science is visible.</span>
                 </motion.h2>
-                <motion.p
-                  variants={fadeUp}
-                  custom={0.1}
-                  className="text-primary/55 text-sm leading-relaxed font-light"
-                >
-                  We operate with complete openness. Every claim we make is
-                  verifiable.
-                </motion.p>
-              </motion.div>
 
-              {trustItems.map((item, i) => (
-                <motion.div
-                  key={item.label}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true, margin: "-30px" }}
-                  transition={{ duration: 0.7, delay: i * 0.08, ease: "easeOut" }}
-                  className="border-t border-primary/10 pt-8"
-                >
-                  <h4 className="text-xs uppercase tracking-widest font-semibold mb-3">
-                    {item.label}
-                  </h4>
-                  <p className="text-primary/55 text-sm leading-[1.85] font-light">
-                    {item.detail}
-                  </p>
-                </motion.div>
-              ))}
+                {trustItems.map((item, i) => (
+                  <motion.div
+                    key={item.label}
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true, margin: "-30px" }}
+                    transition={{ duration: 0.7, delay: i * 0.08, ease: "easeOut" }}
+                    className="border-t border-primary/10 pt-8"
+                  >
+                    <h4 className="text-xs uppercase tracking-widest font-semibold mb-3">
+                      {item.label}
+                    </h4>
+                    <p className="text-primary/55 text-sm leading-[1.85] font-light">
+                      {item.detail}
+                    </p>
+                  </motion.div>
+                ))}
+              </section>
 
               <motion.div
                 initial={{ opacity: 0 }}
