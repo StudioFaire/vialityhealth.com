@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { m } from "motion/react";
 import type { ReactNode } from "react";
 import { EASE_EDITORIAL } from "@/lib/motion";
 
@@ -20,7 +20,7 @@ export function Reveal({
   className?: string;
 }) {
   return (
-    <motion.div
+    <m.div
       className={className}
       initial={{ opacity: 0, y, x }}
       whileInView={{ opacity: 1, y: 0, x: 0 }}
@@ -28,6 +28,6 @@ export function Reveal({
       transition={{ duration, ease: EASE_EDITORIAL, delay }}
     >
       {children}
-    </motion.div>
+    </m.div>
   );
 }

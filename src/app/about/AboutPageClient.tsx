@@ -1,35 +1,35 @@
 "use client";
 
 import Image from "next/image";
-import { motion } from "framer-motion";
+import { m } from "motion/react";
 import { fadeUp, fadeIn, staggerContainer, EASE_EDITORIAL } from "@/lib/motion";
 
 export function AboutPageClient() {
   return (
     <section className="bg-background py-28 md:py-36 px-6 md:px-16">
       <div className="mx-auto grid grid-cols-1 md:grid-cols-2 gap-16 md:gap-24 items-center">
-        <motion.div
+        <m.div
           initial="hidden"
           whileInView="show"
           viewport={{ once: true, margin: "-80px" }}
           variants={staggerContainer(0.12)}
           className="max-w-lg mx-auto text-balance"
         >
-          <motion.p
+          <m.p
             variants={fadeIn}
             custom={0}
             className="text-xs uppercase tracking-widest text-primary/40 mb-8"
           >
             About Viality
-          </motion.p>
-          <motion.h2
+          </m.p>
+          <m.h2
             variants={fadeUp}
             custom={0}
             className="font-serif uppercase font-light text-3xl md:text-4xl text-primary mb-8 leading-snug"
           >
             Research, without the noise.
-          </motion.h2>
-          <motion.div
+          </m.h2>
+          <m.div
             variants={fadeUp}
             custom={0.1}
             className="space-y-5 text-primary/60 text-sm leading-[1.85] font-light"
@@ -47,10 +47,10 @@ export function AboutPageClient() {
               veterinary use, and nothing on this site is to be used as a substitute for
               professional medical advice.
             </p>
-          </motion.div>
-        </motion.div>
+          </m.div>
+        </m.div>
 
-        <motion.div
+        <m.div
           initial={{ opacity: 0, x: 24 }}
           whileInView={{ opacity: 1, x: 0 }}
           viewport={{ once: true, margin: "-60px" }}
@@ -70,7 +70,7 @@ export function AboutPageClient() {
               </p>
             </div>
           </div>
-        </motion.div>
+        </m.div>
       </div>
     </section>
   );

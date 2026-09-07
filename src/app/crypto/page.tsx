@@ -33,10 +33,14 @@ export default function CryptoPage() {
 
             <form action={encryptAction} className="space-y-6">
               <div>
-                <label className="text-xs uppercase tracking-widest text-foreground/70 block mb-1">
+                <label
+                  htmlFor="crypto-plaintext"
+                  className="text-xs uppercase tracking-widest text-foreground/70 block mb-1"
+                >
                   Plain Text *
                 </label>
                 <textarea
+                  id="crypto-plaintext"
                   name="plainText"
                   required
                   rows={5}
@@ -71,10 +75,14 @@ export default function CryptoPage() {
 
             <form action={decryptAction} className="space-y-6">
               <div>
-                <label className="text-xs uppercase tracking-widest text-foreground/70 block mb-1">
+                <label
+                  htmlFor="crypto-ciphertext"
+                  className="text-xs uppercase tracking-widest text-foreground/70 block mb-1"
+                >
                   Encrypted Text *
                 </label>
                 <textarea
+                  id="crypto-ciphertext"
                   name="cipherText"
                   required
                   rows={5}

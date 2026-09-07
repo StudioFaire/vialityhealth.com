@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { motion } from "framer-motion";
+import { m } from "motion/react";
 import { GrainOverlay } from "@/components/GrainOverlay";
 import type { ShopifyProduct } from "@/lib/shopify/types";
 import { ProductCard } from "@/components/ProductCard";
@@ -78,16 +78,16 @@ export function HomePage({ featuredProducts }: { featuredProducts: ShopifyProduc
         <GrainOverlay />
 
         <div className="relative z-20 flex flex-col items-center justify-center h-full text-center px-6">
-          <motion.p
+          <m.p
             className="text-lg font-sans font-light text-white mb-8"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 1.4, ease: "easeOut" }}
           >
             Research Grade Peptides. Verified by data.
-          </motion.p>
+          </m.p>
 
-          <motion.h1
+          <m.h1
             className="logo text-7xl text-white w-full h-24 max-w-2/6 md:max-w-1/6 relative invert"
             initial={{ opacity: 0, y: 24 }}
             animate={{ opacity: 1, y: 0 }}
@@ -100,18 +100,18 @@ export function HomePage({ featuredProducts }: { featuredProducts: ShopifyProduc
               className="object-contain"
               sizes="(max-width: 768px) 50vw, 20vw"
             />
-          </motion.h1>
+          </m.h1>
 
-          <motion.p
+          <m.p
             className="text-lg font-sans font-light text-white mt-2 md:mt-4 max-w-xs"
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.55, duration: 1, ease: "easeOut" }}
           >
             99% purity. Third-party tested.
-          </motion.p>
+          </m.p>
 
-          <motion.div
+          <m.div
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.9, duration: 0.9, ease: "easeOut" }}
@@ -125,20 +125,20 @@ export function HomePage({ featuredProducts }: { featuredProducts: ShopifyProduc
             </Link>
             <Link
               href="/about"
-              className="px-9 py-3.5 border border-primary-foreground/50 text-primary-foreground text-xs uppercase tracking-widest hover:border-primary-foreground hover:bg-primary-foreground/8 transition-all duration-200"
+              className="px-9 py-3.5 border border-primary-foreground/50 text-primary-foreground text-xs uppercase tracking-widest hover:border-primary-foreground hover:bg-primary-foreground/8 transition-colors duration-200"
             >
               Our Philosophy
             </Link>
-          </motion.div>
+          </m.div>
         </div>
 
-        <motion.div
+        <m.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 1.6, duration: 1 }}
           className="absolute bottom-8 left-1/2 -translate-x-1/2 z-20 flex flex-col items-center gap-2"
         >
-          <motion.div
+          <m.div
             animate={{ y: [0, 6, 0] }}
             transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
             className="w-px h-10 bg-primary-foreground/30"
@@ -146,7 +146,7 @@ export function HomePage({ featuredProducts }: { featuredProducts: ShopifyProduc
           <span className="text-primary-foreground/30 text-xs uppercase tracking-widest">
             scroll
           </span>
-        </motion.div>
+        </m.div>
       </section>
 
       {/* ── Featured Products ────────────────────────────── */}
@@ -167,7 +167,7 @@ export function HomePage({ featuredProducts }: { featuredProducts: ShopifyProduc
           {featuredProducts.length > 0 ? (
             <div className="grid grid-cols-2 md:grid-cols-3 gap-8">
               {featuredProducts.map((product, i) => (
-                <motion.div
+                <m.div
                   className="last:hidden md:last:block"
                   key={product.id}
                   initial={{ opacity: 0, y: 30 }}
@@ -176,7 +176,7 @@ export function HomePage({ featuredProducts }: { featuredProducts: ShopifyProduc
                   transition={{ duration: 0.6, delay: i * 0.1 }}
                 >
                   <ProductCard product={product} />
-                </motion.div>
+                </m.div>
               ))}
             </div>
           ) : (
@@ -218,7 +218,7 @@ export function HomePage({ featuredProducts }: { featuredProducts: ShopifyProduc
                 desc: "Produced in a certified facility where consistency is non-negotiable.",
               },
             ].map((item, i) => (
-              <motion.div
+              <m.div
                 key={item.title}
                 initial={{ opacity: 0 }}
                 whileInView={{ opacity: 1 }}
@@ -231,7 +231,7 @@ export function HomePage({ featuredProducts }: { featuredProducts: ShopifyProduc
                 </div>
                 <h4 className="text-xs uppercase tracking-widest font-semibold">{item.title}</h4>
                 <p className="text-sm text-primary/55 leading-relaxed">{item.desc}</p>
-              </motion.div>
+              </m.div>
             ))}
           </div>
 

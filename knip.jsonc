@@ -1,4 +1,4 @@
 {
   "$schema": "https://unpkg.com/knip@6/schema.json",
-  "ignore": ["**/.git/**", "taze.config.ts"]
+  "ignore": ["**/.git/**", "doctor.config.ts", "taze.config.ts"]
 }

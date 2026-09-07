@@ -1,6 +1,6 @@
 "use client";
 
-import { motion, AnimatePresence } from "framer-motion";
+import { m, AnimatePresence } from "motion/react";
 import { X, Minus, Plus, ShoppingBag } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
@@ -30,15 +30,19 @@ export function CartDrawer({ freeShippingThreshold }: { freeShippingThreshold?: 
     <AnimatePresence>
       {isCartOpen && (
         <>
-          <motion.div
+          <m.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.2 }}
             className="fixed inset-0 bg-black/40 backdrop-blur-sm z-50"
             onClick={() => setIsCartOpen(false)}
+            onKeyDown={(e) => {
+              if (e.key === "Escape") setIsCartOpen(false);
+            }}
+            tabIndex={-1}
           />
-          <motion.div
+          <m.div
             initial={{ x: "100%" }}
             animate={{ x: 0 }}
             exit={{ x: "100%" }}
@@ -70,7 +74,7 @@ export function CartDrawer({ freeShippingThreshold }: { freeShippingThreshold?: 
                       </p>
                       <div className="h-1.5 w-full bg-background rounded-full overflow-hidden">
                         <div
-                          className="h-full bg-primary transition-all duration-500 ease-out"
+                          className="h-full bg-primary transition-[width] duration-500 ease-out"
                           style={{ width: `${progressPercent}%` }}
                         />
                       </div>
@@ -114,6 +118,7 @@ export function CartDrawer({ freeShippingThreshold }: { freeShippingThreshold?: 
                             <div className="flex items-center border border-border rounded-full">
                               <button
                                 onClick={() => updateQuantity(line.id, line.quantity - 1)}
+                                aria-label="Decrease quantity"
                                 className="w-8 h-8 flex items-center justify-center text-foreground/70 hover:text-primary transition-colors"
                                 disabled={isLoading}
                               >
@@ -124,6 +129,7 @@ export function CartDrawer({ freeShippingThreshold }: { freeShippingThreshold?: 
                               </span>
                               <button
                                 onClick={() => updateQuantity(line.id, line.quantity + 1)}
+                                aria-label="Increase quantity"
                                 className="w-8 h-8 flex items-center justify-center text-foreground/70 hover:text-primary transition-colors"
                                 disabled={isLoading}
                               >
@@ -179,7 +185,7 @@ export function CartDrawer({ freeShippingThreshold }: { freeShippingThreshold?: 
                 </Link>
               </div>
             )}
-          </motion.div>
+          </m.div>
         </>
       )}
     </AnimatePresence>

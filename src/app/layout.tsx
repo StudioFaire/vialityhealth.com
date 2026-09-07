@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import Script from "next/script";
 import { Inter } from "next/font/google";
 import localFont from "next/font/local";
+import { LazyMotion, domMax } from "motion/react";
 import "vanilla-cookieconsent/dist/cookieconsent.css";
 import "@/app/styles/cookieconsent.css";
 import "./globals.css";
@@ -61,17 +62,32 @@ export const metadata: Metadata = {
   },
   description:
     "viality - modern rituals for internal balance. Premium clinical wellness, formulated with precision and held to a quieter standard.",
-  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || "https://vialityhealth.com"),
+  metadataBase: resolveSiteUrl(),
 };
 
+function resolveSiteUrl(): URL {
+  const candidate = process.env.NEXT_PUBLIC_SITE_URL;
+  if (candidate) {
+    try {
+      return new URL(candidate);
+    } catch {
+      // fall through to default when the configured URL is invalid
+    }
+  }
+  return new URL("https://vialityhealth.com");
+}
+
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
-  const followUsMenu = await getMenu("follow-us-viality");
-  const followUsUrls = followUsMenu?.items.map((item) => item.url).filter(Boolean) ?? [];
-  const shopMenu = await getMenu("shop-viality");
-  const companyMenu = await getMenu("company-viality");
-  const legalMenu = await getMenu("legal-viality");
-  const supportMenu = await getMenu("support-viality");
-  const freeShipping = await getFreeShippingConfig();
+  const [followUsMenu, shopMenu, companyMenu, legalMenu, supportMenu, freeShipping] =
+    await Promise.all([
+      getMenu("follow-us-viality"),
+      getMenu("shop-viality"),
+      getMenu("company-viality"),
+      getMenu("legal-viality"),
+      getMenu("support-viality"),
+      getFreeShippingConfig(),
+    ]);
+  const followUsUrls = followUsMenu?.items.flatMap((item) => (item.url ? [item.url] : [])) ?? [];
   const freeShippingThreshold = freeShipping?.threshold ?? undefined;
   return (
     <html lang="en" className={[iosevkaCharon.variable, inter.variable].filter(Boolean).join(" ")}>
@@ -85,20 +101,22 @@ export default async function RootLayout({ children }: { children: React.ReactNo
           {`window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('consent','default',{ad_storage:'denied',ad_user_data:'denied',ad_personalization:'denied',analytics_storage:'denied',personalization_storage:'denied',functionality_storage:'granted',security_storage:'granted',wait_for_update:500});`}
         </Script>
         <CookieConsentManager />
-        <CartProvider>
-          {freeShipping?.text ? <AnnouncementBar text={freeShipping.text} /> : null}
-          <Navbar />
-          <CartDrawer freeShippingThreshold={freeShippingThreshold} />
-          <AgeVerification />
-          <main className="flex-1">{children}</main>
-          <Footer
-            followUsUrls={followUsUrls}
-            shopMenu={shopMenu}
-            companyMenu={companyMenu}
-            legalMenu={legalMenu}
-            supportMenu={supportMenu}
-          />
-        </CartProvider>
+        <LazyMotion features={domMax}>
+          <CartProvider>
+            {freeShipping?.text ? <AnnouncementBar text={freeShipping.text} /> : null}
+            <Navbar />
+            <CartDrawer freeShippingThreshold={freeShippingThreshold} />
+            <AgeVerification />
+            <main className="flex-1">{children}</main>
+            <Footer
+              followUsUrls={followUsUrls}
+              shopMenu={shopMenu}
+              companyMenu={companyMenu}
+              legalMenu={legalMenu}
+              supportMenu={supportMenu}
+            />
+          </CartProvider>
+        </LazyMotion>
       </body>
     </html>
   );

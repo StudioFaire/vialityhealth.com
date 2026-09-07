@@ -29,9 +29,9 @@ function FacetGroup({
 }) {
   const [showAll, setShowAll] = useState(false);
 
-  const hiddenSelected = facet.values
-    .slice(MAX_VISIBLE)
-    .filter((v) => selected[facet.id]?.includes(v.value));
+  const selectedValues = new Set(selected[facet.id] ?? []);
+
+  const hiddenSelected = facet.values.slice(MAX_VISIBLE).filter((v) => selectedValues.has(v.value));
 
   const visibleValues = showAll
     ? facet.values
@@ -46,7 +46,7 @@ function FacetGroup({
       </h4>
       <ul className="space-y-2.5">
         {visibleValues.map((value) => {
-          const checked = selected[facet.id]?.includes(value.value) ?? false;
+          const checked = selectedValues.has(value.value);
           return (
             <li key={value.value}>
               <label

@@ -2,7 +2,7 @@
 
 import { useMemo, useState } from "react";
 import { ChevronDown, SlidersHorizontal, X } from "lucide-react";
-import { motion, AnimatePresence } from "framer-motion";
+import { m, AnimatePresence } from "motion/react";
 import { ProductCard } from "@/components/ProductCard";
 import { EASE_EDITORIAL } from "@/lib/motion";
 import type { ShopifyProduct } from "@/lib/shopify/types";
@@ -198,7 +198,7 @@ export function ShopContent({ products }: { products: ShopProduct[] }) {
   return (
     <>
       {/* Toolbar */}
-      <motion.div
+      <m.div
         initial={{ opacity: 0, y: 16 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.7, ease: EASE_EDITORIAL }}
@@ -246,7 +246,7 @@ export function ShopContent({ products }: { products: ShopProduct[] }) {
             </div>
           </div>
         </div>
-      </motion.div>
+      </m.div>
 
       {/* Active filter chips */}
       {activeCount > 0 && (
@@ -290,7 +290,7 @@ export function ShopContent({ products }: { products: ShopProduct[] }) {
         {sortedProducts.length > 0 ? (
           <div className="grid grid-cols-2 xl:grid-cols-3 gap-4 xl:gap-8">
             {sortedProducts.map((product, i) => (
-              <motion.div
+              <m.div
                 key={product.id}
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
@@ -298,7 +298,7 @@ export function ShopContent({ products }: { products: ShopProduct[] }) {
                 transition={{ duration: 0.6, delay: i * 0.08 }}
               >
                 <ProductCard product={product} />
-              </motion.div>
+              </m.div>
             ))}
           </div>
         ) : (
@@ -319,7 +319,7 @@ export function ShopContent({ products }: { products: ShopProduct[] }) {
       <AnimatePresence>
         {mobileFiltersOpen && (
           <>
-            <motion.button
+            <m.button
               type="button"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
@@ -329,7 +329,7 @@ export function ShopContent({ products }: { products: ShopProduct[] }) {
               className="fixed inset-0 bg-black/40 backdrop-blur-sm z-50 cursor-default"
               onClick={() => setMobileFiltersOpen(false)}
             />
-            <motion.div
+            <m.div
               initial={{ x: "100%" }}
               animate={{ x: 0 }}
               exit={{ x: "100%" }}
@@ -374,7 +374,7 @@ export function ShopContent({ products }: { products: ShopProduct[] }) {
                   View {sortedProducts.length}
                 </button>
               </div>
-            </motion.div>
+            </m.div>
           </>
         )}
       </AnimatePresence>

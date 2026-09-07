@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { ChevronDown } from "lucide-react";
-import { motion, AnimatePresence } from "framer-motion";
+import { m } from "motion/react";
 
 const faqSections = [
   {
@@ -164,8 +164,8 @@ export default function FaqsPage() {
     <section className="bg-surface-section py-12 md:py-24 px-6 md:px-16">
       <div className="max-w-180 mx-auto">
         {faqSections.map((section, sectionIndex) => (
-          <div key={sectionIndex} className={sectionIndex > 0 ? "mt-12" : ""}>
-            <motion.h2
+          <div key={section.heading} className={sectionIndex > 0 ? "mt-12" : ""}>
+            <m.h2
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-40px" }}
@@ -173,13 +173,14 @@ export default function FaqsPage() {
               className="text-lg font-serif text-primary mb-6"
             >
               {section.heading}
-            </motion.h2>
+            </m.h2>
             <div>
               {section.items.map((faq, index) => {
                 const faqId = `${sectionIndex}-${index}`;
+                const isOpen = openFaq === faqId;
                 return (
-                  <motion.div
-                    key={faqId}
+                  <m.div
+                    key={faq.q}
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true, margin: "-40px" }}
@@ -188,7 +189,8 @@ export default function FaqsPage() {
                   >
                     <button
                       type="button"
-                      onClick={() => setOpenFaq(openFaq === faqId ? null : faqId)}
+                      onClick={() => setOpenFaq(isOpen ? null : faqId)}
+                      aria-expanded={isOpen}
                       className="w-full py-4 flex justify-between items-center text-left gap-6 group"
                     >
                       <span className="text-xs uppercase tracking-widest font-medium group-hover:text-primary/70 transition-colors">
@@ -198,27 +200,24 @@ export default function FaqsPage() {
                         <ChevronDown
                           size={14}
                           className={`transition-transform duration-300 ${
-                            openFaq === faqId ? "rotate-180" : ""
+                            isOpen ? "rotate-180" : ""
                           }`}
                         />
                       </span>
                     </button>
-                    <AnimatePresence>
-                      {openFaq === faqId && (
-                        <motion.div
-                          initial={{ height: 0, opacity: 0 }}
-                          animate={{ height: "auto", opacity: 1 }}
-                          exit={{ height: 0, opacity: 0 }}
-                          transition={{ duration: 0.3, ease: "easeInOut" }}
-                          className="overflow-hidden"
-                        >
-                          <p className="pb-6 text-sm text-primary/55 font-light leading-[1.85]">
-                            {faq.a}
-                          </p>
-                        </motion.div>
-                      )}
-                    </AnimatePresence>
-                  </motion.div>
+                    <div
+                      className={`grid overflow-hidden transition-[grid-template-rows] duration-300 ease-in-out ${
+                        isOpen ? "grid-rows-[1fr]" : "grid-rows-[0fr]"
+                      }`}
+                      aria-hidden={!isOpen}
+                    >
+                      <div className="overflow-hidden">
+                        <p className="pb-6 text-sm text-primary/55 font-light leading-[1.85]">
+                          {faq.a}
+                        </p>
+                      </div>
+                    </div>
+                  </m.div>
                 );
               })}
             </div>

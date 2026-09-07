@@ -3,7 +3,7 @@
 import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { AnimatePresence, motion, type Easing, type Variants } from "framer-motion";
+import { AnimatePresence, m, type Easing, type Variants } from "motion/react";
 import { X } from "lucide-react";
 
 const overlayVariants: Variants = {
@@ -90,7 +90,7 @@ export function MobileMenu({ links }: MobileMenuProps) {
 
       <AnimatePresence>
         {isOpen && (
-          <motion.div
+          <m.div
             variants={overlayVariants}
             initial="hidden"
             animate="show"
@@ -110,7 +110,7 @@ export function MobileMenu({ links }: MobileMenuProps) {
             />
 
             <div className="relative z-10 flex items-center justify-between px-6 md:px-12 h-[72px] shrink-0">
-              <motion.div
+              <m.div
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
@@ -124,9 +124,9 @@ export function MobileMenu({ links }: MobileMenuProps) {
                 >
                   viality
                 </Link>
-              </motion.div>
+              </m.div>
 
-              <motion.button
+              <m.button
                 initial={{ opacity: 0, rotate: -45 }}
                 animate={{ opacity: 1, rotate: 0 }}
                 exit={{ opacity: 0 }}
@@ -136,11 +136,11 @@ export function MobileMenu({ links }: MobileMenuProps) {
                 className="size-10 flex items-center justify-center text-primary-foreground/40 hover:text-primary-foreground/80 transition-colors duration-200 -mr-2"
               >
                 <X size={20} strokeWidth={1.2} />
-              </motion.button>
+              </m.button>
             </div>
 
             <nav className="relative z-10 flex-1 flex flex-col justify-center px-8 md:px-16 xl:px-24 overflow-hidden">
-              <motion.div
+              <m.div
                 initial={{ scaleY: 0, originY: 0 }}
                 animate={{ scaleY: 1 }}
                 exit={{ scaleY: 0, originY: 0 }}
@@ -150,7 +150,7 @@ export function MobileMenu({ links }: MobileMenuProps) {
 
               <ul className="flex flex-col pl-5 md:pl-8">
                 {links.map((link, i) => (
-                  <motion.li
+                  <m.li
                     key={link.href}
                     custom={i}
                     variants={linkVariants}
@@ -168,20 +168,20 @@ export function MobileMenu({ links }: MobileMenuProps) {
                         {String(i + 1).padStart(2, "0")}
                       </span>
                       <span
-                        className="font-serif uppercase font-light text-primary-foreground/85 leading-[1.1] transition-all duration-400 group-hover:text-primary-foreground group-hover:translate-x-1.5 inline-block"
+                        className="font-serif uppercase font-light text-primary-foreground/85 leading-[1.1] transition-[color,transform] duration-400 group-hover:text-primary-foreground group-hover:translate-x-1.5 inline-block"
                         style={{ fontSize: "clamp(2.4rem, 6.5vw, 5.5rem)" }}
                       >
                         {link.label}
                       </span>
-                      <span className="text-primary-foreground/0 group-hover:text-primary-foreground/30 transition-all duration-300 translate-x-0 group-hover:translate-x-1 text-sm self-center font-light">
+                      <span className="text-primary-foreground/0 group-hover:text-primary-foreground/30 transition-[color,transform] duration-300 translate-x-0 group-hover:translate-x-1 text-sm self-center font-light">
                         →
                       </span>
                     </Link>
-                  </motion.li>
+                  </m.li>
                 ))}
               </ul>
             </nav>
-          </motion.div>
+          </m.div>
         )}
       </AnimatePresence>
     </>

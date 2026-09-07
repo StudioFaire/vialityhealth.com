@@ -1,6 +1,15 @@
 "use client";
 
-import { createContext, useContext, useEffect, useState, useCallback, type ReactNode } from "react";
+import {
+  createContext,
+  useContext,
+  useEffect,
+  useState,
+  useCallback,
+  useMemo,
+  useRef,
+  type ReactNode,
+} from "react";
 import {
   createCart as createShopifyCart,
   addToCart as addShopifyToCart,
@@ -44,7 +53,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
   const [isLoading, setIsLoading] = useState(false);
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [isCheckoutAlertOpen, setIsCheckoutAlertOpen] = useState(false);
-  const [checkoutUrl, setCheckoutUrl] = useState<string | null>(null);
+  const checkoutUrl = useRef<string | null>(null);
 
   // Load cart on mount
   useEffect(() => {
@@ -135,36 +144,46 @@ export function CartProvider({ children }: { children: ReactNode }) {
   const checkout = useCallback(() => {
     if (!cart) return;
     if (process.env.NEXT_PUBLIC_SHOPIFY_APP_URL_ALTERNATIVE) {
-      setCheckoutUrl(
-        `${process.env.NEXT_PUBLIC_SHOPIFY_APP_URL_ALTERNATIVE}/cart?cartId=${cart.id}`,
-      );
+      checkoutUrl.current = `${process.env.NEXT_PUBLIC_SHOPIFY_APP_URL_ALTERNATIVE}/cart?cartId=${cart.id}`;
       setIsCheckoutAlertOpen(true);
     } else if (cart.checkoutUrl) {
       window.location.href = cart.checkoutUrl;
     }
   }, [cart]);
 
-  const lines = cart?.lines.edges.map((e) => e.node) ?? [];
-  const cartCount = cart?.totalQuantity ?? 0;
-  const subtotal = cart?.cost.subtotalAmount.amount ?? "0.00";
+  const value = useMemo(() => {
+    const lines = cart?.lines.edges.map((e) => e.node) ?? [];
+    const cartCount = cart?.totalQuantity ?? 0;
+    const subtotal = cart?.cost.subtotalAmount.amount ?? "0.00";
+
+    return {
+      cart,
+      lines,
+      cartCount,
+      subtotal,
+      isLoading,
+      isCartOpen,
+      setIsCartOpen,
+      addItem,
+      buyNow,
+      removeItem,
+      updateQuantity,
+      checkout,
+    };
+  }, [
+    cart,
+    isLoading,
+    isCartOpen,
+    setIsCartOpen,
+    addItem,
+    buyNow,
+    removeItem,
+    updateQuantity,
+    checkout,
+  ]);
 
   return (
-    <CartContext.Provider
-      value={{
-        cart,
-        lines,
-        cartCount,
-        subtotal,
-        isLoading,
-        isCartOpen,
-        setIsCartOpen,
-        addItem,
-        buyNow,
-        removeItem,
-        updateQuantity,
-        checkout,
-      }}
-    >
+    <CartContext.Provider value={value}>
       {children}
       <AlertDialog open={isCheckoutAlertOpen} onOpenChange={setIsCheckoutAlertOpen}>
         <AlertDialogContent>
@@ -178,7 +197,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
             <AlertDialogCancel>Cancel</AlertDialogCancel>
             <AlertDialogAction
               onClick={() => {
-                if (checkoutUrl) window.location.href = checkoutUrl;
+                if (checkoutUrl.current) window.location.href = checkoutUrl.current;
               }}
             >
               Continue

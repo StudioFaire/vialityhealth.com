@@ -10,6 +10,8 @@ import { SocialMenu } from "@/components/SocialMenu";
 const menuItems = (menu: ShopifyMenu | null) =>
   menu?.items.map(({ title, url }) => ({ title, url })) ?? [];
 
+const EMPTY_URLS: string[] = [];
+
 const displaymenu = (menu: ShopifyMenu | null) => {
   const items = menuItems(menu);
 
@@ -36,7 +38,7 @@ const displaymenu = (menu: ShopifyMenu | null) => {
 };
 
 export function Footer({
-  followUsUrls = [],
+  followUsUrls = EMPTY_URLS,
   shopMenu,
   companyMenu,
   legalMenu,

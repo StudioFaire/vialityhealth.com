@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
-import { PolicyPageLayout, generatePolicyMetadata } from "@/components/layout/PolicyPageLayout";
+import { PolicyPageLayout } from "@/components/layout/PolicyPageLayout";
+import { generatePolicyMetadata } from "@/components/layout/policy-metadata";
 import { getShopPolicies, resolveLiquidVariables } from "@/lib/shopify";
 
 export const metadata: Metadata = generatePolicyMetadata(

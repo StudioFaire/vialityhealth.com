@@ -1,3 +1,11 @@
 allowBuilds:
   '@parcel/watcher': true
   sharp: true
+
+minimumReleaseAge: 1440
+
+trustPolicy: no-downgrade
+
+trustPolicyExclude:
+  - resend
+  - semver

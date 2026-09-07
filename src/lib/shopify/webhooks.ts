@@ -94,26 +94,35 @@ export async function registerWebhookSubscriptions(): Promise<{
   const created: string[] = [];
   const alreadyRegistered: string[] = [];
 
-  for (const topic of WEBHOOK_TOPICS) {
-    if (existing.get(topic) === callbackUrl) {
-      alreadyRegistered.push(topic);
-      continue;
-    }
+  const results = await Promise.all(
+    WEBHOOK_TOPICS.map(async (topic) => {
+      if (existing.get(topic) === callbackUrl) {
+        return { topic, status: "already" as const };
+      }
 
-    const { webhookSubscriptionCreate } = await adminGraphQL<CreateWebhookResponse>(
-      CreateWebhookSubscriptionMutation,
-      {
-        topic,
-        callbackUrl,
-      },
-    );
-
-    if (webhookSubscriptionCreate.userErrors.length > 0) {
-      throw new Error(
-        `${topic}: ${webhookSubscriptionCreate.userErrors.map((e) => e.message).join(", ")}`,
+      const { webhookSubscriptionCreate } = await adminGraphQL<CreateWebhookResponse>(
+        CreateWebhookSubscriptionMutation,
+        {
+          topic,
+          callbackUrl,
+        },
       );
+
+      if (webhookSubscriptionCreate.userErrors.length > 0) {
+        throw new Error(
+          `${topic}: ${webhookSubscriptionCreate.userErrors.map((e) => e.message).join(", ")}`,
+        );
+      }
+      return { topic, status: "created" as const };
+    }),
+  );
+
+  for (const result of results) {
+    if (result.status === "already") {
+      alreadyRegistered.push(result.topic);
+    } else {
+      created.push(result.topic);
     }
-    created.push(topic);
   }
 
   return { created, alreadyRegistered };

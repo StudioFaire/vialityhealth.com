@@ -1,12 +1,4 @@
-import type { Metadata } from "next";
 import { Reveal } from "@/components/Reveal";
-
-export function generatePolicyMetadata(title: string, description: string): Metadata {
-  return {
-    title,
-    description,
-  };
-}
 
 export function PolicyPageLayout({
   title,

@@ -1,4 +1,4 @@
-import type { Easing, Variants } from "framer-motion";
+import type { Easing, Variants } from "motion/react";
 
 export const EASE_EDITORIAL: Easing = [0.25, 0.1, 0.25, 1];
 

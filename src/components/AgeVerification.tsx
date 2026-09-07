@@ -20,6 +20,22 @@ function isAgeVerified(): boolean {
     .some((cookie) => cookie.trim() === `${AGE_VERIFIED_COOKIE}=true`);
 }
 
+function denyAge() {
+  const referrer = document.referrer;
+  let destination = "https://www.google.com";
+  if (referrer) {
+    try {
+      const referrerUrl = new URL(referrer);
+      if (referrerUrl.origin !== window.location.origin) {
+        destination = referrer;
+      }
+    } catch {
+      // ignore malformed referrer
+    }
+  }
+  window.location.href = destination;
+}
+
 export function AgeVerification() {
   const [isOpen, setIsOpen] = useState(false);
 
@@ -33,22 +49,6 @@ export function AgeVerification() {
     document.cookie = `${AGE_VERIFIED_COOKIE}=true; path=/; max-age=31536000; SameSite=Lax`;
     window.dispatchEvent(new Event("viality:age-verified"));
     setIsOpen(false);
-  };
-
-  const denyAge = () => {
-    const referrer = document.referrer;
-    let destination = "https://www.google.com";
-    if (referrer) {
-      try {
-        const referrerUrl = new URL(referrer);
-        if (referrerUrl.origin !== window.location.origin) {
-          destination = referrer;
-        }
-      } catch {
-        // ignore malformed referrer
-      }
-    }
-    window.location.href = destination;
   };
 
   return (

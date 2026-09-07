@@ -1,7 +1,7 @@
 "use client";
 
 import { useActionState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { m, AnimatePresence } from "motion/react";
 import { ChevronDown, CheckCircle2 } from "lucide-react";
 import { sendContactMessage } from "@/app/actions/contact";
 
@@ -23,7 +23,7 @@ export default function ContactPage() {
   return (
     <div className="min-h-screen bg-background pt-10 pb-24">
       <div className="container mx-auto px-4 max-w-6xl">
-        <motion.div
+        <m.div
           initial={{ opacity: 0, y: 24 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.9, ease: [0.25, 0.1, 0.25, 1] }}
@@ -34,11 +34,11 @@ export default function ContactPage() {
             Whether you have a question about our formulations, need help with an order, or want to
             explore wholesale opportunities, we&apos;re here to help.
           </p>
-        </motion.div>
+        </m.div>
 
         <div className="flex flex-col lg:flex-row gap-16 mb-24">
           {/* Contact Form */}
-          <motion.div
+          <m.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.9, delay: 0.15, ease: [0.25, 0.1, 0.25, 1] }}
@@ -47,7 +47,7 @@ export default function ContactPage() {
             <div className="bg-white p-8 md:p-12 rounded-3xl shadow-sm border border-border/40">
               <AnimatePresence mode="wait">
                 {state.success ? (
-                  <motion.div
+                  <m.div
                     key="success"
                     initial={{ opacity: 0, scale: 0.95 }}
                     animate={{ opacity: 1, scale: 1 }}
@@ -65,9 +65,9 @@ export default function ContactPage() {
                     >
                       Send another message
                     </button>
-                  </motion.div>
+                  </m.div>
                 ) : (
-                  <motion.div
+                  <m.div
                     key="form"
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
@@ -78,10 +78,14 @@ export default function ContactPage() {
                     <form id="contact-form" action={formAction} className="space-y-6">
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <div>
-                          <label className="text-xs uppercase tracking-widest text-foreground/70 block mb-1">
+                          <label
+                            htmlFor="contact-name"
+                            className="text-xs uppercase tracking-widest text-foreground/70 block mb-1"
+                          >
                             Full Name *
                           </label>
                           <input
+                            id="contact-name"
                             name="name"
                             required
                             className="w-full bg-transparent border-b border-border/60 py-3 focus:outline-none focus:border-primary transition-colors placeholder:text-muted-foreground"
@@ -89,10 +93,14 @@ export default function ContactPage() {
                           />
                         </div>
                         <div>
-                          <label className="text-xs uppercase tracking-widest text-foreground/70 block mb-1">
+                          <label
+                            htmlFor="contact-email"
+                            className="text-xs uppercase tracking-widest text-foreground/70 block mb-1"
+                          >
                             Email Address *
                           </label>
                           <input
+                            id="contact-email"
                             name="email"
                             type="email"
                             required
@@ -104,10 +112,14 @@ export default function ContactPage() {
 
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <div>
-                          <label className="text-xs uppercase tracking-widest text-foreground/70 block mb-1">
+                          <label
+                            htmlFor="contact-phone"
+                            className="text-xs uppercase tracking-widest text-foreground/70 block mb-1"
+                          >
                             Phone Number
                           </label>
                           <input
+                            id="contact-phone"
                             name="phone"
                             type="tel"
                             className="w-full bg-transparent border-b border-border/60 py-3 focus:outline-none focus:border-primary transition-colors placeholder:text-muted-foreground"
@@ -115,10 +127,14 @@ export default function ContactPage() {
                           />
                         </div>
                         <div>
-                          <label className="text-xs uppercase tracking-widest text-foreground/70 block mb-1">
+                          <label
+                            htmlFor="contact-order"
+                            className="text-xs uppercase tracking-widest text-foreground/70 block mb-1"
+                          >
                             Order Number
                           </label>
                           <input
+                            id="contact-order"
                             name="orderNumber"
                             className="w-full bg-transparent border-b border-border/60 py-3 focus:outline-none focus:border-primary transition-colors placeholder:text-muted-foreground"
                             placeholder="If applicable"
@@ -127,11 +143,15 @@ export default function ContactPage() {
                       </div>
 
                       <div>
-                        <label className="text-xs uppercase tracking-widest text-foreground/70 block mb-1">
+                        <label
+                          htmlFor="contact-subject"
+                          className="text-xs uppercase tracking-widest text-foreground/70 block mb-1"
+                        >
                           Subject *
                         </label>
                         <div className="relative">
                           <select
+                            id="contact-subject"
                             name="subject"
                             required
                             className="w-full bg-transparent border-b border-border/60 py-3 appearance-none focus:outline-none focus:border-primary transition-colors cursor-pointer"
@@ -153,10 +173,14 @@ export default function ContactPage() {
                       </div>
 
                       <div>
-                        <label className="text-xs uppercase tracking-widest text-foreground/70 block mb-1">
+                        <label
+                          htmlFor="contact-message"
+                          className="text-xs uppercase tracking-widest text-foreground/70 block mb-1"
+                        >
                           Message *
                         </label>
                         <textarea
+                          id="contact-message"
                           name="message"
                           required
                           rows={5}
@@ -177,14 +201,14 @@ export default function ContactPage() {
                         {isPending ? "Sending..." : "Send Message"}
                       </button>
                     </form>
-                  </motion.div>
+                  </m.div>
                 )}
               </AnimatePresence>
             </div>
-          </motion.div>
+          </m.div>
 
           {/* Contact Info */}
-          <motion.div
+          <m.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-60px" }}
@@ -222,7 +246,7 @@ export default function ContactPage() {
                 Apply for Wholesale &rarr;
               </a>
             </div>
-          </motion.div>
+          </m.div>
         </div>
       </div>
     </div>

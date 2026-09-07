@@ -8,11 +8,16 @@ const REVALIDATE_SECRET = process.env.REVALIDATE_SECRET;
 //   -H "x-revalidate-secret: <REVALIDATE_SECRET>" \
 //   -H "Content-Type: application/json" -d "{}"
 export async function POST(request: NextRequest) {
-  if (REVALIDATE_SECRET) {
-    const secret = request.headers.get("x-revalidate-secret");
-    if (secret !== REVALIDATE_SECRET) {
-      return NextResponse.json({ message: "Invalid secret" }, { status: 401 });
-    }
+  if (!REVALIDATE_SECRET) {
+    return NextResponse.json(
+      { message: "Server misconfigured: REVALIDATE_SECRET is not set" },
+      { status: 500 },
+    );
+  }
+
+  const secret = request.headers.get("x-revalidate-secret");
+  if (secret !== REVALIDATE_SECRET) {
+    return NextResponse.json({ message: "Invalid secret" }, { status: 401 });
   }
 
   try {
