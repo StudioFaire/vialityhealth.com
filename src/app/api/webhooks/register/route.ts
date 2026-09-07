@@ -19,9 +19,6 @@ export async function POST(request: NextRequest) {
     const result = await registerWebhookSubscriptions();
     return NextResponse.json({ ok: true, ...result });
   } catch (error) {
-    return NextResponse.json(
-      { ok: false, message: (error as Error).message },
-      { status: 500 }
-    );
+    return NextResponse.json({ ok: false, message: (error as Error).message }, { status: 500 });
   }
 }

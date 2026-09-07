@@ -8,12 +8,19 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useCart } from "@/components/CartProvider";
 import { EASE_EDITORIAL } from "@/lib/motion";
 import type { ShopifyProduct } from "@/lib/shopify/types";
-import {
-  getProductImages,
-  getProductVariants,
-} from "@/lib/shopify/types";
+import { getProductImages, getProductVariants } from "@/lib/shopify/types";
 
-export function ProductPageClient({ product, description, mainImageUrl, freeShippingText }: { product: ShopifyProduct; description: string; mainImageUrl?: string; freeShippingText?: string }) {
+export function ProductPageClient({
+  product,
+  description,
+  mainImageUrl,
+  freeShippingText,
+}: {
+  product: ShopifyProduct;
+  description: string;
+  mainImageUrl?: string;
+  freeShippingText?: string;
+}) {
   const { addItem, buyNow } = useCart();
   const images = mainImageUrl
     ? [{ url: mainImageUrl, altText: null, width: 0, height: 0 }]
@@ -21,9 +28,7 @@ export function ProductPageClient({ product, description, mainImageUrl, freeShip
   const variants = getProductVariants(product);
 
   const [selectedImageIndex, setSelectedImageIndex] = useState(0);
-  const [selectedOptions, setSelectedOptions] = useState<
-    Record<string, string>
-  >(() => {
+  const [selectedOptions, setSelectedOptions] = useState<Record<string, string>>(() => {
     const initial: Record<string, string> = {};
     product.options.forEach((opt) => {
       initial[opt.name] = opt.values[0];
@@ -34,16 +39,12 @@ export function ProductPageClient({ product, description, mainImageUrl, freeShip
   const [isAdding, setIsAdding] = useState(false);
 
   const selectedVariant = variants.find((v) =>
-    v.selectedOptions.every(
-      (opt) => selectedOptions[opt.name] === opt.value
-    )
+    v.selectedOptions.every((opt) => selectedOptions[opt.name] === opt.value),
   );
 
   const selectedImage = images[selectedImageIndex] ?? images[0] ?? null;
 
-  const basePrice = selectedVariant
-    ? parseFloat(selectedVariant.price.amount)
-    : 0;
+  const basePrice = selectedVariant ? parseFloat(selectedVariant.price.amount) : 0;
 
   const handleAdd = () => {
     if (!selectedVariant) return;
@@ -101,10 +102,11 @@ export function ProductPageClient({ product, description, mainImageUrl, freeShip
                     >
                       <button
                         onClick={() => setSelectedImageIndex(idx)}
-                        className={`group flex h-full w-full items-center justify-center overflow-hidden rounded-lg border bg-card hover:border-ring transition-all ${idx === selectedImageIndex
-                          ? "border-2 border-ring"
-                          : "border border-border/40"
-                          }`}
+                        className={`group flex h-full w-full items-center justify-center overflow-hidden rounded-lg border bg-card hover:border-ring transition-all ${
+                          idx === selectedImageIndex
+                            ? "border-2 border-ring"
+                            : "border border-border/40"
+                        }`}
                       >
                         <div className="relative h-full w-full object-cover transition duration-300 ease-in-out group-hover:scale-105">
                           <Image
@@ -138,43 +140,48 @@ export function ProductPageClient({ product, description, mainImageUrl, freeShip
               <h1 className="font-serif uppercase font-light text-4xl xl:text-5xl text-primary leading-tight mb-2">
                 {product.title}
               </h1>
-              {product.options.filter((opt) => opt.values.length === 1).map((option) => (
-                <p key={option.id} className="text-sm text-primary/50 font-light mb-1">
-                  {option.values[0]}
-                </p>
-              ))}
+              {product.options
+                .filter((opt) => opt.values.length === 1)
+                .map((option) => (
+                  <p key={option.id} className="text-sm text-primary/50 font-light mb-1">
+                    {option.values[0]}
+                  </p>
+                ))}
               <p className="text-xs uppercase tracking-widest text-primary/40 mb-5">
                 {product.productType}
               </p>
             </header>
 
             {/* Product Options */}
-            {product.options.filter((opt) => opt.values.length > 1).map((option) => (
-              <div key={option.id} className="mb-2">
-                <label className="text-xs uppercase tracking-widest text-primary/35 mb-2 block">
-                  {option.name}
-                </label>
-                <div className="flex flex-wrap gap-2">
-                  {option.values.map((value) => (
-                    <button
-                      key={value}
-                      onClick={() =>
-                        setSelectedOptions((prev) => ({
-                          ...prev,
-                          [option.name]: value,
-                        }))
-                      }
-                      className={`px-4 py-2 text-xs uppercase tracking-widest transition-colors ${selectedOptions[option.name] === value
-                        ? "bg-primary text-primary-foreground"
-                        : "border border-border/60 text-primary/70 hover:border-primary/50"
+            {product.options
+              .filter((opt) => opt.values.length > 1)
+              .map((option) => (
+                <div key={option.id} className="mb-2">
+                  <label className="text-xs uppercase tracking-widest text-primary/35 mb-2 block">
+                    {option.name}
+                  </label>
+                  <div className="flex flex-wrap gap-2">
+                    {option.values.map((value) => (
+                      <button
+                        key={value}
+                        onClick={() =>
+                          setSelectedOptions((prev) => ({
+                            ...prev,
+                            [option.name]: value,
+                          }))
+                        }
+                        className={`px-4 py-2 text-xs uppercase tracking-widest transition-colors ${
+                          selectedOptions[option.name] === value
+                            ? "bg-primary text-primary-foreground"
+                            : "border border-border/60 text-primary/70 hover:border-primary/50"
                         }`}
-                    >
-                      {value}
-                    </button>
-                  ))}
+                      >
+                        {value}
+                      </button>
+                    ))}
+                  </div>
                 </div>
-              </div>
-            ))}
+              ))}
 
             {/* Quantity and Add to Cart */}
             <div className="space-y-3">
@@ -250,9 +257,9 @@ export function ProductPageClient({ product, description, mainImageUrl, freeShip
               </div>
             </div>
 
-            {freeShippingText && <p className="text-xs text-primary/30 leading-relaxed">
-              {freeShippingText}
-            </p>}
+            {freeShippingText && (
+              <p className="text-xs text-primary/30 leading-relaxed">{freeShippingText}</p>
+            )}
 
             {/* Description */}
             <div className="text-sm text-primary/60 font-light leading-[1.8] max-w-sm">
@@ -260,7 +267,8 @@ export function ProductPageClient({ product, description, mainImageUrl, freeShip
                 <div dangerouslySetInnerHTML={{ __html: description }} />
                 <br />
                 <p className="italic">
-                  This product is intended strictly for laboratory and research purposes only. Not intended for human consumption.
+                  This product is intended strictly for laboratory and research purposes only. Not
+                  intended for human consumption.
                 </p>
                 <p className="italic">
                   Due to hygiene and safety reasons, this item is final sale.
@@ -273,7 +281,16 @@ export function ProductPageClient({ product, description, mainImageUrl, freeShip
 
       {/* Verification Section */}
       <section className="bg-ink py-20 md:py-24 px-6 md:px-16 relative overflow-hidden">
-        <div className="absolute inset-0 pointer-events-none opacity-[0.04]" style={{ backgroundImage: "url(\"data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E\")", backgroundRepeat: "repeat", backgroundSize: "128px", mixBlendMode: "screen" }} />
+        <div
+          className="absolute inset-0 pointer-events-none opacity-[0.04]"
+          style={{
+            backgroundImage:
+              "url(\"data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E\")",
+            backgroundRepeat: "repeat",
+            backgroundSize: "128px",
+            mixBlendMode: "screen",
+          }}
+        />
         <div className="relative z-10 mx-auto flex flex-col md:flex-row md:items-center md:justify-between gap-10">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -281,10 +298,15 @@ export function ProductPageClient({ product, description, mainImageUrl, freeShip
             viewport={{ once: true, margin: "-60px" }}
             transition={{ duration: 0.8, ease: EASE_EDITORIAL }}
           >
-            <p className="text-xs uppercase tracking-widest text-primary-foreground/25 mb-4">Verification</p>
+            <p className="text-xs uppercase tracking-widest text-primary-foreground/25 mb-4">
+              Verification
+            </p>
             <h2 className="font-serif uppercase font-light text-3xl md:text-4xl text-primary-foreground/90 leading-tight max-w-md">
               <span>Verified clarity,</span>
-              <span><br />batch by batch.</span>
+              <span>
+                <br />
+                batch by batch.
+              </span>
             </h2>
             <p className="text-primary-foreground/40 text-sm font-light leading-relaxed mt-4 max-w-sm">
               Certificates of Analysis are available for every production run.
@@ -314,7 +336,6 @@ export function ProductPageClient({ product, description, mainImageUrl, freeShip
           </motion.div>
         </div>
       </section>
-
     </div>
   );
 }

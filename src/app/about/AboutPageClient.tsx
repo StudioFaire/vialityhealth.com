@@ -6,8 +6,7 @@ import { fadeUp, fadeIn, staggerContainer, EASE_EDITORIAL } from "@/lib/motion";
 
 export function AboutPageClient() {
   return (
-
-    <section className="bg-background py-28 md:py-36 px-6 md:px-16" >
+    <section className="bg-background py-28 md:py-36 px-6 md:px-16">
       <div className="mx-auto grid grid-cols-1 md:grid-cols-2 gap-16 md:gap-24 items-center">
         <motion.div
           initial="hidden"
@@ -36,13 +35,17 @@ export function AboutPageClient() {
             className="space-y-5 text-primary/60 text-sm leading-[1.85] font-light"
           >
             <p>
-              Viality was created around a simple standard: Research materials should be clearly identified, independently tested, and supported by transparent documentation.
+              Viality was created around a simple standard: Research materials should be clearly
+              identified, independently tested, and supported by transparent documentation.
             </p>
             <p>
-              We focus on quality, consistency, and straightforward access to information, so researchers can understand exactly what they are purchasing.
+              We focus on quality, consistency, and straightforward access to information, so
+              researchers can understand exactly what they are purchasing.
             </p>
             <p>
-              Our materials are sold for research purposes only: They are not intended for human or veterinary use, and nothing on this site is to be used as a substitute for professional medical advice.
+              Our materials are sold for research purposes only: They are not intended for human or
+              veterinary use, and nothing on this site is to be used as a substitute for
+              professional medical advice.
             </p>
           </motion.div>
         </motion.div>

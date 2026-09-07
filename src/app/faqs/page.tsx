@@ -112,7 +112,7 @@ const faqSections = [
         a: "Certificates of Analysis or relevant testing documentation may be available for applicable products and batches. Please refer to the product page or contact our team if you require documentation for a particular batch.",
       },
       {
-        q: "What does \"research grade\" mean?",
+        q: 'What does "research grade" mean?',
         a: "Research grade refers to products supplied for laboratory, analytical and research applications. It does not mean that a product is approved as a medicine or approved for therapeutic use.",
       },
     ],
@@ -188,9 +188,7 @@ export default function FaqsPage() {
                   >
                     <button
                       type="button"
-                      onClick={() =>
-                        setOpenFaq(openFaq === faqId ? null : faqId)
-                      }
+                      onClick={() => setOpenFaq(openFaq === faqId ? null : faqId)}
                       className="w-full py-4 flex justify-between items-center text-left gap-6 group"
                     >
                       <span className="text-xs uppercase tracking-widest font-medium group-hover:text-primary/70 transition-colors">

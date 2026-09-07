@@ -1,9 +1,6 @@
 import { createHmac, timingSafeEqual } from "crypto";
 import { NextRequest, NextResponse } from "next/server";
-import {
-  revalidateShopifyProducts,
-  revalidateShopifyCollections,
-} from "@/lib/shopify/revalidate";
+import { revalidateShopifyProducts, revalidateShopifyCollections } from "@/lib/shopify/revalidate";
 
 const REVALIDATE_SECRET = process.env.REVALIDATE_SECRET;
 const WEBHOOK_SECRET = process.env.SHOPIFY_CLIENT_SECRET;
@@ -12,15 +9,10 @@ const WEBHOOK_SECRET = process.env.SHOPIFY_CLIENT_SECRET;
 // the raw body with HMAC-SHA256 using the app client secret.
 function verifyShopifyHmac(rawBody: Buffer, signature: string | null): boolean {
   if (!WEBHOOK_SECRET || !signature) return false;
-  const expected = createHmac("sha256", WEBHOOK_SECRET)
-    .update(rawBody)
-    .digest("base64");
+  const expected = createHmac("sha256", WEBHOOK_SECRET).update(rawBody).digest("base64");
   const expectedBuf = Buffer.from(expected);
   const receivedBuf = Buffer.from(signature);
-  return (
-    expectedBuf.length === receivedBuf.length &&
-    timingSafeEqual(expectedBuf, receivedBuf)
-  );
+  return expectedBuf.length === receivedBuf.length && timingSafeEqual(expectedBuf, receivedBuf);
 }
 
 export async function POST(request: NextRequest) {
@@ -29,11 +21,9 @@ export async function POST(request: NextRequest) {
   const shopifySignature = request.headers.get("x-shopify-hmac-sha256");
   const isShopifyWebhook = shopifySignature !== null;
 
-  const valid =
-    isShopifyWebhook
-      ? verifyShopifyHmac(rawBody, shopifySignature)
-      : !REVALIDATE_SECRET ||
-        request.headers.get("x-revalidate-secret") === REVALIDATE_SECRET;
+  const valid = isShopifyWebhook
+    ? verifyShopifyHmac(rawBody, shopifySignature)
+    : !REVALIDATE_SECRET || request.headers.get("x-revalidate-secret") === REVALIDATE_SECRET;
 
   if (!valid) {
     return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
@@ -60,9 +50,6 @@ export async function POST(request: NextRequest) {
     }
     return NextResponse.json({ revalidated: true, topic });
   } catch {
-    return NextResponse.json(
-      { message: "Error revalidating" },
-      { status: 500 }
-    );
+    return NextResponse.json({ message: "Error revalidating" }, { status: 500 });
   }
 }

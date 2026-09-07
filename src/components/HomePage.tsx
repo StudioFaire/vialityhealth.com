@@ -84,7 +84,7 @@ export function HomePage({ featuredProducts }: { featuredProducts: ShopifyProduc
             animate={{ opacity: 1 }}
             transition={{ duration: 1.4, ease: "easeOut" }}
           >
-            Research Grade Peptides.  Verified by data.
+            Research Grade Peptides. Verified by data.
           </motion.p>
 
           <motion.h1
@@ -108,7 +108,7 @@ export function HomePage({ featuredProducts }: { featuredProducts: ShopifyProduc
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.55, duration: 1, ease: "easeOut" }}
           >
-            99% purity.  Third-party tested.
+            99% purity. Third-party tested.
           </motion.p>
 
           <motion.div
@@ -149,7 +149,6 @@ export function HomePage({ featuredProducts }: { featuredProducts: ShopifyProduc
         </motion.div>
       </section>
 
-
       {/* ── Featured Products ────────────────────────────── */}
       <section className="py-24 px-6 bg-surface-warm">
         <div className="max-w-7xl mx-auto">
@@ -182,9 +181,7 @@ export function HomePage({ featuredProducts }: { featuredProducts: ShopifyProduc
             </div>
           ) : (
             <div className="text-center py-12">
-              <p className="text-primary/40">
-                Products coming soon
-              </p>
+              <p className="text-primary/40">Products coming soon</p>
             </div>
           )}
 
@@ -232,20 +229,14 @@ export function HomePage({ featuredProducts }: { featuredProducts: ShopifyProduc
                 <div className="size-7 border border-primary/15 flex items-center justify-center mb-2">
                   <div className="size-1.5 bg-accent" />
                 </div>
-                <h4 className="text-xs uppercase tracking-widest font-semibold">
-                  {item.title}
-                </h4>
-                <p className="text-sm text-primary/55 leading-relaxed">
-                  {item.desc}
-                </p>
+                <h4 className="text-xs uppercase tracking-widest font-semibold">{item.title}</h4>
+                <p className="text-sm text-primary/55 leading-relaxed">{item.desc}</p>
               </motion.div>
             ))}
           </div>
 
           <div className="order-1 md:order-2">
-            <h2 className="font-serif uppercase font-light text-4xl mb-6">
-              our standards
-            </h2>
+            <h2 className="font-serif uppercase font-light text-4xl mb-6">our standards</h2>
             <Link
               href="/lab-reports"
               className="px-8 py-4 bg-primary text-primary-foreground text-xs uppercase tracking-widest hover:bg-primary/88 transition-colors inline-block"

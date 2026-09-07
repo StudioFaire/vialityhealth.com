@@ -4,7 +4,7 @@ import { getShopPolicies, resolveLiquidVariables } from "@/lib/shopify";
 
 export const metadata: Metadata = generatePolicyMetadata(
   "Contact Information",
-  "Get in touch with the Viality team."
+  "Get in touch with the Viality team.",
 );
 
 export default async function ContactInformationPage() {
@@ -13,15 +13,10 @@ export default async function ContactInformationPage() {
 
   const bodyHtml = policy
     ? resolveLiquidVariables(policy.body, {
-      shop_name: "Mossé",
-      email: "hello@vialityhealth.com",
-    })
+        shop_name: "Mossé",
+        email: "hello@vialityhealth.com",
+      })
     : undefined;
 
-  return (
-    <PolicyPageLayout
-      title={policy?.title ?? "Contact Information"}
-      bodyHtml={bodyHtml}
-    />
-  );
+  return <PolicyPageLayout title={policy?.title ?? "Contact Information"} bodyHtml={bodyHtml} />;
 }

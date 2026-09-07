@@ -3,19 +3,10 @@ import Image from "next/image";
 import { Star } from "lucide-react";
 import { formatPrice } from "@/lib/utils";
 import type { ShopifyProduct } from "@/lib/shopify/types";
-import {
-  getProductImage,
-  getProductShortName,
-} from "@/lib/shopify/types";
+import { getProductImage, getProductShortName } from "@/lib/shopify/types";
 import { getFirstParagraph, applyStaticReplacements } from "@/lib/shopify/description";
 
-export function StarRating({
-  rating,
-  count,
-}: {
-  rating: number;
-  count?: number;
-}) {
+export function StarRating({ rating, count }: { rating: number; count?: number }) {
   return (
     <div className="flex items-center space-x-1.5">
       <div className="flex text-accent">
@@ -23,38 +14,31 @@ export function StarRating({
           <Star
             key={star}
             size={12}
-            className={
-              star <= Math.round(rating)
-                ? "fill-current"
-                : "text-border fill-transparent"
-            }
+            className={star <= Math.round(rating) ? "fill-current" : "text-border fill-transparent"}
           />
         ))}
       </div>
-      {count !== undefined && (
-        <span className="text-xs text-foreground/60">({count})</span>
-      )}
+      {count !== undefined && <span className="text-xs text-foreground/60">({count})</span>}
     </div>
   );
 }
 
-export function ProductCard({ product }: { product: ShopifyProduct; }) {
+export function ProductCard({ product }: { product: ShopifyProduct }) {
   const image = getProductImage(product);
-  const hasComparePrice =
-    parseFloat(product.compareAtPriceRange.minVariantPrice.amount) > 0;
+  const hasComparePrice = parseFloat(product.compareAtPriceRange.minVariantPrice.amount) > 0;
   const productType = product.productType;
-  const summaryText = product.summary
-    ? applyStaticReplacements(product.summary)
-    : "";
+  const summaryText = product.summary ? applyStaticReplacements(product.summary) : "";
 
   return (
     <Link href={`/product/${product.handle}`}>
       <article className="group cursor-pointer flex flex-col h-full overflow-hidden">
         {/* Image Container */}
         <div className="relative aspect-5/8 bg-muted overflow-hidden mb-4">
-          {productType && <div className="absolute top-3 left-3 z-10 px-3 py-1 bg-white/90 backdrop-blur text-primary text-[10px] uppercase tracking-widest font-semibold rounded-full shadow-sm">
-            {productType}
-          </div>}
+          {productType && (
+            <div className="absolute top-3 left-3 z-10 px-3 py-1 bg-white/90 backdrop-blur text-primary text-[10px] uppercase tracking-widest font-semibold rounded-full shadow-sm">
+              {productType}
+            </div>
+          )}
           {image && (
             <Image
               src={image.url}
@@ -76,14 +60,14 @@ export function ProductCard({ product }: { product: ShopifyProduct; }) {
               <span className="text-primary">
                 {formatPrice(
                   product.priceRange.minVariantPrice.amount,
-                  product.priceRange.minVariantPrice.currencyCode
+                  product.priceRange.minVariantPrice.currencyCode,
                 )}
               </span>
               {hasComparePrice && (
                 <span className="text-sm text-foreground/50 line-through">
                   {formatPrice(
                     product.compareAtPriceRange.minVariantPrice.amount,
-                    product.compareAtPriceRange.minVariantPrice.currencyCode
+                    product.compareAtPriceRange.minVariantPrice.currencyCode,
                   )}
                 </span>
               )}
@@ -91,11 +75,7 @@ export function ProductCard({ product }: { product: ShopifyProduct; }) {
           </header>
 
           <p className="text-sm text-foreground/70 mb-4 flex-1">
-            {getFirstParagraph(
-              summaryText ||
-              product.descriptionHtml ||
-              product.description
-            )}
+            {getFirstParagraph(summaryText || product.descriptionHtml || product.description)}
           </p>
 
           {/* <footer className="flex items-center justify-between mt-auto pt-4 border-t border-border/40">

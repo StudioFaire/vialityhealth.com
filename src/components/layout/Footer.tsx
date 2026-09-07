@@ -15,17 +15,16 @@ const displaymenu = (menu: ShopifyMenu | null) => {
 
   return (
     <section className="lg:col-span-2">
-      {menu?.title && <h4 className="font-medium text-sm tracking-widest uppercase mb-6 opacity-70">
-        {menu.title}
-      </h4>}
+      {menu?.title && (
+        <h4 className="font-medium text-sm tracking-widest uppercase mb-6 opacity-70">
+          {menu.title}
+        </h4>
+      )}
       {items.length > 0 && (
         <ul className="grid grid-cols-2 lg:grid-cols-1 gap-4 text-sm">
           {items.map((item) => (
             <li key={item.url}>
-              <Link
-                href={item.url}
-                className="hover:opacity-70 transition-opacity"
-              >
+              <Link href={item.url} className="hover:opacity-70 transition-opacity">
                 {item.title}
               </Link>
             </li>
@@ -57,10 +56,7 @@ export function Footer({
         <div className="grid grid-cols-full lg:grid-cols-12 gap-12 lg:gap-8 mb-16">
           {/* Brand Column */}
           <div className="lg:col-span-4 grid justify-center lg:justify-start">
-            <Link
-              className="relative block h-24 aspect-15/4"
-              href="/"
-            >
+            <Link className="relative block h-24 aspect-15/4" href="/">
               <Image
                 className="invert object-contain"
                 src="/images/logotype.svg"
@@ -88,15 +84,12 @@ export function Footer({
         </div>
 
         <div className="pt-8 border-t border-primary-foreground/10 flex flex-col md:flex-row items-center justify-between gap-4 text-xs text-primary-foreground/60">
-          <span>&copy; {new Date().getFullYear()} Viality.  All rights reserved.</span>
+          <span>&copy; {new Date().getFullYear()} Viality. All rights reserved.</span>
           {legalItems.length > 0 && (
             <ul className="flex flew-row gap-4 text-sm">
               {legalItems.map((item) => (
                 <li key={item.url}>
-                  <Link
-                    href={item.url}
-                    className="hover:opacity-70 transition-opacity"
-                  >
+                  <Link href={item.url} className="hover:opacity-70 transition-opacity">
                     {item.title}
                   </Link>
                 </li>
@@ -105,7 +98,13 @@ export function Footer({
           )}
         </div>
         <div className="max-w-7xl mx-auto mt-12 text-xs text-primary-foreground/30 text-center tracking-widest leading-relaxed">
-          <p>These statements have not been evaluated by the Therapeutic Goods Administration. These products are intended strictly for research and laboratory use and are not for human consumption. By completing your purchase, you confirm that you are at least 18 years of age, that this material will be handled responsibly, and that it will be used solely for lawful research or analytical purposes in accordance with all applicable regulations.</p>
+          <p>
+            These statements have not been evaluated by the Therapeutic Goods Administration. These
+            products are intended strictly for research and laboratory use and are not for human
+            consumption. By completing your purchase, you confirm that you are at least 18 years of
+            age, that this material will be handled responsibly, and that it will be used solely for
+            lawful research or analytical purposes in accordance with all applicable regulations.
+          </p>
         </div>
       </div>
     </footer>

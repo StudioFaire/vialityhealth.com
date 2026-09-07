@@ -45,7 +45,7 @@ export function Navbar() {
     <nav
       className={cn(
         "sticky top-0 left-0 right-0 z-40 transition-all duration-500",
-        transparent ? "bg-transparent" : "bg-background/95 backdrop-blur-md"
+        transparent ? "bg-transparent" : "bg-background/95 backdrop-blur-md",
       )}
     >
       <div className="h-18 container mx-auto px-8 sm:px-0 flex items-center justify-between gap-6 py-2">
@@ -59,7 +59,7 @@ export function Navbar() {
           href="/"
           className={cn(
             "hover:opacity-60 logo max-w-2/6 md:max-w-1/6 relative shrink-0 text-3xl text-foreground transition-opacity size-full max-h-8",
-            transparent ? "text-foreground" : "text-foreground"
+            transparent ? "text-foreground" : "text-foreground",
           )}
         >
           <Image
@@ -79,7 +79,7 @@ export function Navbar() {
               href={link.href}
               className={cn(
                 "text-xs uppercase tracking-widest transition-opacity hover:opacity-60",
-                transparent ? "text-foreground" : "text-foreground"
+                transparent ? "text-foreground" : "text-foreground",
               )}
             >
               {link.label}

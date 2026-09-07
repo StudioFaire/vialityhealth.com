@@ -23,12 +23,8 @@ export function PolicyPageLayout({
     <div className="min-h-screen bg-background pt-10 pb-24">
       <div className="container mx-auto px-4 max-w-3xl">
         <Reveal y={24} className="mb-12">
-          <h1 className="text-4xl md:text-5xl font-serif text-primary mb-4">
-            {title}
-          </h1>
-          {lastUpdated && (
-            <p className="text-foreground/50 text-sm">Last updated: {lastUpdated}</p>
-          )}
+          <h1 className="text-4xl md:text-5xl font-serif text-primary mb-4">{title}</h1>
+          {lastUpdated && <p className="text-foreground/50 text-sm">Last updated: {lastUpdated}</p>}
         </Reveal>
 
         {bodyHtml ? (
@@ -48,8 +44,8 @@ export function PolicyPageLayout({
         ) : (
           <div className="prose prose-primary max-w-none">
             <p className="text-foreground/70 leading-relaxed">
-              This policy is currently being updated. If you have any questions, please
-              contact us at{" "}
+              This policy is currently being updated. If you have any questions, please contact us
+              at{" "}
               <a
                 href="mailto:hello@vialityhealth.com"
                 className="text-primary underline hover:text-secondary transition-colors"

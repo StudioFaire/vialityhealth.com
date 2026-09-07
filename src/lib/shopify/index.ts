@@ -32,9 +32,7 @@ function assertData<T>(data: T | undefined, operation: string): T {
 
 const REVALIDATE_SECONDS = 60;
 
-export async function getAllProducts(
-  first = 50
-): Promise<ShopifyProduct[]> {
+export async function getAllProducts(first = 50): Promise<ShopifyProduct[]> {
   const cachedFn = unstable_cache(
     async () => {
       const { data } = await shopifyClient.request<{
@@ -43,14 +41,12 @@ export async function getAllProducts(
       return assertData(data, "getAllProducts").products.edges.map((e) => transformProduct(e.node));
     },
     ["shopify", "products"],
-    { revalidate: REVALIDATE_SECONDS, tags: ["shopify-products"] }
+    { revalidate: REVALIDATE_SECONDS, tags: ["shopify-products"] },
   );
   return cachedFn();
 }
 
-export async function getProductByHandle(
-  handle: string
-): Promise<ShopifyProduct | null> {
+export async function getProductByHandle(handle: string): Promise<ShopifyProduct | null> {
   const cachedFn = unstable_cache(
     async () => {
       const { data } = await shopifyClient.request<{
@@ -60,14 +56,14 @@ export async function getProductByHandle(
       return raw ? transformProduct(raw) : null;
     },
     ["shopify", "product", handle],
-    { revalidate: REVALIDATE_SECONDS, tags: ["shopify-products"] }
+    { revalidate: REVALIDATE_SECONDS, tags: ["shopify-products"] },
   );
   return cachedFn();
 }
 
 export async function getCollectionByIdentifier(
   handle: string,
-  first = 50
+  first = 50,
 ): Promise<ShopifyCollection | null> {
   const cachedFn = unstable_cache(
     async () => {
@@ -92,13 +88,13 @@ export async function getCollectionByIdentifier(
       };
     },
     ["shopify", "collection", handle],
-    { revalidate: REVALIDATE_SECONDS, tags: ["shopify-collections"] }
+    { revalidate: REVALIDATE_SECONDS, tags: ["shopify-collections"] },
   );
   return cachedFn();
 }
 
 export async function getAllCollections(
-  first = 20
+  first = 20,
 ): Promise<{ id: string; title: string; handle: string }[]> {
   const cachedFn = unstable_cache(
     async () => {
@@ -108,7 +104,7 @@ export async function getAllCollections(
       return assertData(data, "getAllCollections").collections.edges.map((e) => e.node);
     },
     ["shopify", "collections"],
-    { revalidate: REVALIDATE_SECONDS, tags: ["shopify-collections"] }
+    { revalidate: REVALIDATE_SECONDS, tags: ["shopify-collections"] },
   );
   return cachedFn();
 }
@@ -126,10 +122,7 @@ export async function getCart(cartId: string): Promise<ShopifyCart | null> {
   }
 }
 
-export async function createCart(
-  variantId: string,
-  quantity = 1
-): Promise<ShopifyCart> {
+export async function createCart(variantId: string, quantity = 1): Promise<ShopifyCart> {
   const response = await shopifyClient.request<{
     cartCreate: { cart: ShopifyCart; userErrors: { field: string[]; message: string }[] };
   }>(CreateCartMutation, {
@@ -146,7 +139,7 @@ export async function createCart(
 
   const result = response.data.cartCreate;
   if (result.userErrors.length > 0) {
-    throw new Error(result.userErrors.map(e => e.message).join(", "));
+    throw new Error(result.userErrors.map((e) => e.message).join(", "));
   }
 
   return result.cart;
@@ -156,7 +149,7 @@ export async function addToCart(
   cartId: string,
   variantId: string,
   quantity = 1,
-  sellingPlanId?: string
+  sellingPlanId?: string,
 ): Promise<ShopifyCart> {
   const lineInput: { merchandiseId: string; quantity: number; sellingPlanId?: string } = {
     merchandiseId: variantId,
@@ -179,7 +172,7 @@ export async function addToCart(
 export async function updateCartLines(
   cartId: string,
   lineId: string,
-  quantity: number
+  quantity: number,
 ): Promise<ShopifyCart> {
   const { data } = await shopifyClient.request<{
     cartLinesUpdate: { cart: ShopifyCart; userErrors: unknown[] };
@@ -192,10 +185,7 @@ export async function updateCartLines(
   return assertData(data, "updateCartLines").cartLinesUpdate.cart;
 }
 
-export async function removeFromCart(
-  cartId: string,
-  lineIds: string[]
-): Promise<ShopifyCart> {
+export async function removeFromCart(cartId: string, lineIds: string[]): Promise<ShopifyCart> {
   const { data } = await shopifyClient.request<{
     cartLinesRemove: { cart: ShopifyCart; userErrors: unknown[] };
   }>(RemoveFromCartMutation, { variables: { cartId, lineIds } });
@@ -213,7 +203,7 @@ export async function getShopPolicies(): Promise<ShopPolicies> {
       return assertData(data, "getShopPolicies").shop;
     },
     ["shopify", "policies"],
-    { revalidate: REVALIDATE_SECONDS, tags: ["shopify-policies"] }
+    { revalidate: REVALIDATE_SECONDS, tags: ["shopify-policies"] },
   );
   return cachedFn();
 }
@@ -222,10 +212,7 @@ const LIQUID_VAR_RE = /\{\{\s*(\w+)\s*\}\}/g;
 const LIQUID_IF_RE = /\{%[-\s]*if\s+[^%]*%\}[\s\S]*?\{%[-\s]*endif\s*[-\s]*%\}/g;
 const LIQUID_COMMENT_RE = /\{#[\s\S]*?#\}/g;
 
-export function resolveLiquidVariables(
-  html: string,
-  vars: Record<string, string>
-): string {
+export function resolveLiquidVariables(html: string, vars: Record<string, string>): string {
   let result = html;
   result = result.replace(LIQUID_COMMENT_RE, "");
   result = result.replace(LIQUID_IF_RE, "");
@@ -283,7 +270,7 @@ export async function getMenu(handle: string): Promise<ShopifyMenu | null> {
       };
     },
     ["shopify", "menu", handle],
-    { revalidate: REVALIDATE_SECONDS, tags: ["shopify-menus"] }
+    { revalidate: REVALIDATE_SECONDS, tags: ["shopify-menus"] },
   );
   return cachedFn();
 }

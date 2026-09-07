@@ -47,10 +47,7 @@ const GetWebhookSubscriptionsQuery = /* GraphQL */ `
 `;
 
 const CreateWebhookSubscriptionMutation = /* GraphQL */ `
-  mutation CreateWebhookSubscription(
-    $topic: WebhookSubscriptionTopic!
-    $callbackUrl: URL!
-  ) {
+  mutation CreateWebhookSubscription($topic: WebhookSubscriptionTopic!, $callbackUrl: URL!) {
     webhookSubscriptionCreate(
       topic: $topic
       webhookSubscription: { callbackUrl: $callbackUrl, format: JSON }
@@ -69,13 +66,9 @@ const CreateWebhookSubscriptionMutation = /* GraphQL */ `
 export function getWebhookCallbackUrl(): string {
   const appUrl =
     process.env.SHOPIFY_APP_URL ??
-    (process.env.VERCEL_URL
-      ? `https://${process.env.VERCEL_URL}`
-      : "");
+    (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : "");
   if (!appUrl) {
-    throw new Error(
-      "SHOPIFY_APP_URL is not configured (e.g. https://vialityhealth.com)"
-    );
+    throw new Error("SHOPIFY_APP_URL is not configured (e.g. https://vialityhealth.com)");
   }
   return `${appUrl.replace(/\/$/, "")}/api/revalidate`;
 }
@@ -88,7 +81,7 @@ export async function registerWebhookSubscriptions(): Promise<{
 
   const { webhookSubscriptions } = await adminGraphQL<GetWebhooksResponse>(
     GetWebhookSubscriptionsQuery,
-    {}
+    {},
   );
 
   const existing = new Map<string, string>();
@@ -107,17 +100,17 @@ export async function registerWebhookSubscriptions(): Promise<{
       continue;
     }
 
-    const { webhookSubscriptionCreate } =
-      await adminGraphQL<CreateWebhookResponse>(CreateWebhookSubscriptionMutation, {
+    const { webhookSubscriptionCreate } = await adminGraphQL<CreateWebhookResponse>(
+      CreateWebhookSubscriptionMutation,
+      {
         topic,
         callbackUrl,
-      });
+      },
+    );
 
     if (webhookSubscriptionCreate.userErrors.length > 0) {
       throw new Error(
-        `${topic}: ${webhookSubscriptionCreate.userErrors
-          .map((e) => e.message)
-          .join(", ")}`
+        `${topic}: ${webhookSubscriptionCreate.userErrors.map((e) => e.message).join(", ")}`,
       );
     }
     created.push(topic);

@@ -41,7 +41,7 @@ export async function getAdminAccessToken(): Promise<string> {
 
 export async function adminGraphQL<T>(
   query: string,
-  variables: Record<string, unknown>
+  variables: Record<string, unknown>,
 ): Promise<T> {
   const shopDomain = process.env.NEXT_PUBLIC_SHOPIFY_STORE_DOMAIN;
   if (!shopDomain) {
@@ -57,7 +57,7 @@ export async function adminGraphQL<T>(
         "X-Shopify-Access-Token": token,
       },
       body: JSON.stringify({ query, variables }),
-    }
+    },
   );
   if (!response.ok) {
     throw new Error(`Shopify Admin GraphQL request failed: ${response.status}`);
@@ -68,9 +68,7 @@ export async function adminGraphQL<T>(
   };
   if (body.errors?.length) {
     throw new Error(
-      `Shopify Admin GraphQL errors: ${body.errors
-        .map((e) => e.message)
-        .join(", ")}`
+      `Shopify Admin GraphQL errors: ${body.errors.map((e) => e.message).join(", ")}`,
     );
   }
   if (!body.data) {

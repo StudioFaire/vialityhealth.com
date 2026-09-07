@@ -31,9 +31,7 @@ export default async function ShopPage() {
     <div className="min-h-screen bg-background pt-10 pb-24">
       <div className="container mx-auto px-4">
         <Reveal y={24} className="mb-12">
-          <h1 className="text-4xl md:text-5xl font-serif text-primary mb-4">
-            Shop
-          </h1>
+          <h1 className="text-4xl md:text-5xl font-serif text-primary mb-4">Shop</h1>
           <p className="text-foreground/60">
             {products.length} {products.length === 1 ? "product" : "products"}
           </p>
@@ -43,7 +41,10 @@ export default async function ShopPage() {
           fallback={
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
               {[1, 2, 3].map((i) => (
-                <div key={i} className="bg-white rounded-2xl overflow-hidden shadow-sm animate-pulse">
+                <div
+                  key={i}
+                  className="bg-white rounded-2xl overflow-hidden shadow-sm animate-pulse"
+                >
                   <div className="aspect-4/5 bg-muted" />
                   <div className="p-5 space-y-3">
                     <div className="h-4 bg-muted rounded w-1/3" />

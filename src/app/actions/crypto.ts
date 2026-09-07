@@ -4,7 +4,7 @@ import { encryptAndReverse, decryptAndReverse } from "@/lib/crypto";
 
 export async function encryptData(
   _prevState: { success: boolean; message: string; result?: string },
-  formData: FormData
+  formData: FormData,
 ): Promise<{ success: boolean; message: string; result?: string }> {
   const plainText = formData.get("plainText") as string | null;
 
@@ -30,7 +30,7 @@ export async function encryptData(
 
 export async function decryptData(
   _prevState: { success: boolean; message: string; result?: string },
-  formData: FormData
+  formData: FormData,
 ): Promise<{ success: boolean; message: string; result?: string }> {
   const cipherText = formData.get("cipherText") as string | null;
 

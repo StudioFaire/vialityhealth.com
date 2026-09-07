@@ -1,8 +1,7 @@
 import { unstable_cache } from "next/cache";
 import { adminGraphQL } from "./admin";
 
-const FREE_SHIPPING_DISCOUNT_ID =
-  process.env.SHOPIFY_FREE_SHIPPING_DISCOUNT_ID ?? "1356928319628";
+const FREE_SHIPPING_DISCOUNT_ID = process.env.SHOPIFY_FREE_SHIPPING_DISCOUNT_ID ?? "1356928319628";
 
 export type FreeShippingDiscount = {
   title: string | null;
@@ -18,19 +17,17 @@ export type FreeShippingConfig = {
 };
 
 type DiscountNode = {
-  discount:
-    | {
-        title: string | null;
-        summary: string | null;
-        status: string | null;
-        minimumRequirement: {
-          greaterThanOrEqualToSubtotal: {
-            amount: string;
-            currencyCode: string;
-          };
-        } | null;
-      }
-    | null;
+  discount: {
+    title: string | null;
+    summary: string | null;
+    status: string | null;
+    minimumRequirement: {
+      greaterThanOrEqualToSubtotal: {
+        amount: string;
+        currencyCode: string;
+      };
+    } | null;
+  } | null;
 };
 
 type DiscountNodesResponse = {
@@ -92,12 +89,11 @@ const getCachedDiscount = unstable_cache(
     try {
       const { discountNodes } = await adminGraphQL<DiscountNodesResponse>(
         GetFreeShippingDiscountQuery,
-        { query: `id:${FREE_SHIPPING_DISCOUNT_ID}` }
+        { query: `id:${FREE_SHIPPING_DISCOUNT_ID}` },
       );
       const discount = discountNodes.edges[0]?.node.discount;
       if (!discount) return null;
-      const subtotal =
-        discount.minimumRequirement?.greaterThanOrEqualToSubtotal ?? null;
+      const subtotal = discount.minimumRequirement?.greaterThanOrEqualToSubtotal ?? null;
       return {
         title: discount.title,
         summary: discount.summary,
@@ -110,7 +106,7 @@ const getCachedDiscount = unstable_cache(
     }
   },
   ["shopify", "free-shipping-discount"],
-  { revalidate: 300, tags: ["shopify-discounts"] }
+  { revalidate: 300, tags: ["shopify-discounts"] },
 );
 
 export async function getFreeShippingConfig(): Promise<FreeShippingConfig | null> {

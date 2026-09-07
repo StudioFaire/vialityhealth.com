@@ -5,22 +5,22 @@ import { encryptData, decryptData } from "@/app/actions/crypto";
 import { CopyOutput } from "@/components/CopyOutput";
 
 export default function CryptoPage() {
-  const [encryptState, encryptAction, encryptPending] = useActionState(
-    encryptData,
-    { success: false, message: "", result: undefined }
-  );
-  const [decryptState, decryptAction, decryptPending] = useActionState(
-    decryptData,
-    { success: false, message: "", result: undefined }
-  );
+  const [encryptState, encryptAction, encryptPending] = useActionState(encryptData, {
+    success: false,
+    message: "",
+    result: undefined,
+  });
+  const [decryptState, decryptAction, decryptPending] = useActionState(decryptData, {
+    success: false,
+    message: "",
+    result: undefined,
+  });
 
   return (
     <div className="min-h-screen bg-background pt-10 pb-24">
       <div className="container mx-auto px-4 max-w-6xl">
         <div className="text-center mb-16">
-          <h1 className="text-4xl md:text-5xl font-serif text-primary mb-4">
-            Encryption Tool.
-          </h1>
+          <h1 className="text-4xl md:text-5xl font-serif text-primary mb-4">Encryption Tool.</h1>
           <p className="text-foreground/60 max-w-xl mx-auto">
             Encrypt and decrypt text using AES-256-CBC encryption.
           </p>

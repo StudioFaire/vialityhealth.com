@@ -4,7 +4,7 @@ import { resend, isResendConfigured } from "@/lib/resend";
 
 export async function subscribeToNewsletter(
   _prevState: { success: boolean; message: string },
-  formData: FormData
+  formData: FormData,
 ): Promise<{ success: boolean; message: string }> {
   const email = formData.get("email") as string | null;
 

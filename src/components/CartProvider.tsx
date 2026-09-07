@@ -1,13 +1,6 @@
 "use client";
 
-import {
-  createContext,
-  useContext,
-  useEffect,
-  useState,
-  useCallback,
-  type ReactNode,
-} from "react";
+import { createContext, useContext, useEffect, useState, useCallback, type ReactNode } from "react";
 import {
   createCart as createShopifyCart,
   addToCart as addShopifyToCart,
@@ -84,7 +77,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
         setIsLoading(false);
       }
     },
-    [cart, setIsCartOpen]
+    [cart, setIsCartOpen],
   );
 
   const buyNow = useCallback(
@@ -108,7 +101,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
         setIsLoading(false);
       }
     },
-    [cart]
+    [cart],
   );
 
   const removeItem = useCallback(
@@ -122,7 +115,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
         setIsLoading(false);
       }
     },
-    [cart]
+    [cart],
   );
 
   const updateQuantity = useCallback(
@@ -136,14 +129,14 @@ export function CartProvider({ children }: { children: ReactNode }) {
         setIsLoading(false);
       }
     },
-    [cart]
+    [cart],
   );
 
   const checkout = useCallback(() => {
     if (!cart) return;
     if (process.env.NEXT_PUBLIC_SHOPIFY_APP_URL_ALTERNATIVE) {
       setCheckoutUrl(
-        `${process.env.NEXT_PUBLIC_SHOPIFY_APP_URL_ALTERNATIVE}/cart?cartId=${cart.id}`
+        `${process.env.NEXT_PUBLIC_SHOPIFY_APP_URL_ALTERNATIVE}/cart?cartId=${cart.id}`,
       );
       setIsCheckoutAlertOpen(true);
     } else if (cart.checkoutUrl) {
@@ -173,10 +166,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
       }}
     >
       {children}
-      <AlertDialog
-        open={isCheckoutAlertOpen}
-        onOpenChange={setIsCheckoutAlertOpen}
-      >
+      <AlertDialog open={isCheckoutAlertOpen} onOpenChange={setIsCheckoutAlertOpen}>
         <AlertDialogContent>
           <AlertDialogHeader>
             <AlertDialogTitle>Continue to checkout</AlertDialogTitle>

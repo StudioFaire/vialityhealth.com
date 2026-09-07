@@ -32,8 +32,8 @@ export default function CertificateOfAnalysisPage() {
                 <span>Certificate of Analysis (COA)</span>
               </h2>
               <p className="text-primary/55 text-sm leading-relaxed font-light">
-                Certificates of Analysis (COAs) are available upon request for
-                eligible products and batches.
+                Certificates of Analysis (COAs) are available upon request for eligible products and
+                batches.
                 <br />
                 <br />
                 To request a COA, please contact our team at{" "}
@@ -53,8 +53,8 @@ export default function CertificateOfAnalysisPage() {
                   Research Grade Materials
                 </h4>
                 <p className="text-primary/55 text-sm leading-[1.85] font-light">
-                  Every compound is sourced from verified suppliers and subjected
-                  to rigorous identity and purity testing before release.
+                  Every compound is sourced from verified suppliers and subjected to rigorous
+                  identity and purity testing before release.
                 </p>
               </div>
             </Reveal>
@@ -65,8 +65,8 @@ export default function CertificateOfAnalysisPage() {
                   Third-Party Verification
                 </h4>
                 <p className="text-primary/55 text-sm leading-[1.85] font-light">
-                  Each batch is independently tested by an ISO-accredited
-                  laboratory. Results are documented and traceable.
+                  Each batch is independently tested by an ISO-accredited laboratory. Results are
+                  documented and traceable.
                 </p>
               </div>
             </Reveal>
@@ -77,9 +77,8 @@ export default function CertificateOfAnalysisPage() {
                   Batch Transparency
                 </h4>
                 <p className="text-primary/55 text-sm leading-[1.85] font-light">
-                  Each product carries a batch number tied directly to its
-                  Certificate of Analysis. Clarity isn&apos;t a promise - it&apos;s a
-                  policy.
+                  Each product carries a batch number tied directly to its Certificate of Analysis.
+                  Clarity isn&apos;t a promise - it&apos;s a policy.
                 </p>
               </div>
             </Reveal>

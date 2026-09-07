@@ -2,7 +2,7 @@ import { GoogleTagManager } from "@next/third-parties/google";
 import type { Metadata } from "next";
 import Script from "next/script";
 import { Inter } from "next/font/google";
-import localFont from 'next/font/local';
+import localFont from "next/font/local";
 import "vanilla-cookieconsent/dist/cookieconsent.css";
 import "@/app/styles/cookieconsent.css";
 import "./globals.css";
@@ -27,33 +27,33 @@ const inter = Inter({
 const iosevkaCharon = localFont({
   src: [
     {
-      path: '../fonts/IosevkaCharon-Light.ttf',
-      weight: '300',
-      style: 'normal',
+      path: "../fonts/IosevkaCharon-Light.ttf",
+      weight: "300",
+      style: "normal",
     },
     {
-      path: '../fonts/IosevkaCharon-Regular.ttf',
-      weight: '400',
-      style: 'normal',
+      path: "../fonts/IosevkaCharon-Regular.ttf",
+      weight: "400",
+      style: "normal",
     },
     {
-      path: '../fonts/IosevkaCharon-Medium.ttf',
-      weight: '500',
-      style: 'normal',
+      path: "../fonts/IosevkaCharon-Medium.ttf",
+      weight: "500",
+      style: "normal",
     },
     {
-      path: '../fonts/IosevkaCharon-Bold.ttf',
-      weight: '700',
-      style: 'normal',
+      path: "../fonts/IosevkaCharon-Bold.ttf",
+      weight: "700",
+      style: "normal",
     },
     {
-      path: '../fonts/IosevkaCharon-Italic.ttf', // If you use italics
-      weight: '400',
-      style: 'italic',
+      path: "../fonts/IosevkaCharon-Italic.ttf", // If you use italics
+      weight: "400",
+      style: "italic",
     },
   ],
-  variable: '--font-serif',
-})
+  variable: "--font-serif",
+});
 
 export const metadata: Metadata = {
   title: {
@@ -62,25 +62,18 @@ export const metadata: Metadata = {
   },
   description:
     "viality - modern rituals for internal balance. Premium clinical wellness, formulated with precision and held to a quieter standard.",
-  metadataBase: new URL(
-    process.env.NEXT_PUBLIC_SITE_URL || "https://vialityhealth.com"
-  ),
+  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || "https://vialityhealth.com"),
 };
 
-export default async function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default async function RootLayout({ children }: { children: React.ReactNode }) {
   const followUsMenu = await getMenu("follow-us-viality");
-  const followUsUrls =
-    followUsMenu?.items.map((item) => item.url).filter(Boolean) ?? [];
+  const followUsUrls = followUsMenu?.items.map((item) => item.url).filter(Boolean) ?? [];
   const shopMenu = await getMenu("shop-viality");
   const companyMenu = await getMenu("company-viality");
   const legalMenu = await getMenu("legal-viality");
   const supportMenu = await getMenu("support-viality");
   const freeShipping = await getFreeShippingConfig();
-  const freeShippingThreshold = freeShipping?.threshold ?? undefined;;
+  const freeShippingThreshold = freeShipping?.threshold ?? undefined;
   return (
     <html lang="en" className={[iosevkaCharon.variable, inter.variable].filter(Boolean).join(" ")}>
       <head>

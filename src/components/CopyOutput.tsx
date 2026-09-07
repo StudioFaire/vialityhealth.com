@@ -23,9 +23,7 @@ export function CopyOutput({ label, value }: { label: string; value: string }) {
 
   return (
     <div>
-      <p className="text-xs uppercase tracking-widest text-foreground/70 mb-2">
-        {label}
-      </p>
+      <p className="text-xs uppercase tracking-widest text-foreground/70 mb-2">{label}</p>
       <div className="relative">
         <output className="p-4 pr-24 bg-muted rounded-lg break-all font-mono text-sm w-full block">
           {value}

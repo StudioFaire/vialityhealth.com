@@ -29,13 +29,10 @@ export default function ContactPage() {
           transition={{ duration: 0.9, ease: [0.25, 0.1, 0.25, 1] }}
           className="text-center mb-16"
         >
-          <h1 className="text-4xl md:text-5xl font-serif text-primary mb-4">
-            Get in touch.
-          </h1>
+          <h1 className="text-4xl md:text-5xl font-serif text-primary mb-4">Get in touch.</h1>
           <p className="text-foreground/60 max-w-xl mx-auto">
-            Whether you have a question about our formulations, need help with
-            an order, or want to explore wholesale opportunities, we&apos;re
-            here to help.
+            Whether you have a question about our formulations, need help with an order, or want to
+            explore wholesale opportunities, we&apos;re here to help.
           </p>
         </motion.div>
 
@@ -59,12 +56,8 @@ export default function ContactPage() {
                     <div className="w-16 h-16 bg-primary/10 text-primary rounded-full flex items-center justify-center mb-6">
                       <CheckCircle2 size={32} />
                     </div>
-                    <h3 className="font-serif text-2xl text-primary mb-3">
-                      Message Received
-                    </h3>
-                    <p className="text-foreground/70 mb-8 max-w-sm">
-                      {state.message}
-                    </p>
+                    <h3 className="font-serif text-2xl text-primary mb-3">Message Received</h3>
+                    <p className="text-foreground/70 mb-8 max-w-sm">{state.message}</p>
                     <button
                       type="reset"
                       form="contact-form"
@@ -80,9 +73,7 @@ export default function ContactPage() {
                     animate={{ opacity: 1 }}
                     exit={{ opacity: 0 }}
                   >
-                    <h2 className="font-serif text-2xl text-primary mb-8">
-                      Send us a message
-                    </h2>
+                    <h2 className="font-serif text-2xl text-primary mb-8">Send us a message</h2>
 
                     <form id="contact-form" action={formAction} className="space-y-6">
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -201,9 +192,7 @@ export default function ContactPage() {
             className="lg:w-2/5 flex flex-col justify-center"
           >
             <div className="mb-12">
-              <h3 className="font-serif text-2xl text-primary mb-6">
-                Contact Information
-              </h3>
+              <h3 className="font-serif text-2xl text-primary mb-6">Contact Information</h3>
 
               <div className="space-y-6">
                 <div>
@@ -217,17 +206,14 @@ export default function ContactPage() {
                     hello@vialityhealth.com
                   </a>
                 </div>
-
               </div>
             </div>
 
             <div className="p-8 bg-muted rounded-3xl border border-border/30">
-              <h3 className="font-serif text-xl text-primary mb-3">
-                Wholesale Partners
-              </h3>
+              <h3 className="font-serif text-xl text-primary mb-3">Wholesale Partners</h3>
               <p className="text-foreground/70 mb-6 text-sm">
-                Interested in stocking Viality products in your clinic,
-                research facility, or wellness center?
+                Interested in stocking Viality products in your clinic, research facility, or
+                wellness center?
               </p>
               <a
                 href="mailto:hello@vialityhealth.com"
@@ -238,7 +224,6 @@ export default function ContactPage() {
             </div>
           </motion.div>
         </div>
-
       </div>
     </div>
   );

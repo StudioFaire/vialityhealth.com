@@ -26,12 +26,8 @@ function pushConsentUpdate(signals: ConsentSignals) {
 }
 
 function getConsentSignals(): ConsentSignals {
-  const analytics = CookieConsent.acceptedCategory("analytics")
-    ? "granted"
-    : "denied";
-  const marketing = CookieConsent.acceptedCategory("marketing")
-    ? "granted"
-    : "denied";
+  const analytics = CookieConsent.acceptedCategory("analytics") ? "granted" : "denied";
+  const marketing = CookieConsent.acceptedCategory("marketing") ? "granted" : "denied";
 
   return {
     analytics_storage: analytics,
@@ -81,10 +77,7 @@ export function CookieConsentManager() {
           },
           marketing: {
             autoClear: {
-              cookies: [
-                { name: /^__kla/ },
-                { name: "_kx" },
-              ],
+              cookies: [{ name: /^__kla/ }, { name: "_kx" }],
             },
           },
         },
@@ -211,14 +204,12 @@ export function CookieConsentManager() {
                       body: [
                         {
                           name: "__kla_id",
-                          description:
-                            "Identifies returning visitors for Klaviyo tracking.",
+                          description: "Identifies returning visitors for Klaviyo tracking.",
                           duration: "2 years",
                         },
                         {
                           name: "_kx",
-                          description:
-                            "Tracks anonymous browsing activity for Klaviyo.",
+                          description: "Tracks anonymous browsing activity for Klaviyo.",
                           duration: "2 years",
                         },
                       ],

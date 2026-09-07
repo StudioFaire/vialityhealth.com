@@ -64,17 +64,12 @@ export function AgeVerification() {
             Are you 21 or older?
           </AlertDialogTitle>
           <AlertDialogDescription>
-            You must be of legal age to enter this site. Please confirm your
-            age to continue.
+            You must be of legal age to enter this site. Please confirm your age to continue.
           </AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>
-          <AlertDialogCancel onClick={denyAge}>
-            No, I&apos;m under 21
-          </AlertDialogCancel>
-          <AlertDialogAction onClick={confirmAge}>
-            Yes, I&apos;m 21+
-          </AlertDialogAction>
+          <AlertDialogCancel onClick={denyAge}>No, I&apos;m under 21</AlertDialogCancel>
+          <AlertDialogAction onClick={confirmAge}>Yes, I&apos;m 21+</AlertDialogAction>
         </AlertDialogFooter>
       </AlertDialogContent>
     </AlertDialog>

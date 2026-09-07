@@ -18,9 +18,7 @@ const SHOW_DELAY_MS = 30_000;
 
 function getCookie(name: string): string | null {
   if (typeof document === "undefined") return null;
-  const match = document.cookie.match(
-    new RegExp(`(?:^|;\\s*)${name}=([^;]*)`)
-  );
+  const match = document.cookie.match(new RegExp(`(?:^|;\\s*)${name}=([^;]*)`));
   return match ? decodeURIComponent(match[1]) : null;
 }
 
@@ -33,7 +31,7 @@ export function VipPassDialog() {
   const [isOpen, setIsOpen] = useState(false);
   const [newsletterState, newsletterAction, newsletterPending] = useActionState(
     subscribeToNewsletter,
-    { success: false, message: "" }
+    { success: false, message: "" },
   );
 
   useEffect(() => {

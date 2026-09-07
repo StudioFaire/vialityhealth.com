@@ -46,8 +46,13 @@ function priceOverlaps(product: ShopifyProduct, bucket: PriceBucket): boolean {
 function matchesQuery(product: ShopProduct, query: string): boolean {
   const q = query.trim().toLowerCase();
   if (!q) return true;
-  return [product.title, product.handle, product.productType, product.description, product.resolvedDescription]
-    .some((field) => field?.toLowerCase().includes(q));
+  return [
+    product.title,
+    product.handle,
+    product.productType,
+    product.description,
+    product.resolvedDescription,
+  ].some((field) => field?.toLowerCase().includes(q));
 }
 
 function facetValueMatches(product: ShopProduct, facetId: string, value: string): boolean {
@@ -58,11 +63,7 @@ function facetValueMatches(product: ShopProduct, facetId: string, value: string)
   return getFacetValues(product, facetId).includes(value);
 }
 
-function matchesProduct(
-  product: ShopProduct,
-  selected: SelectedFilters,
-  query: string
-): boolean {
+function matchesProduct(product: ShopProduct, selected: SelectedFilters, query: string): boolean {
   if (!matchesQuery(product, query)) return false;
   for (const [facetId, values] of Object.entries(selected)) {
     if (values.length === 0) continue;
@@ -77,17 +78,11 @@ const SOURCE_FACETS: { id: string; label: string; sort: (a: string, b: string) =
   { id: "size", label: "Size", sort: (a, b) => parseFloat(a) - parseFloat(b) },
 ];
 
-function buildFacets(
-  products: ShopProduct[],
-  selected: SelectedFilters,
-  query: string
-): Facet[] {
+function buildFacets(products: ShopProduct[], selected: SelectedFilters, query: string): Facet[] {
   const countFor = (facetId: string, value: string): number => {
     const withoutThisFacet = { ...selected, [facetId]: [] };
     return products.filter(
-      (p) =>
-        matchesProduct(p, withoutThisFacet, query) &&
-        facetValueMatches(p, facetId, value)
+      (p) => matchesProduct(p, withoutThisFacet, query) && facetValueMatches(p, facetId, value),
     ).length;
   };
 
@@ -119,11 +114,7 @@ function buildFacets(
   return facets;
 }
 
-export function ShopContent({
-  products,
-}: {
-  products: ShopProduct[];
-}) {
+export function ShopContent({ products }: { products: ShopProduct[] }) {
   const [searchQuery, setSearchQuery] = useState("");
   const [selected, setSelected] = useState<SelectedFilters>({});
   const [sortBy, setSortBy] = useState("featured");
@@ -131,12 +122,12 @@ export function ShopContent({
 
   const facets = useMemo(
     () => buildFacets(products, selected, searchQuery),
-    [products, selected, searchQuery]
+    [products, selected, searchQuery],
   );
 
   const filteredProducts = useMemo(
     () => products.filter((p) => matchesProduct(p, selected, searchQuery)),
-    [products, selected, searchQuery]
+    [products, selected, searchQuery],
   );
 
   const sortedProducts = useMemo(() => {
@@ -153,9 +144,7 @@ export function ShopContent({
             parseFloat(a.priceRange.minVariantPrice.amount)
           );
         case "newest":
-          return (
-            new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime()
-          );
+          return new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime();
         default:
           return 0;
       }
@@ -186,12 +175,12 @@ export function ShopContent({
   const activeChips: { key: string; label: string; onRemove: () => void }[] = [
     ...(searchQuery.trim()
       ? [
-        {
-          key: "query",
-          label: `"${searchQuery.trim()}"`,
-          onRemove: () => setSearchQuery(""),
-        },
-      ]
+          {
+            key: "query",
+            label: `"${searchQuery.trim()}"`,
+            onRemove: () => setSearchQuery(""),
+          },
+        ]
       : []),
     ...Object.entries(selected).flatMap(([facetId, values]) =>
       values.map((value) => {
@@ -202,7 +191,7 @@ export function ShopContent({
           label: facetId === "price" ? label : `${label}`,
           onRemove: () => toggleFilter(facetId, value),
         };
-      })
+      }),
     ),
   ];
 
@@ -235,7 +224,9 @@ export function ShopContent({
           </button>
 
           <div className="flex items-center gap-3 shrink-0">
-            <label htmlFor="sort-by" className="text-sm text-foreground/60">Sort by:</label>
+            <label htmlFor="sort-by" className="text-sm text-foreground/60">
+              Sort by:
+            </label>
             <div className="relative">
               <select
                 id="sort-by"
@@ -306,20 +297,14 @@ export function ShopContent({
                 viewport={{ once: true, margin: "-50px" }}
                 transition={{ duration: 0.6, delay: i * 0.08 }}
               >
-                <ProductCard
-                  product={product}
-                />
+                <ProductCard product={product} />
               </motion.div>
             ))}
           </div>
         ) : (
           <div className="py-20 text-center">
-            <h3 className="text-xl font-serif text-primary mb-2">
-              No products found
-            </h3>
-            <p className="text-foreground/60">
-              Try adjusting your filters or search.
-            </p>
+            <h3 className="text-xl font-serif text-primary mb-2">No products found</h3>
+            <p className="text-foreground/60">Try adjusting your filters or search.</p>
             <button
               onClick={clearAll}
               className="mt-6 px-6 py-2 bg-primary text-white rounded-full text-sm uppercase tracking-widest"

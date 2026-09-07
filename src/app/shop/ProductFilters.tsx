@@ -64,9 +64,7 @@ function FacetGroup({
                 <span className="flex-1 text-foreground/80 group-hover:text-foreground transition-colors">
                   {value.label}
                 </span>
-                <span className="text-xs text-foreground/40 tabular-nums">
-                  {value.count}
-                </span>
+                <span className="text-xs text-foreground/40 tabular-nums">{value.count}</span>
               </label>
             </li>
           );
@@ -141,12 +139,7 @@ export function ProductFilters({
       )}
 
       {facets.map((facet) => (
-        <FacetGroup
-          key={facet.id}
-          facet={facet}
-          selected={selected}
-          onToggle={onToggle}
-        />
+        <FacetGroup key={facet.id} facet={facet} selected={selected} onToggle={onToggle} />
       ))}
     </div>
   );

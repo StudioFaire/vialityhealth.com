@@ -4,7 +4,7 @@ import { getShopPolicies, resolveLiquidVariables } from "@/lib/shopify";
 
 export const metadata: Metadata = generatePolicyMetadata(
   "Privacy Policy",
-  "Learn how Viality collects, uses, and protects your personal information."
+  "Learn how Viality collects, uses, and protects your personal information.",
 );
 
 export default async function PrivacyPolicyPage() {
@@ -13,19 +13,14 @@ export default async function PrivacyPolicyPage() {
 
   const bodyHtml = policy
     ? resolveLiquidVariables(policy.body, {
-      shop_name: "Mossé",
-      email: "hello@vialityhealth.com",
-      phone: "",
-      address: "",
-      last_updated: "July 2026",
-      data_sale_opt_out_page_url: "#",
-    })
+        shop_name: "Mossé",
+        email: "hello@vialityhealth.com",
+        phone: "",
+        address: "",
+        last_updated: "July 2026",
+        data_sale_opt_out_page_url: "#",
+      })
     : undefined;
 
-  return (
-    <PolicyPageLayout
-      title={policy?.title ?? "Privacy Policy"}
-      bodyHtml={bodyHtml}
-    />
-  );
+  return <PolicyPageLayout title={policy?.title ?? "Privacy Policy"} bodyHtml={bodyHtml} />;
 }

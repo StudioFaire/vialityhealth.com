@@ -2,7 +2,11 @@ import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { getProductByHandle, getAllProducts } from "@/lib/shopify";
 import { ProductPageClient } from "./ProductPageClient";
-import { resolveProductDescription, resolveProductMetaTitle, resolveProductMetaDescription } from "@/lib/shopify/description";
+import {
+  resolveProductDescription,
+  resolveProductMetaTitle,
+  resolveProductMetaDescription,
+} from "@/lib/shopify/description";
 import { resolveProductMainImageUrl } from "@/lib/shopify/image";
 import { getFreeShippingConfig } from "@/lib/shopify/discount";
 
@@ -74,7 +78,12 @@ export default async function ProductPage({ params }: Props) {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
-      <ProductPageClient product={product} description={description} mainImageUrl={mainImageUrl} freeShippingText={freeShippingText} />
+      <ProductPageClient
+        product={product}
+        description={description}
+        mainImageUrl={mainImageUrl}
+        freeShippingText={freeShippingText}
+      />
     </>
   );
 }

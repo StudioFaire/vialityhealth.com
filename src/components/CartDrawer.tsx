@@ -7,23 +7,24 @@ import Image from "next/image";
 import { useCart } from "@/components/CartProvider";
 import { formatPrice } from "@/lib/utils";
 
-export function CartDrawer({
-  freeShippingThreshold,
-}: {
-  freeShippingThreshold?: number;
-}) {
-  const { isCartOpen, setIsCartOpen, lines, cartCount, subtotal, updateQuantity, removeItem, checkout, isLoading } =
-    useCart();
+export function CartDrawer({ freeShippingThreshold }: { freeShippingThreshold?: number }) {
+  const {
+    isCartOpen,
+    setIsCartOpen,
+    lines,
+    cartCount,
+    subtotal,
+    updateQuantity,
+    removeItem,
+    checkout,
+    isLoading,
+  } = useCart();
 
   const subtotalNum = parseFloat(subtotal);
   const awayFromFreeShipping =
-    freeShippingThreshold != null
-      ? Math.max(0, freeShippingThreshold - subtotalNum)
-      : 0;
+    freeShippingThreshold != null ? Math.max(0, freeShippingThreshold - subtotalNum) : 0;
   const progressPercent =
-    freeShippingThreshold != null
-      ? Math.min(100, (subtotalNum / freeShippingThreshold) * 100)
-      : 0;
+    freeShippingThreshold != null ? Math.min(100, (subtotalNum / freeShippingThreshold) * 100) : 0;
 
   return (
     <AnimatePresence>
@@ -99,9 +100,7 @@ export function CartDrawer({
                         <div className="flex-1 flex flex-col">
                           <div className="flex justify-between items-start">
                             <div>
-                              <h3 className="font-medium text-primary text-sm">
-                                {product.title}
-                              </h3>
+                              <h3 className="font-medium text-primary text-sm">{product.title}</h3>
                             </div>
                             <button
                               onClick={() => removeItem(line.id)}
@@ -114,9 +113,7 @@ export function CartDrawer({
                           <div className="mt-auto flex items-center justify-between">
                             <div className="flex items-center border border-border rounded-full">
                               <button
-                                onClick={() =>
-                                  updateQuantity(line.id, line.quantity - 1)
-                                }
+                                onClick={() => updateQuantity(line.id, line.quantity - 1)}
                                 className="w-8 h-8 flex items-center justify-center text-foreground/70 hover:text-primary transition-colors"
                                 disabled={isLoading}
                               >
@@ -126,9 +123,7 @@ export function CartDrawer({
                                 {line.quantity}
                               </span>
                               <button
-                                onClick={() =>
-                                  updateQuantity(line.id, line.quantity + 1)
-                                }
+                                onClick={() => updateQuantity(line.id, line.quantity + 1)}
                                 className="w-8 h-8 flex items-center justify-center text-foreground/70 hover:text-primary transition-colors"
                                 disabled={isLoading}
                               >
@@ -138,7 +133,7 @@ export function CartDrawer({
                             <span className="font-medium text-sm">
                               {formatPrice(
                                 line.merchandise.price.amount,
-                                line.merchandise.price.currencyCode
+                                line.merchandise.price.currencyCode,
                               )}
                             </span>
                           </div>
@@ -152,9 +147,7 @@ export function CartDrawer({
                 <div className="border-t border-border/40 p-6 bg-background">
                   <div className="flex justify-between items-center mb-4">
                     <span className="text-foreground/80">Subtotal</span>
-                    <span className="font-serif text-xl font-medium">
-                      {formatPrice(subtotal)}
-                    </span>
+                    <span className="font-serif text-xl font-medium">{formatPrice(subtotal)}</span>
                   </div>
                   <p className="text-xs text-foreground/50 mb-6 text-center">
                     Taxes and shipping calculated at checkout.
@@ -173,9 +166,7 @@ export function CartDrawer({
                 <div className="w-16 h-16 bg-muted rounded-full flex items-center justify-center mb-6 text-primary">
                   <ShoppingBag size={24} />
                 </div>
-                <h3 className="font-serif text-2xl text-primary mb-2">
-                  Your cart is empty
-                </h3>
+                <h3 className="font-serif text-2xl text-primary mb-2">Your cart is empty</h3>
                 <p className="text-foreground/60 mb-8 max-w-[250px]">
                   Explore our collection of research grade peptides.
                 </p>

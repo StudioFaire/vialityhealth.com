@@ -4,7 +4,7 @@ import { resend, isResendConfigured } from "@/lib/resend";
 
 export async function sendContactMessage(
   _prevState: { success: boolean; message: string },
-  formData: FormData
+  formData: FormData,
 ): Promise<{ success: boolean; message: string }> {
   const name = formData.get("name") as string | null;
   const email = formData.get("email") as string | null;
