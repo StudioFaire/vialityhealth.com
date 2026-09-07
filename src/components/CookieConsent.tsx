@@ -10,7 +10,6 @@ type ConsentSignals = Record<string, ConsentValue>;
 
 declare global {
   interface Window {
-    dataLayer?: Object[];
     gtag?: (...args: unknown[]) => void;
     klaviyo?: unknown[];
     __CookieConsent?: typeof CookieConsent;

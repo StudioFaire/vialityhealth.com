@@ -1,9 +1,8 @@
 import { notFound } from "next/navigation";
-import Link from "next/link";
 import type { Metadata } from "next";
 import { getProductByHandle, getAllProducts } from "@/lib/shopify";
 import { ProductPageClient } from "./ProductPageClient";
-import { resolveProductDescription, resolveProductDescriptionText, resolveProductMetaTitle, resolveProductMetaDescription } from "@/lib/shopify/description";
+import { resolveProductDescription, resolveProductMetaTitle, resolveProductMetaDescription } from "@/lib/shopify/description";
 import { resolveProductMainImageUrl } from "@/lib/shopify/image";
 import { getFreeShippingConfig } from "@/lib/shopify/discount";
 
@@ -52,16 +51,6 @@ export default async function ProductPage({ params }: Props) {
   const mainImageUrl = resolveProductMainImageUrl(product);
   const freeShippingText = (await getFreeShippingConfig())?.text;
 
-  const allProducts = await getAllProducts(6);
-  const relatedProducts = allProducts
-    .filter((p) => p.handle !== product.handle)
-    .slice(0, 3)
-    .map((p) => ({
-      ...p,
-      resolvedDescription: resolveProductDescriptionText(p),
-      mainImageUrl: resolveProductMainImageUrl(p),
-    }));
-
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "Product",
@@ -85,7 +74,7 @@ export default async function ProductPage({ params }: Props) {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
-      <ProductPageClient product={product} description={description} relatedProducts={relatedProducts} mainImageUrl={mainImageUrl} freeShippingText={freeShippingText} />
+      <ProductPageClient product={product} description={description} mainImageUrl={mainImageUrl} freeShippingText={freeShippingText} />
     </>
   );
 }

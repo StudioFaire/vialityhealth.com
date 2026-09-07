@@ -1,52 +1,9 @@
 "use client";
 
-import { useActionState, useState } from "react";
+import { useActionState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ChevronDown, CheckCircle2 } from "lucide-react";
 import { sendContactMessage } from "@/app/actions/contact";
-
-const faqs = [
-  {
-    id: "1",
-    q: "How long does delivery take?",
-    a: "Most orders are delivered within approximately 4–5 business days after dispatch, depending on your location and the postal network. Regional and remote locations may require additional delivery time.",
-  },
-  {
-    id: "2",
-    q: "Will I receive tracking information?",
-    a: "Yes. Once your order has been dispatched, tracking information will be sent to the email address provided at checkout. Please allow some time for tracking information to become active after your parcel has been processed by the carrier.",
-  },
-  {
-    id: "3",
-    q: "Can I change or cancel my order?",
-    a: "If you need to change or cancel an order, contact us as soon as possible. Once an order has entered fulfilment or has been dispatched, we may no longer be able to modify or cancel it.",
-  },
-  {
-    id: "4",
-    q: "Do you accept returns?",
-    a: "Due to the nature of our products and the importance of maintaining product integrity, we generally cannot accept returns once an order has been delivered. If there is an issue with your order, please contact us as soon as possible so our team can review the circumstances.",
-  },
-  {
-    id: "5",
-    q: "What if my order arrives damaged?",
-    a: "If your order arrives damaged, contact us promptly and provide your order number, photographs of the external packaging, photographs of the affected product, and a description of the issue. Our team will assess the situation and determine the appropriate resolution.",
-  },
-  {
-    id: "6",
-    q: "Are your products third-party tested?",
-    a: "Where specified, products are independently tested to verify identity and/or purity. Testing information may vary by product and batch.",
-  },
-  {
-    id: "7",
-    q: "How should products be stored?",
-    a: "Storage requirements can vary depending on the specific compound and format. Always refer to the storage information provided with the product or on the relevant product page. Products should generally be kept securely stored, protected from unnecessary exposure to heat, moisture and direct sunlight, and handled using appropriate laboratory practices.",
-  },
-  {
-    id: "8",
-    q: "Are Viality Health research peptides intended for human consumption?",
-    a: "No. Products identified as research compounds are supplied strictly for laboratory and research purposes only and are not intended for human or veterinary consumption. They are not supplied for therapeutic, diagnostic or medicinal use.",
-  },
-];
 
 const subjects = [
   "Product Question",
@@ -62,7 +19,6 @@ export default function ContactPage() {
     success: false,
     message: "",
   });
-  const [openFaq, setOpenFaq] = useState<string | null>(null);
 
   return (
     <div className="min-h-screen bg-background pt-10 pb-24">

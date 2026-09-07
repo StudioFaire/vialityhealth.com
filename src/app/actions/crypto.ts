@@ -13,8 +13,6 @@ export async function encryptData(
   }
 
   try {
-    console.log("[crypto] Key length:", process.env.SC_ENCRYPTION_KEY?.length);
-    console.log("[crypto] Key available:", !!process.env.SC_ENCRYPTION_KEY);
     const encrypted = encryptAndReverse(plainText);
     return {
       success: true,

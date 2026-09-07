@@ -15,7 +15,6 @@ import { Footer } from "@/components/layout/Footer";
 import { CartDrawer } from "@/components/CartDrawer";
 import { CookieConsentManager } from "@/components/CookieConsent";
 import { getMenu } from "@/lib/shopify";
-import type { ShopifyMenu } from "@/lib/shopify/types";
 import { getFreeShippingConfig } from "@/lib/shopify/discount";
 
 const inter = Inter({

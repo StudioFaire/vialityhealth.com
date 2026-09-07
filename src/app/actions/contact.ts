@@ -22,7 +22,6 @@ export async function sendContactMessage(
   }
 
   if (!isResendConfigured() || !resend) {
-    console.log("[contact] Resend not configured - from:", email, "subject:", subject);
     return {
       success: true,
       message: "Thanks for reaching out. We'll get back to you within 24-48 business hours.",

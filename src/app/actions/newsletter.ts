@@ -13,7 +13,6 @@ export async function subscribeToNewsletter(
   }
 
   if (!isResendConfigured() || !resend) {
-    console.log("[newsletter] Resend not configured - email:", email);
     return { success: true, message: "Thanks for subscribing!" };
   }
 

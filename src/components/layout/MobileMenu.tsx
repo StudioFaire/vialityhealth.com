@@ -5,7 +5,6 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { AnimatePresence, motion, type Easing, type Variants } from "framer-motion";
 import { X } from "lucide-react";
-import { cn } from "@/lib/utils";
 
 const overlayVariants: Variants = {
   hidden: { opacity: 0 },

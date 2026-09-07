@@ -1,10 +1,8 @@
 "use client";
 
 import type { ShopifyMenu } from "@/lib/shopify/types";
-import { useActionState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { subscribeToNewsletter } from "@/app/actions/newsletter";
 import { SocialMenu } from "@/components/SocialMenu";
 
 // type MenuItem = { title: string; url: string };

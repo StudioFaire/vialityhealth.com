@@ -11,17 +11,14 @@ import type { ShopifyProduct } from "@/lib/shopify/types";
 import {
   getProductImages,
   getProductVariants,
-  getSellingPlans,
 } from "@/lib/shopify/types";
 
-export function ProductPageClient({ product, description, relatedProducts, mainImageUrl, freeShippingText }: { product: ShopifyProduct; description: string; relatedProducts: (ShopifyProduct & { resolvedDescription: string; mainImageUrl?: string })[]; mainImageUrl?: string; freeShippingText?: string }) {
+export function ProductPageClient({ product, description, mainImageUrl, freeShippingText }: { product: ShopifyProduct; description: string; mainImageUrl?: string; freeShippingText?: string }) {
   const { addItem, buyNow } = useCart();
   const images = mainImageUrl
     ? [{ url: mainImageUrl, altText: null, width: 0, height: 0 }]
     : getProductImages(product);
   const variants = getProductVariants(product);
-  const sellingPlans = getSellingPlans(product);
-  const activeSellingPlan = sellingPlans.length > 0 ? sellingPlans[0] : null;
 
   const [selectedImageIndex, setSelectedImageIndex] = useState(0);
   const [selectedOptions, setSelectedOptions] = useState<
