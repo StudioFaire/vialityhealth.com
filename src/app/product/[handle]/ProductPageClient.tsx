@@ -8,7 +8,7 @@ import { m, AnimatePresence } from "motion/react";
 import { useCart } from "@/components/CartProvider";
 import { EASE_EDITORIAL } from "@/lib/motion";
 import type { ShopifyProduct, ShopifyProductVariant, ShopifyImage } from "@/lib/shopify/types";
-import { getProductImages, getProductVariants } from "@/lib/shopify/types";
+import { getProductImages, getProductVariants } from "@/lib/shopify/product";
 
 function ProductGallery({
   images,

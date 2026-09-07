@@ -2,7 +2,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { formatPrice } from "@/lib/utils";
 import type { ShopifyProduct } from "@/lib/shopify/types";
-import { getProductImage, getProductShortName } from "@/lib/shopify/types";
+import { getProductImage, getProductShortName } from "@/lib/shopify/product";
 import { getFirstParagraph, applyStaticReplacements } from "@/lib/shopify/description";
 
 export function ProductCard({ product }: { product: ShopifyProduct }) {

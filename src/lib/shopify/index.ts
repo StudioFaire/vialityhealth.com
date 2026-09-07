@@ -22,7 +22,7 @@ import type {
   ShopifyMenu,
   ShopPolicies,
 } from "./types";
-import { transformProduct } from "./types";
+import { transformProduct } from "./product";
 
 function assertData<T>(data: T | undefined, operation: string): T {
   if (!data) throw new Error(`Shopify request failed: ${operation}`);
