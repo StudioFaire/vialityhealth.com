@@ -21,7 +21,7 @@ const displaymenu = (menu: ShopifyMenu | null) => {
         {menu.title}
       </h4>}
       {items.length > 0 && (
-        <ul className="space-y-4 text-sm">
+        <ul className="grid grid-cols-2 lg:grid-cols-1 gap-4 text-sm">
           {items.map((item) => (
             <li key={item.url}>
               <Link
@@ -51,24 +51,16 @@ export function Footer({
   legalMenu: ShopifyMenu | null;
   supportMenu: ShopifyMenu | null;
 }) {
-  const [state, formAction, isPending] = useActionState(subscribeToNewsletter, {
-    success: false,
-    message: "",
-  });
-
-  const shopItems = menuItems(shopMenu);
-  const companyItems = menuItems(companyMenu);
   const legalItems = menuItems(legalMenu);
-  const supportItems = menuItems(supportMenu);
 
   return (
     <footer className="bg-primary text-primary-foreground pt-16 pb-8 px-4 sm:px-6 lg:px-8">
       <div className="container mx-auto">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-12 lg:gap-8 mb-16">
+        <div className="grid grid-cols-full lg:grid-cols-12 gap-12 lg:gap-8 mb-16">
           {/* Brand Column */}
-          <div className="lg:col-span-4">
+          <div className="lg:col-span-4 grid justify-center lg:justify-start">
             <Link
-              className="relative block h-16 w-40 mb-4"
+              className="relative block h-24 aspect-15/4"
               href="/"
             >
               <Image
@@ -79,9 +71,6 @@ export function Footer({
                 sizes="(max-width: 768px) 50vw, 20vw"
               />
             </Link>
-            {/* <p className="text-primary-foreground/80 max-w-sm text-sm leading-relaxed mb-6">
-              We operate with complete openness. Every claim we make is verifiable. Every detail disclosed, every claim supported by evidence.
-            </p> */}
 
             <br />
 
@@ -118,7 +107,7 @@ export function Footer({
           )}
         </div>
         <div className="max-w-7xl mx-auto mt-12 text-xs text-primary-foreground/30 text-center tracking-widest leading-relaxed">
-          <p>These statements have not been evaluated by the Therapeutic Goods Administration. This product is intended strictly for research and laboratory use and is not for human consumption. By completing your purchase, you confirm that you are at least 18 years of age, that this material will be handled responsibly, and that it will be used solely for lawful research or analytical purposes in accordance with all applicable regulations.</p>
+          <p>These statements have not been evaluated by the Therapeutic Goods Administration. These products are intended strictly for research and laboratory use and are not for human consumption. By completing your purchase, you confirm that you are at least 18 years of age, that this material will be handled responsibly, and that it will be used solely for lawful research or analytical purposes in accordance with all applicable regulations.</p>
         </div>
       </div>
     </footer>
