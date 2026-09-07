@@ -1,61 +1,10 @@
 "use client";
 
-import { useRef } from "react";
 import Image from "next/image";
-import Link from "next/link";
-import { motion, useScroll, useTransform } from "framer-motion";
-import { GrainOverlay } from "@/components/GrainOverlay";
+import { motion } from "framer-motion";
 import { fadeUp, fadeIn, staggerContainer, EASE_EDITORIAL } from "@/lib/motion";
 
-const pillars = [
-  {
-    number: "01",
-    title: "Precision",
-    body: "Every compound is selected through careful evaluation of peer-reviewed evidence. We work with formulation experts who understand that getting the dose, the form, and the bioavailability right is the difference between a supplement and a ritual that works.",
-  },
-  {
-    number: "02",
-    title: "Purity",
-    body: "Nothing enters our formulations without a reason, and nothing unnecessary is permitted to remain. No fillers, no colorants, no compromises. Every batch is independently tested before it reaches you.",
-  },
-  {
-    number: "03",
-    title: "Ritual",
-    body: "A quieter standard of vitality begins with consistency. viality is designed to become a moment - unhurried, intentional, daily.",
-  },
-];
-
-const trustItems = [
-  {
-    label: "Independent Lab Testing",
-    detail:
-      "Every batch is third-party verified by an ISO-accredited laboratory for identity, potency, and purity. We don't ask you to take our word for it.",
-  },
-  {
-    label: "Traceable Sourcing",
-    detail:
-      "Every raw material is sourced from verified, ethical suppliers with full traceability. We know where it comes from - and you should too.",
-  },
-  {
-    label: "Batch Transparency",
-    detail:
-      "Each product carries a batch number tied directly to its Certificate of Analysis. Clarity isn't a promise - it's a policy.",
-  },
-  {
-    label: "No Proprietary Blends",
-    detail:
-      "Every ingredient and its exact dose is declared. No hidden quantities, no blended obscurity. What you see is precisely what you receive.",
-  },
-];
-
 export function AboutPageClient() {
-  const heroRef = useRef<HTMLElement>(null);
-  const { scrollYProgress } = useScroll({
-    target: heroRef,
-    offset: ["start start", "end start"],
-  });
-  const heroY = useTransform(scrollYProgress, [0, 1], ["0%", "18%"]);
-
   return (
 
     <section className="bg-background py-28 md:py-36 px-6 md:px-16" >
