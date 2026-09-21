@@ -98,6 +98,7 @@ export function HomePage({ featuredProducts }: { featuredProducts: ShopifyProduc
               alt="Viality logo"
               fill
               className="object-contain"
+              loading="eager"
               sizes="(max-width: 768px) 50vw, 20vw"
             />
           </m.h1>

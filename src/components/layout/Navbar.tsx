@@ -70,6 +70,7 @@ export function Navbar() {
             alt="Viality logo"
             fill
             className="object-contain object-left"
+            loading="eager"
             sizes="(max-width: 768px) 50vw, 20vw"
           />
         </Link>
