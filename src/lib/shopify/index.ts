@@ -23,6 +23,7 @@ import type {
   ShopPolicies,
 } from "./types";
 import { transformProduct } from "./product";
+import { DEFAULT_COUNTRY } from "@/lib/markets";
 
 function assertData<T>(data: T | undefined, operation: string): T {
   if (!data) throw new Error(`Shopify request failed: ${operation}`);
@@ -31,30 +32,36 @@ function assertData<T>(data: T | undefined, operation: string): T {
 
 const REVALIDATE_SECONDS = 60;
 
-export async function getAllProducts(first = 50): Promise<ShopifyProduct[]> {
+export async function getAllProducts(
+  first = 50,
+  country = DEFAULT_COUNTRY,
+): Promise<ShopifyProduct[]> {
   const cachedFn = unstable_cache(
     async () => {
       const { data } = await shopifyClient.request<{
         products: { edges: { node: ShopifyProductRaw }[] };
-      }>(GetAllProductsQuery, { variables: { first } });
+      }>(GetAllProductsQuery, { variables: { first, country } });
       return assertData(data, "getAllProducts").products.edges.map((e) => transformProduct(e.node));
     },
-    ["shopify", "products"],
+    ["shopify", "products", country],
     { revalidate: REVALIDATE_SECONDS, tags: ["shopify-products"] },
   );
   return cachedFn();
 }
 
-export async function getProductByHandle(handle: string): Promise<ShopifyProduct | null> {
+export async function getProductByHandle(
+  handle: string,
+  country = DEFAULT_COUNTRY,
+): Promise<ShopifyProduct | null> {
   const cachedFn = unstable_cache(
     async () => {
       const { data } = await shopifyClient.request<{
         productByHandle: ShopifyProductRaw | null;
-      }>(GetProductByHandleQuery, { variables: { handle } });
+      }>(GetProductByHandleQuery, { variables: { handle, country } });
       const raw = assertData(data, "getProductByHandle").productByHandle;
       return raw ? transformProduct(raw) : null;
     },
-    ["shopify", "product", handle],
+    ["shopify", "product", handle, country],
     { revalidate: REVALIDATE_SECONDS, tags: ["shopify-products"] },
   );
   return cachedFn();
@@ -63,6 +70,7 @@ export async function getProductByHandle(handle: string): Promise<ShopifyProduct
 export async function getCollectionByIdentifier(
   handle: string,
   first = 50,
+  country = DEFAULT_COUNTRY,
 ): Promise<ShopifyCollection | null> {
   const cachedFn = unstable_cache(
     async () => {
@@ -74,7 +82,7 @@ export async function getCollectionByIdentifier(
           description: string;
           products: { edges: { node: ShopifyProductRaw }[] };
         } | null;
-      }>(GetCollectionByIdentifierQuery, { variables: { handle, first } });
+      }>(GetCollectionByIdentifierQuery, { variables: { handle, first, country } });
       const raw = assertData(data, "getCollectionByIdentifier").collection;
       if (!raw) return null;
       return {
@@ -86,7 +94,7 @@ export async function getCollectionByIdentifier(
         },
       };
     },
-    ["shopify", "collection", handle],
+    ["shopify", "collection", handle, country],
     { revalidate: REVALIDATE_SECONDS, tags: ["shopify-collections"] },
   );
   return cachedFn();
@@ -103,12 +111,17 @@ export async function getCart(cartId: string): Promise<ShopifyCart | null> {
   }
 }
 
-export async function createCart(variantId: string, quantity = 1): Promise<ShopifyCart> {
+export async function createCart(
+  variantId: string,
+  quantity = 1,
+  country = DEFAULT_COUNTRY,
+): Promise<ShopifyCart> {
   const response = await shopifyClient.request<{
     cartCreate: { cart: ShopifyCart; userErrors: { field: string[]; message: string }[] };
   }>(CreateCartMutation, {
     variables: {
       input: {
+        buyerIdentity: { countryCode: country },
         lines: [{ merchandiseId: variantId, quantity }],
       },
     },

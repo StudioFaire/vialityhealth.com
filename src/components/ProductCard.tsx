@@ -1,4 +1,4 @@
-import Link from "next/link";
+import { Link } from "@/components/Link";
 import Image from "next/image";
 import { formatPrice } from "@/lib/utils";
 import type { ShopifyProduct } from "@/lib/shopify/types";

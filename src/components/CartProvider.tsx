@@ -18,6 +18,8 @@ import {
   getCart,
 } from "@/lib/shopify";
 import type { ShopifyCart, ShopifyCartLine } from "@/lib/shopify/types";
+import { usePathname } from "next/navigation";
+import { getLocaleFromPath, countryForLocale } from "@/lib/markets";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -46,7 +48,9 @@ type CartContextType = {
 
 const CartContext = createContext<CartContextType | undefined>(undefined);
 
-const CART_ID_KEY = "viality-cart-id";
+function cartIdKey(country: string): string {
+  return `viality-cart-id:${country}`;
+}
 
 export function CartProvider({ children }: { children: ReactNode }) {
   const [cart, setCart] = useState<ShopifyCart | null>(null);
@@ -55,19 +59,25 @@ export function CartProvider({ children }: { children: ReactNode }) {
   const [isCheckoutAlertOpen, setIsCheckoutAlertOpen] = useState(false);
   const checkoutUrl = useRef<string | null>(null);
 
-  // Load cart on mount
+  const pathname = usePathname();
+  const country = countryForLocale(getLocaleFromPath(pathname));
+  const cartIdStorageKey = cartIdKey(country);
+
+  // Load cart for the current market
   useEffect(() => {
-    const storedCartId = localStorage.getItem(CART_ID_KEY);
+    const storedCartId = localStorage.getItem(cartIdStorageKey);
     if (storedCartId) {
       getCart(storedCartId).then((existingCart) => {
         if (existingCart) {
           setCart(existingCart);
         } else {
-          localStorage.removeItem(CART_ID_KEY);
+          localStorage.removeItem(cartIdStorageKey);
         }
       });
+    } else {
+      setCart(null);
     }
-  }, []);
+  }, [cartIdStorageKey]);
 
   const addItem = useCallback(
     async (variantId: string, quantity = 1, sellingPlanId?: string) => {
@@ -77,16 +87,16 @@ export function CartProvider({ children }: { children: ReactNode }) {
           const updated = await addShopifyToCart(cart.id, variantId, quantity, sellingPlanId);
           setCart(updated);
         } else {
-          const newCart = await createShopifyCart(variantId, quantity);
+          const newCart = await createShopifyCart(variantId, quantity, country);
           setCart(newCart);
-          localStorage.setItem(CART_ID_KEY, newCart.id);
+          localStorage.setItem(cartIdStorageKey, newCart.id);
         }
         setIsCartOpen(true);
       } finally {
         setIsLoading(false);
       }
     },
-    [cart, setIsCartOpen],
+    [cart, country, cartIdStorageKey, setIsCartOpen],
   );
 
   const buyNow = useCallback(
@@ -97,8 +107,8 @@ export function CartProvider({ children }: { children: ReactNode }) {
         if (cart) {
           resultingCart = await addShopifyToCart(cart.id, variantId, quantity, sellingPlanId);
         } else {
-          resultingCart = await createShopifyCart(variantId, quantity);
-          localStorage.setItem(CART_ID_KEY, resultingCart.id);
+          resultingCart = await createShopifyCart(variantId, quantity, country);
+          localStorage.setItem(cartIdStorageKey, resultingCart.id);
         }
         setCart(resultingCart);
         if (process.env.NEXT_PUBLIC_SHOPIFY_APP_URL_ALTERNATIVE) {
@@ -110,7 +120,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
         setIsLoading(false);
       }
     },
-    [cart],
+    [cart, country, cartIdStorageKey],
   );
 
   const removeItem = useCallback(

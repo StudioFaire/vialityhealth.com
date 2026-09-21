@@ -2,6 +2,7 @@
 
 import { useEffect } from "react";
 import * as CookieConsent from "vanilla-cookieconsent";
+import { getLocaleFromPath, localizeHref, DEFAULT_LOCALE } from "@/lib/markets";
 
 const KLAVIYO_ID = process.env.NEXT_PUBLIC_KLAVIYO_ID;
 
@@ -59,6 +60,10 @@ function loadKlaviyoIfGranted() {
 
 export function CookieConsentManager() {
   useEffect(() => {
+    const locale = getLocaleFromPath(window.location.pathname) ?? DEFAULT_LOCALE;
+    const privacyUrl = localizeHref("/policies/privacy", locale);
+    const termsUrl = localizeHref("/policies/terms-of-service", locale);
+
     try {
       CookieConsent.run({
         cookie: {
@@ -117,7 +122,7 @@ export function CookieConsentManager() {
                 acceptAllBtn: "Accept all",
                 acceptNecessaryBtn: "Reject all",
                 showPreferencesBtn: "Manage preferences",
-                footer: `<a href="/policies/privacy">Privacy policy</a> · <a href="/policies/terms-of-service">Terms of service</a>`,
+                footer: `<a href="${privacyUrl}">Privacy policy</a> · <a href="${termsUrl}">Terms of service</a>`,
               },
               preferencesModal: {
                 title: "Cookie preferences",
@@ -217,8 +222,7 @@ export function CookieConsentManager() {
                   },
                   {
                     title: "More information",
-                    description:
-                      'For full details, read our <a href="/policies/privacy">privacy policy</a> and <a href="/policies/terms-of-service">terms of service</a>.',
+                    description: `For full details, read our <a href="${privacyUrl}">privacy policy</a> and <a href="${termsUrl}">terms of service</a>.`,
                   },
                 ],
               },

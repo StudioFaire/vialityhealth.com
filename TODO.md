@@ -1,13 +1,13 @@
 - [ ] Global menu on mobile - check potential opening bug
 - [ ] PDP - replace wholesale text - Ivy to supply
-- [ ] Add a calculator, see https://peptilabau.com/reconstitution-calculator/
 - [ ] See https://diynad.com/
-- [ ] Sign up for a plan
+- [x] Sign up for a plan
 - [ ] Integrate dataLayer events
-- [ ] Add policies
 - [ ] Check Klaviyo signup works
 - [ ] Create Klaviyo email templates
 - [ ] Create Klaviyo email campaigns
+- [x] Add a calculator, see https://peptilabau.com/reconstitution-calculator/
+- [x] Add policies
 - [x] Homepage: Change products to Reta and BBC, TB500
 - [x] Global footer: Remove collections link
 - [x] About page: Replace with single section and wording from PDF

@@ -17,12 +17,24 @@ type SelectedFilters = Record<string, string[]>;
 
 type PriceBucket = { id: string; label: string; min: number | null; max: number | null };
 
-const PRICE_BUCKETS: PriceBucket[] = [
-  { id: "under-60", label: "Under $60", min: null, max: 60 },
-  { id: "60-100", label: "$60 – $100", min: 60, max: 100 },
-  { id: "100-150", label: "$100 – $150", min: 100, max: 150 },
-  { id: "150-plus", label: "$150+", min: 150, max: null },
-];
+function formatBucketAmount(currency: string, amount: number): string {
+  return new Intl.NumberFormat("en", {
+    style: "currency",
+    currency,
+    currencyDisplay: "narrowSymbol",
+    maximumFractionDigits: 0,
+  }).format(amount);
+}
+
+function getPriceBuckets(currency: string): PriceBucket[] {
+  const format = (amount: number) => formatBucketAmount(currency, amount);
+  return [
+    { id: "under-60", label: `Under ${format(60)}`, min: null, max: 60 },
+    { id: "60-100", label: `${format(60)} – ${format(100)}`, min: 60, max: 100 },
+    { id: "100-150", label: `${format(100)} – ${format(150)}`, min: 100, max: 150 },
+    { id: "150-plus", label: `${format(150)}+`, min: 150, max: null },
+  ];
+}
 
 function getSizes(product: ShopifyProduct): string[] {
   return product.options.find((o) => o.name.toLowerCase() === "size")?.values ?? [];
@@ -55,19 +67,29 @@ function matchesQuery(product: ShopProduct, query: string): boolean {
   ].some((field) => field?.toLowerCase().includes(q));
 }
 
-function facetValueMatches(product: ShopProduct, facetId: string, value: string): boolean {
+function facetValueMatches(
+  product: ShopProduct,
+  facetId: string,
+  value: string,
+  buckets: PriceBucket[],
+): boolean {
   if (facetId === "price") {
-    const bucket = PRICE_BUCKETS.find((b) => b.id === value);
+    const bucket = buckets.find((b) => b.id === value);
     return bucket ? priceOverlaps(product, bucket) : false;
   }
   return getFacetValues(product, facetId).includes(value);
 }
 
-function matchesProduct(product: ShopProduct, selected: SelectedFilters, query: string): boolean {
+function matchesProduct(
+  product: ShopProduct,
+  selected: SelectedFilters,
+  query: string,
+  buckets: PriceBucket[],
+): boolean {
   if (!matchesQuery(product, query)) return false;
   for (const [facetId, values] of Object.entries(selected)) {
     if (values.length === 0) continue;
-    if (!values.some((v) => facetValueMatches(product, facetId, v))) return false;
+    if (!values.some((v) => facetValueMatches(product, facetId, v, buckets))) return false;
   }
   return true;
 }
@@ -78,11 +100,18 @@ const SOURCE_FACETS: { id: string; label: string; sort: (a: string, b: string) =
   { id: "size", label: "Size", sort: (a, b) => parseFloat(a) - parseFloat(b) },
 ];
 
-function buildFacets(products: ShopProduct[], selected: SelectedFilters, query: string): Facet[] {
+function buildFacets(
+  products: ShopProduct[],
+  selected: SelectedFilters,
+  query: string,
+  buckets: PriceBucket[],
+): Facet[] {
   const countFor = (facetId: string, value: string): number => {
     const withoutThisFacet = { ...selected, [facetId]: [] };
     return products.filter(
-      (p) => matchesProduct(p, withoutThisFacet, query) && facetValueMatches(p, facetId, value),
+      (p) =>
+        matchesProduct(p, withoutThisFacet, query, buckets) &&
+        facetValueMatches(p, facetId, value, buckets),
     ).length;
   };
 
@@ -106,7 +135,7 @@ function buildFacets(products: ShopProduct[], selected: SelectedFilters, query: 
   facets.push({
     id: "price",
     label: "Price",
-    values: PRICE_BUCKETS.map((b) => {
+    values: buckets.map((b) => {
       const count = countFor("price", b.id);
       return { value: b.id, label: b.label, count, disabled: count === 0 };
     }),
@@ -114,20 +143,22 @@ function buildFacets(products: ShopProduct[], selected: SelectedFilters, query: 
   return facets;
 }
 
-export function ShopContent({ products }: { products: ShopProduct[] }) {
+export function ShopContent({ products, currency }: { products: ShopProduct[]; currency: string }) {
   const [searchQuery, setSearchQuery] = useState("");
   const [selected, setSelected] = useState<SelectedFilters>({});
   const [sortBy, setSortBy] = useState("featured");
   const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
 
+  const priceBuckets = useMemo(() => getPriceBuckets(currency), [currency]);
+
   const facets = useMemo(
-    () => buildFacets(products, selected, searchQuery),
-    [products, selected, searchQuery],
+    () => buildFacets(products, selected, searchQuery, priceBuckets),
+    [products, selected, searchQuery, priceBuckets],
   );
 
   const filteredProducts = useMemo(
-    () => products.filter((p) => matchesProduct(p, selected, searchQuery)),
-    [products, selected, searchQuery],
+    () => products.filter((p) => matchesProduct(p, selected, searchQuery, priceBuckets)),
+    [products, selected, searchQuery, priceBuckets],
   );
 
   const sortedProducts = useMemo(() => {

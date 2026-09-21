@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import Link from "next/link";
+import { Link } from "@/components/Link";
 import Image from "next/image";
 import { Minus, Plus, FileText, ExternalLink } from "lucide-react";
 import { m, AnimatePresence } from "motion/react";

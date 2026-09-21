@@ -9,14 +9,15 @@ import {
 } from "@/lib/shopify/description";
 import { resolveProductMainImageUrl } from "@/lib/shopify/image";
 import { getFreeShippingConfig } from "@/lib/shopify/discount";
+import { countryForLocale } from "@/lib/markets";
 
 type Props = {
-  params: Promise<{ handle: string }>;
+  params: Promise<{ locale: string; handle: string }>;
 };
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const { handle } = await params;
-  const product = await getProductByHandle(handle);
+  const { locale, handle } = await params;
+  const product = await getProductByHandle(handle, countryForLocale(locale));
   if (!product) return { title: "Product Not Found" };
 
   const image = product.images.edges[0]?.node;
@@ -44,8 +45,8 @@ export async function generateStaticParams() {
 }
 
 export default async function ProductPage({ params }: Props) {
-  const { handle } = await params;
-  const product = await getProductByHandle(handle);
+  const { locale, handle } = await params;
+  const product = await getProductByHandle(handle, countryForLocale(locale));
 
   if (!product) {
     notFound();

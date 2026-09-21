@@ -140,7 +140,7 @@ const ProductFragment = /* GraphQL */ `
 
 export const GetAllProductsQuery = /* GraphQL */ `
   ${ProductFragment}
-  query GetAllProducts($first: Int!) {
+  query GetAllProducts($first: Int!, $country: CountryCode!) @inContext(country: $country) {
     products(first: $first, sortKey: BEST_SELLING) {
       edges {
         node {
@@ -153,7 +153,7 @@ export const GetAllProductsQuery = /* GraphQL */ `
 
 export const GetProductByHandleQuery = /* GraphQL */ `
   ${ProductFragment}
-  query GetProductByHandle($handle: String!) {
+  query GetProductByHandle($handle: String!, $country: CountryCode!) @inContext(country: $country) {
     productByHandle(handle: $handle) {
       ...ProductFields
     }
@@ -162,7 +162,8 @@ export const GetProductByHandleQuery = /* GraphQL */ `
 
 export const GetCollectionByIdentifierQuery = /* GraphQL */ `
   ${ProductFragment}
-  query GetCollectionByIdentifier($handle: String!, $first: Int!) {
+  query GetCollectionByIdentifier($handle: String!, $first: Int!, $country: CountryCode!)
+  @inContext(country: $country) {
     collection(handle: $handle) {
       id
       title

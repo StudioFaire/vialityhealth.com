@@ -2,7 +2,7 @@
 
 import { m, AnimatePresence } from "motion/react";
 import { X, Minus, Plus, ShoppingBag } from "lucide-react";
-import Link from "next/link";
+import { Link } from "@/components/Link";
 import Image from "next/image";
 import { useCart } from "@/components/CartProvider";
 import { formatPrice } from "@/lib/utils";

@@ -1,43 +1,47 @@
 import type { MetadataRoute } from "next";
 import { getAllProducts } from "@/lib/shopify";
+import { MARKET_LIST } from "@/lib/markets";
 
 const BASE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://vialityhealth.com";
 
-export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const staticPages = [
-    { url: BASE_URL, lastModified: new Date(), changeFrequency: "weekly" as const, priority: 1.0 },
-    {
-      url: `${BASE_URL}/shop`,
-      lastModified: new Date(),
-      changeFrequency: "weekly" as const,
-      priority: 0.9,
-    },
-    {
-      url: `${BASE_URL}/about`,
-      lastModified: new Date(),
-      changeFrequency: "monthly" as const,
-      priority: 0.7,
-    },
-    {
-      url: `${BASE_URL}/contact`,
-      lastModified: new Date(),
-      changeFrequency: "monthly" as const,
-      priority: 0.7,
-    },
-  ];
+const staticPaths = [
+  { path: "", changeFrequency: "weekly" as const, priority: 1.0 },
+  { path: "/shop", changeFrequency: "weekly" as const, priority: 0.9 },
+  { path: "/about", changeFrequency: "monthly" as const, priority: 0.7 },
+  { path: "/contact", changeFrequency: "monthly" as const, priority: 0.7 },
+];
 
-  let productPages: MetadataRoute.Sitemap = [];
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
+  let products: { handle: string; publishedAt: string }[] = [];
   try {
-    const products = await getAllProducts(250);
-    productPages = products.map((product) => ({
-      url: `${BASE_URL}/product/${product.handle}`,
-      lastModified: new Date(product.publishedAt),
-      changeFrequency: "weekly" as const,
-      priority: 0.8,
+    products = (await getAllProducts(250)).map((product) => ({
+      handle: product.handle,
+      publishedAt: product.publishedAt,
     }));
   } catch {
     // Shopify not configured yet
   }
 
-  return [...staticPages, ...productPages];
+  const entries: MetadataRoute.Sitemap = [];
+
+  for (const market of MARKET_LIST) {
+    for (const page of staticPaths) {
+      entries.push({
+        url: `${BASE_URL}/${market.locale}${page.path}`,
+        lastModified: new Date(),
+        changeFrequency: page.changeFrequency,
+        priority: page.priority,
+      });
+    }
+    for (const product of products) {
+      entries.push({
+        url: `${BASE_URL}/${market.locale}/product/${product.handle}`,
+        lastModified: new Date(product.publishedAt),
+        changeFrequency: "weekly" as const,
+        priority: 0.8,
+      });
+    }
+  }
+
+  return entries;
 }

@@ -1,4 +1,4 @@
-import Link from "next/link";
+import { Link } from "@/components/Link";
 import { Reveal } from "@/components/Reveal";
 
 export default function CartPage() {

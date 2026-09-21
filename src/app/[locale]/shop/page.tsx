@@ -5,6 +5,7 @@ import { ShopContent } from "./ShopContent";
 import { Reveal } from "@/components/Reveal";
 import { resolveProductDescriptionText } from "@/lib/shopify/description";
 import { resolveProductMainImageUrl } from "@/lib/shopify/image";
+import { countryForLocale, currencyForLocale } from "@/lib/markets";
 
 export const metadata = {
   title: "Shop",
@@ -12,10 +13,14 @@ export const metadata = {
     "Browse our collection of research grade peptides - 99% purity, third-party verified, batch transparency.",
 };
 
-export default async function ShopPage() {
+export default async function ShopPage({ params }: { params: Promise<{ locale: string }> }) {
+  const { locale } = await params;
+  const country = countryForLocale(locale);
+  const currency = currencyForLocale(locale);
+
   let products: ShopifyProduct[] = [];
   try {
-    const collection = await getCollectionByIdentifier("plp-viality", 50);
+    const collection = await getCollectionByIdentifier("plp-viality", 50, country);
     products = collection?.products.edges.map((e) => e.node) ?? [];
   } catch {
     // Shopify not configured yet
@@ -56,7 +61,7 @@ export default async function ShopPage() {
             </div>
           }
         >
-          <ShopContent products={productsWithDescriptions} />
+          <ShopContent products={productsWithDescriptions} currency={currency} />
         </Suspense>
       </div>
     </div>

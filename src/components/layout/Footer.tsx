@@ -2,8 +2,10 @@
 
 import type { ShopifyMenu } from "@/lib/shopify/types";
 import Image from "next/image";
-import Link from "next/link";
+import { Link } from "@/components/Link";
 import { SocialMenu } from "@/components/SocialMenu";
+import { MarketSwitcher } from "./MarketSwitcher";
+import { isMarketSwitcherEnabled } from "@/lib/markets";
 
 // type MenuItem = { title: string; url: string };
 
@@ -58,7 +60,7 @@ export function Footer({
         <div className="grid grid-cols-full lg:grid-cols-12 gap-12 lg:gap-8 mb-16">
           {/* Brand Column */}
           <div className="lg:col-span-4 grid justify-center lg:justify-start">
-            <Link className="relative block h-16 md:h-20 lg:h-24 aspect-15/4" href="/">
+            <Link className="relative block h-8 md:h-10 lg:h-12 aspect-15/4" href="/">
               <Image
                 className="invert object-contain"
                 src="/images/logotype.svg"
@@ -87,6 +89,7 @@ export function Footer({
 
         <div className="pt-8 border-t border-primary-foreground/10 flex flex-col md:flex-row items-center justify-between gap-4 text-xs text-primary-foreground/60">
           <span>&copy; {new Date().getFullYear()} Viality. All rights reserved.</span>
+          {isMarketSwitcherEnabled() && <MarketSwitcher tone="dark" />}
           {legalItems.length > 0 && (
             <ul className="flex flew-row gap-4 text-sm">
               {legalItems.map((item) => (
