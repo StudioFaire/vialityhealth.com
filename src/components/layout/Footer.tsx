@@ -6,38 +6,23 @@ import { Link } from "@/components/Link";
 import { SocialMenu } from "@/components/SocialMenu";
 import { MarketSwitcher } from "./MarketSwitcher";
 import { isMarketSwitcherEnabled } from "@/lib/markets";
-
-// type MenuItem = { title: string; url: string };
-
-const menuItems = (menu: ShopifyMenu | null) =>
-  menu?.items.map(({ title, url }) => ({ title, url })) ?? [];
+import { displaymenu, menuItems } from "./menu";
 
 const EMPTY_URLS: string[] = [];
 
-const displaymenu = (menu: ShopifyMenu | null) => {
-  const items = menuItems(menu);
-
-  return (
-    <section className="lg:col-span-2">
-      {menu?.title && (
-        <h4 className="font-medium text-sm tracking-widest uppercase mb-6 opacity-70">
-          {menu.title}
-        </h4>
-      )}
-      {items.length > 0 && (
-        <ul className="grid grid-cols-2 lg:grid-cols-1 gap-4 text-sm">
-          {items.map((item) => (
-            <li key={item.url}>
-              <Link href={item.url} className="hover:opacity-70 transition-opacity">
-                {item.title}
-              </Link>
-            </li>
-          ))}
-        </ul>
-      )}
-    </section>
-  );
-};
+const footerMenu = (menu: ShopifyMenu | null) => (
+  <section className="lg:col-span-2">
+    {menu?.title && (
+      <h4 className="font-medium text-sm tracking-widest uppercase mb-6 opacity-70">
+        {menu.title}
+      </h4>
+    )}
+    {displaymenu(menu, {
+      listClassName: "grid grid-cols-2 lg:grid-cols-1 gap-4 text-sm",
+      linkClassName: "hover:opacity-70 transition-opacity",
+    })}
+  </section>
+);
 
 export function Footer({
   followUsUrls = EMPTY_URLS,
@@ -81,10 +66,10 @@ export function Footer({
             )}
           </div>
 
-          {displaymenu(shopMenu)}
-          {displaymenu(companyMenu)}
-          {displaymenu(legalMenu)}
-          {displaymenu(supportMenu)}
+          {footerMenu(shopMenu)}
+          {footerMenu(companyMenu)}
+          {footerMenu(legalMenu)}
+          {footerMenu(supportMenu)}
         </div>
 
         <div className="pt-8 border-t border-primary-foreground/10 flex flex-col md:flex-row items-center justify-between gap-4 text-xs text-primary-foreground/60">

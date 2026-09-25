@@ -78,13 +78,14 @@ function resolveSiteUrl(): URL {
 }
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
-  const [followUsMenu, shopMenu, companyMenu, legalMenu, supportMenu, freeShipping] =
+  const [followUsMenu, shopMenu, companyMenu, legalMenu, supportMenu, mainMenu, freeShipping] =
     await Promise.all([
       getMenu("follow-us-viality"),
       getMenu("shop-viality"),
       getMenu("company-viality"),
       getMenu("legal-viality"),
       getMenu("support-viality"),
+      getMenu("main-viality"),
       getFreeShippingConfig(),
     ]);
   const followUsUrls = followUsMenu?.items.flatMap((item) => (item.url ? [item.url] : [])) ?? [];
@@ -104,7 +105,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
         <LazyMotion features={domMax}>
           <CartProvider>
             {freeShipping?.text ? <AnnouncementBar text={freeShipping.text} /> : null}
-            <Navbar />
+            <Navbar mainMenu={mainMenu} />
             <CartDrawer freeShippingThreshold={freeShippingThreshold} />
             <AgeVerification />
             <main className="flex-1">{children}</main>

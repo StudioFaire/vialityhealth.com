@@ -10,16 +10,11 @@ import { cn } from "@/lib/utils";
 import { MobileMenu } from "./MobileMenu";
 import { MarketSwitcher } from "./MarketSwitcher";
 import { isMarketSwitcherEnabled } from "@/lib/markets";
+import type { ShopifyMenu } from "@/lib/shopify/types";
+import { displaymenu, menuItems } from "./menu";
 
-const links = [
-  { href: "/", label: "Home" },
-  { href: "/shop", label: "Shop" },
-  { href: "/about", label: "About" },
-  // { href: "/calculator", label: "Calculator" },
-  { href: "/contact", label: "Contact" },
-];
-
-export function Navbar() {
+export function Navbar({ mainMenu }: { mainMenu: ShopifyMenu | null }) {
+  const links = menuItems(mainMenu).map(({ title, url }) => ({ href: url, label: title }));
   const pathname = usePathname();
   const { cartCount, setIsCartOpen } = useCart();
   const [isScrolled, setIsScrolled] = useState(false);
@@ -76,19 +71,12 @@ export function Navbar() {
         </Link>
 
         {/* Center nav links - desktop only */}
-        <div className="hidden md:flex items-center gap-10 absolute left-1/2 -translate-x-1/2">
-          {links.map((link) => (
-            <Link
-              key={link.href}
-              href={link.href}
-              className={cn(
-                "text-xs uppercase tracking-widest transition-opacity hover:opacity-60",
-                transparent ? "text-foreground" : "text-foreground",
-              )}
-            >
-              {link.label}
-            </Link>
-          ))}
+        <div className="hidden md:flex items-center absolute left-1/2 -translate-x-1/2">
+          {displaymenu(mainMenu, {
+            listClassName: "flex items-center gap-10",
+            linkClassName:
+              "text-xs uppercase tracking-widest transition-opacity hover:opacity-60 text-foreground",
+          })}
         </div>
 
         {/* Right - account + cart */}
