@@ -219,12 +219,13 @@ export function resolveLiquidVariables(html: string, vars: Record<string, string
 // ── Menus ───────────────────────────────────────────────
 
 const storeDomain = process.env.NEXT_PUBLIC_SHOPIFY_STORE_DOMAIN ?? "";
-const storeOrigin = `https://${storeDomain}`;
 
 function toRelativeUrl(rawUrl: string): string {
   try {
     const parsed = new URL(rawUrl);
-    if (parsed.origin === storeOrigin) {
+    const host = parsed.hostname.toLowerCase();
+    const isStoreUrl = host === storeDomain || host.endsWith(".myshopify.com");
+    if (isStoreUrl) {
       return `${parsed.pathname}${parsed.search}${parsed.hash}`;
     }
   } catch {
