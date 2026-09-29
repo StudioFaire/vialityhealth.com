@@ -2,9 +2,9 @@ import type { Metadata } from "next";
 import { CalculatorClient } from "./CalculatorClient";
 
 export const metadata: Metadata = {
-  title: "Laboratory Dilution & Reconstitution Calculator",
+  title: "Reconstitution Calculator",
   description:
-    "Calculate the diluent volume required to reach a target working concentration for in vitro assays and laboratory research.",
+    "Estimate how much bacteriostatic water is needed to reconstitute the research material in your vial.",
 };
 
 export default function CalculatorPage() {
