@@ -1,4 +1,5 @@
 import { decryptAndReverse } from "@/lib/crypto";
+import { applyStaticReplacements } from "./description";
 import type {
   ShopifyImage,
   ShopifyProduct,
@@ -45,7 +46,7 @@ export function getProductImages(product: ShopifyProduct): ShopifyImage[] {
 }
 
 export function getProductShortName(product: ShopifyProduct): string | undefined {
-  return product.short_name;
+  return product.short_name ? applyStaticReplacements(product.short_name) : undefined;
 }
 
 export function getProductImage(product: ShopifyProduct): ShopifyImage | null {

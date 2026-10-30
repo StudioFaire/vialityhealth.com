@@ -78,6 +78,12 @@ describe("product helpers", () => {
     expect(getProductShortName(product)).toBeUndefined();
   });
 
+  it("applies static replacements to the short name", () => {
+    expect(getProductShortName({ ...product, short_name: "{{bp17}} {{sp}}" })).toBe(
+      "BPC-157 synthetic peptide",
+    );
+  });
+
   it("flattens variants", () => {
     expect(getProductVariants(product)).toHaveLength(1);
   });
