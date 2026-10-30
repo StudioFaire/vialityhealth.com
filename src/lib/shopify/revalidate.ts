@@ -1,9 +1,10 @@
 import { revalidateTag } from "next/cache";
+import { SHOPIFY_TAGS } from "./tags";
 
 export function revalidateShopifyProducts() {
-  revalidateTag("shopify-products", "hours");
+  revalidateTag(SHOPIFY_TAGS.products, "hours");
 }
 
 export function revalidateShopifyCollections() {
-  revalidateTag("shopify-collections", "hours");
+  revalidateTag(SHOPIFY_TAGS.collections, "hours");
 }

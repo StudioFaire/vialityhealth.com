@@ -11,7 +11,12 @@ function localeForCountry(iso: string | null | undefined): string {
 export function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
-  if (pathname.startsWith("/_next") || pathname.startsWith("/api") || pathname.includes(".")) {
+  if (
+    pathname.startsWith("/_next") ||
+    pathname.startsWith("/admin") ||
+    pathname.startsWith("/api") ||
+    pathname.includes(".")
+  ) {
     return NextResponse.next();
   }
 

@@ -23,6 +23,7 @@ import type {
   ShopPolicies,
 } from "./types";
 import { transformProduct } from "./product";
+import { SHOPIFY_TAGS } from "./tags";
 import { DEFAULT_COUNTRY } from "@/lib/markets";
 
 function assertData<T>(data: T | undefined, operation: string): T {
@@ -44,7 +45,7 @@ export async function getAllProducts(
       return assertData(data, "getAllProducts").products.edges.map((e) => transformProduct(e.node));
     },
     ["shopify", "products", country],
-    { revalidate: REVALIDATE_SECONDS, tags: ["shopify-products"] },
+    { revalidate: REVALIDATE_SECONDS, tags: [SHOPIFY_TAGS.products] },
   );
   return cachedFn();
 }
@@ -62,7 +63,7 @@ export async function getProductByHandle(
       return raw ? transformProduct(raw) : null;
     },
     ["shopify", "product", handle, country],
-    { revalidate: REVALIDATE_SECONDS, tags: ["shopify-products"] },
+    { revalidate: REVALIDATE_SECONDS, tags: [SHOPIFY_TAGS.products] },
   );
   return cachedFn();
 }
@@ -95,7 +96,7 @@ export async function getCollectionByIdentifier(
       };
     },
     ["shopify", "collection", handle, country],
-    { revalidate: REVALIDATE_SECONDS, tags: ["shopify-collections"] },
+    { revalidate: REVALIDATE_SECONDS, tags: [SHOPIFY_TAGS.collections] },
   );
   return cachedFn();
 }
@@ -197,7 +198,7 @@ export async function getShopPolicies(): Promise<ShopPolicies> {
       return assertData(data, "getShopPolicies").shop;
     },
     ["shopify", "policies"],
-    { revalidate: REVALIDATE_SECONDS, tags: ["shopify-policies"] },
+    { revalidate: REVALIDATE_SECONDS, tags: [SHOPIFY_TAGS.policies] },
   );
   return cachedFn();
 }
@@ -265,7 +266,7 @@ export async function getMenu(handle: string): Promise<ShopifyMenu | null> {
       };
     },
     ["shopify", "menu", handle],
-    { revalidate: REVALIDATE_SECONDS, tags: ["shopify-menus"] },
+    { revalidate: REVALIDATE_SECONDS, tags: [SHOPIFY_TAGS.menus] },
   );
   return cachedFn();
 }
