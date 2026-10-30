@@ -41,12 +41,14 @@ export function getFirstParagraph(text: string): string {
   const html = String(text ?? "");
   const match = html.match(/<p[^>]*>([\s\S]*?)<\/p>/i);
   const source = match ? match[1] : html;
-  return source
+  const paragraph = source
     .replace(/<br\s*\/?>/g, "\n")
     .replace(/<[^>]*>/g, "")
     .split(/\r?\n/)[0]
     .replace(/\s+/g, " ")
     .trim();
+
+  return applyStaticReplacements(paragraph);
 }
 
 export function resolveProductDescriptionText(product: ShopifyProduct): string {

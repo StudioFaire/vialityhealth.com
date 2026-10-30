@@ -70,6 +70,12 @@ describe("getFirstParagraph", () => {
   it("uses the raw text when no paragraph exists", () => {
     expect(getFirstParagraph("just text")).toBe("just text");
   });
+
+  it("applies static replacements", () => {
+    expect(getFirstParagraph("<p>{{m}} supports {{cr}}.</p>")).toBe(
+      "melanocortin supports controlled research.",
+    );
+  });
 });
 
 describe("resolveProductMeta*", () => {
