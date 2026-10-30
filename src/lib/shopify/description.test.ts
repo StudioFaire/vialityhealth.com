@@ -5,6 +5,7 @@ import {
   resolveProductDescription,
   resolveProductMetaDescription,
   resolveProductMetaTitle,
+  resolveProductText,
 } from "./description";
 import type { ShopifyProduct } from "./types";
 
@@ -59,6 +60,15 @@ describe("resolveProductDescription", () => {
   it("falls back to plain description when HTML is empty", () => {
     const product = { ...baseProduct, descriptionHtml: "", description: "plain text" };
     expect(resolveProductDescription(product)).toBe("plain text");
+  });
+});
+
+describe("resolveProductText", () => {
+  it("applies static and product placeholders", () => {
+    const product = { ...baseProduct, full_name: "FULL", short_name: "SHORT" };
+    expect(resolveProductText(product, "<p>{{full_name}} / {{short_name}} / {{m}}</p>")).toBe(
+      "<p>FULL / SHORT / melanocortin</p>",
+    );
   });
 });
 

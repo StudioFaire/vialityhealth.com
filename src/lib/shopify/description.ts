@@ -28,13 +28,14 @@ export function applyStaticReplacements(text: string): string {
   return result.replace(/<br\s*\/?>/g, "").replace(/<span><\/span>/g, "");
 }
 
-export function resolveProductDescription(product: ShopifyProduct): string {
-  const fullName = product.full_name ?? "";
-  const shortName = product.short_name ?? "";
+export function resolveProductText(product: ShopifyProduct, text: string): string {
+  return applyStaticReplacements(text)
+    .replaceAll("{{full_name}}", product.full_name ?? "")
+    .replaceAll("{{short_name}}", product.short_name ?? "");
+}
 
-  return applyStaticReplacements(product.descriptionHtml || product.description)
-    .replaceAll("{{full_name}}", fullName)
-    .replaceAll("{{short_name}}", shortName);
+export function resolveProductDescription(product: ShopifyProduct): string {
+  return resolveProductText(product, product.descriptionHtml || product.description);
 }
 
 export function getFirstParagraph(text: string): string {

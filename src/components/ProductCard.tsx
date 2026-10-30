@@ -3,13 +3,14 @@ import Image from "next/image";
 import { formatPrice } from "@/lib/utils";
 import type { ShopifyProduct } from "@/lib/shopify/types";
 import { getProductImage, getProductShortName } from "@/lib/shopify/product";
-import { getFirstParagraph } from "@/lib/shopify/description";
+import { getFirstParagraph, resolveProductText } from "@/lib/shopify/description";
 
 export function ProductCard({ product }: { product: ShopifyProduct }) {
   const image = getProductImage(product);
   const hasComparePrice = parseFloat(product.compareAtPriceRange.minVariantPrice.amount) > 0;
   const productType = product.productType;
   const summaryText = product.summary ?? "";
+  const descriptionText = summaryText || product.descriptionHtml || product.description;
 
   return (
     <Link href={`/product/${product.handle}`}>
@@ -57,7 +58,7 @@ export function ProductCard({ product }: { product: ShopifyProduct }) {
           </header>
 
           <p className="text-sm text-foreground/70 mb-4 flex-1">
-            {getFirstParagraph(summaryText || product.descriptionHtml || product.description)}
+            {getFirstParagraph(resolveProductText(product, descriptionText))}
           </p>
 
           {/* <footer className="flex items-center justify-between mt-auto pt-4 border-t border-border/40">
