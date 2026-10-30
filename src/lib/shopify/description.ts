@@ -11,6 +11,13 @@ const STATIC_REPLACEMENTS: [string, string][] = [
   ["{{act}}", "ACTH"],
   ["{{sc}}", "stem cell"],
   ["{{cr}}", "controlled research"],
+  ["{{ax}}", "Adamax"],
+  ["{{sm}}", "Semax"],
+  ["{{ip}}", "Ipamorelin"],
+  ["{{gkcu}}", "GHK - Cu"],
+  ["{{bp17}}", "BPC-157"],
+  ["{{tuber}}", "TB-500"],
+  ["{{kv}}", "KPV"],
 ];
 
 export function applyStaticReplacements(text: string): string {
