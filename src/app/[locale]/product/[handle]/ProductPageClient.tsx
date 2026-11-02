@@ -6,6 +6,7 @@ import Image from "next/image";
 import { Minus, Plus, FileText, ExternalLink } from "lucide-react";
 import { m, AnimatePresence } from "motion/react";
 import { useCart } from "@/components/CartProvider";
+import { formatPrice } from "@/lib/utils";
 import { EASE_EDITORIAL } from "@/lib/motion";
 import type { ShopifyProduct, ShopifyProductVariant, ShopifyImage } from "@/lib/shopify/types";
 import { getProductImages, getProductVariants } from "@/lib/shopify/product";
@@ -111,7 +112,9 @@ function BuyBox({
   description: string;
   freeShippingText?: string;
 }) {
-  const basePrice = selectedVariant ? parseFloat(selectedVariant.price.amount) : 0;
+  const priceLabel = selectedVariant
+    ? formatPrice(selectedVariant.price.amount, selectedVariant.price.currencyCode)
+    : "";
   const isAvailable = !!selectedVariant?.availableForSale;
 
   return (
@@ -191,11 +194,7 @@ function BuyBox({
             disabled={isAdding || !isAvailable}
             className="flex-1 h-12 bg-primary text-primary-foreground text-xs uppercase tracking-widest hover:bg-primary/88 active:scale-[0.99] transition-[background-color,transform] flex items-center justify-center disabled:opacity-50"
           >
-            {isAdding
-              ? "Added ✓"
-              : !isAvailable
-                ? "Out of Stock"
-                : `Add to Cart - ${basePrice.toFixed(2)}`}
+            {isAdding ? "Added ✓" : !isAvailable ? "Out of Stock" : `Add to Cart - ${priceLabel}`}
           </button>
         </div>
         <button

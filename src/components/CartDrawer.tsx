@@ -14,6 +14,7 @@ export function CartDrawer({ freeShippingThreshold }: { freeShippingThreshold?: 
     lines,
     cartCount,
     subtotal,
+    currency,
     updateQuantity,
     removeItem,
     checkout,
@@ -69,7 +70,7 @@ export function CartDrawer({ freeShippingThreshold }: { freeShippingThreshold?: 
                     <div className="bg-muted p-4 rounded-lg">
                       <p className="text-sm text-center mb-3 text-foreground/80">
                         {awayFromFreeShipping > 0
-                          ? `You're $${awayFromFreeShipping.toFixed(2)} away from free shipping.`
+                          ? `You're ${formatPrice(awayFromFreeShipping.toFixed(2), currency)} away from free shipping.`
                           : "You've unlocked free shipping!"}
                       </p>
                       <div className="h-1.5 w-full bg-background rounded-full overflow-hidden">
@@ -153,7 +154,9 @@ export function CartDrawer({ freeShippingThreshold }: { freeShippingThreshold?: 
                 <div className="border-t border-border/40 p-6 bg-background">
                   <div className="flex justify-between items-center mb-4">
                     <span className="text-foreground/80">Subtotal</span>
-                    <span className="font-serif text-xl font-medium">{formatPrice(subtotal)}</span>
+                    <span className="font-serif text-xl font-medium">
+                      {formatPrice(subtotal, currency)}
+                    </span>
                   </div>
                   <p className="text-xs text-foreground/50 mb-6 text-center">
                     Taxes and shipping calculated at checkout.

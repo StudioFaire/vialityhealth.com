@@ -19,7 +19,7 @@ import {
 } from "@/lib/shopify";
 import type { ShopifyCart, ShopifyCartLine } from "@/lib/shopify/types";
 import { usePathname } from "next/navigation";
-import { getLocaleFromPath, countryForLocale } from "@/lib/markets";
+import { getLocaleFromPath, countryForLocale, currencyForLocale } from "@/lib/markets";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -36,6 +36,7 @@ type CartContextType = {
   lines: ShopifyCartLine[];
   cartCount: number;
   subtotal: string;
+  currency: string;
   isLoading: boolean;
   isCartOpen: boolean;
   setIsCartOpen: (open: boolean) => void;
@@ -60,7 +61,9 @@ export function CartProvider({ children }: { children: ReactNode }) {
   const checkoutUrl = useRef<string | null>(null);
 
   const pathname = usePathname();
-  const country = countryForLocale(getLocaleFromPath(pathname));
+  const locale = getLocaleFromPath(pathname);
+  const country = countryForLocale(locale);
+  const marketCurrency = currencyForLocale(locale);
   const cartIdStorageKey = cartIdKey(country);
 
   // Load cart for the current market
@@ -165,12 +168,14 @@ export function CartProvider({ children }: { children: ReactNode }) {
     const lines = cart?.lines.edges.map((e) => e.node) ?? [];
     const cartCount = cart?.totalQuantity ?? 0;
     const subtotal = cart?.cost.subtotalAmount.amount ?? "0.00";
+    const currency = cart?.cost.subtotalAmount.currencyCode ?? marketCurrency;
 
     return {
       cart,
       lines,
       cartCount,
       subtotal,
+      currency,
       isLoading,
       isCartOpen,
       setIsCartOpen,
@@ -182,6 +187,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
     };
   }, [
     cart,
+    marketCurrency,
     isLoading,
     isCartOpen,
     setIsCartOpen,
