@@ -2,9 +2,9 @@ import type { Metadata } from "next";
 import { CalculatorClient } from "./CalculatorClient";
 
 export const metadata: Metadata = {
-  title: "Reconstitution Calculator",
+  title: "Peptide Calculator",
   description:
-    "Estimate how much bacteriostatic water is needed to reconstitute the research material in your vial.",
+    "Convert a peptide vial and bacteriostatic water mix into syringe units or peptide pen clicks, with dose and vial duration reference tables.",
 };
 
 export default function CalculatorPage() {
