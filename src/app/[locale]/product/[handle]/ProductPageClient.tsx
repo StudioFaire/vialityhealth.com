@@ -117,6 +117,13 @@ function BuyBox({
     : "";
   const isAvailable = !!selectedVariant?.availableForSale;
 
+  // Shopify adds a single "Default Title" option to products without real
+  // variants. It is metadata, not a customer-facing choice.
+  const options =
+    product.options.length <= 1 && product.options[0]?.values[0] === "Default Title"
+      ? []
+      : product.options;
+
   return (
     <>
       <header>
@@ -124,7 +131,7 @@ function BuyBox({
         <h1 className="font-serif uppercase font-light text-4xl xl:text-5xl text-primary leading-tight mb-2">
           {product.title}
         </h1>
-        {product.options.flatMap((option) =>
+        {options.flatMap((option) =>
           option.values.length === 1
             ? [
                 <p key={option.id} className="text-sm text-primary/50 font-light mb-1">
@@ -138,7 +145,7 @@ function BuyBox({
         </p>
       </header>
 
-      {product.options.flatMap((option) =>
+      {options.flatMap((option) =>
         option.values.length > 1
           ? [
               <fieldset key={option.id} className="mb-2">
