@@ -7,7 +7,7 @@ import {
   resolveProductMetaTitle,
   resolveProductMetaDescription,
 } from "@/lib/shopify/description";
-import { resolveProductMainImageUrl } from "@/lib/shopify/image";
+import { resolveProductImageUrls } from "@/lib/shopify/image";
 import { getFreeShippingConfig } from "@/lib/shopify/discount";
 import { countryForLocale } from "@/lib/markets";
 
@@ -53,7 +53,7 @@ export default async function ProductPage({ params }: Props) {
   }
 
   const description = resolveProductDescription(product);
-  const mainImageUrl = resolveProductMainImageUrl(product);
+  const imageUrls = resolveProductImageUrls(product);
   const freeShippingText = (await getFreeShippingConfig())?.text;
 
   const jsonLd = {
@@ -84,7 +84,7 @@ export default async function ProductPage({ params }: Props) {
       <ProductPageClient
         product={product}
         description={description}
-        mainImageUrl={mainImageUrl}
+        imageUrls={imageUrls}
         freeShippingText={freeShippingText}
       />
     </>

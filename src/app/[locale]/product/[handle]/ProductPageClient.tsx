@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { Link } from "@/components/Link";
 import Image from "next/image";
-import { Minus, Plus, FileText, ExternalLink } from "lucide-react";
+import { Minus, Plus, FileText, ExternalLink, ChevronLeft, ChevronRight } from "lucide-react";
 import { m, AnimatePresence } from "motion/react";
 import { useCart } from "@/components/CartProvider";
 import { formatPrice } from "@/lib/utils";
@@ -23,10 +23,16 @@ function ProductGallery({
   productTitle: string;
 }) {
   const selectedImage = images[selectedIndex] ?? images[0] ?? null;
+  const imageCount = images.length;
+  const hasMultipleImages = imageCount > 1;
+  const goToImage = (offset: number) => {
+    if (!hasMultipleImages) return;
+    onSelect((selectedIndex + offset + imageCount) % imageCount);
+  };
 
   return (
-    <div className="relative bg-surface-gallery min-h-[50vh] lg:min-h-0 h-full order-1 lg:order-1 aspect-9/16 md:aspect-auto">
-      <div className="relative size-full overflow-hidden mb-8">
+    <div className="relative flex h-full min-h-[50vh] flex-col bg-surface-gallery order-1 lg:order-1 lg:min-h-0">
+      <div className="relative mb-8 aspect-9/16 w-full overflow-hidden md:aspect-auto md:min-h-0 md:flex-1">
         <AnimatePresence mode="wait">
           {selectedImage && (
             <m.div
@@ -48,10 +54,41 @@ function ProductGallery({
             </m.div>
           )}
         </AnimatePresence>
+
+        {hasMultipleImages && (
+          <>
+            <button
+              type="button"
+              onClick={() => goToImage(-1)}
+              aria-label="Previous image"
+              className="absolute left-4 top-1/2 z-10 flex size-10 -translate-y-1/2 items-center justify-center rounded-full border border-border/60 bg-background/85 text-primary shadow-sm backdrop-blur transition-colors hover:bg-background"
+            >
+              <ChevronLeft size={18} strokeWidth={1.5} />
+            </button>
+            <button
+              type="button"
+              onClick={() => goToImage(1)}
+              aria-label="Next image"
+              className="absolute right-4 top-1/2 z-10 flex size-10 -translate-y-1/2 items-center justify-center rounded-full border border-border/60 bg-background/85 text-primary shadow-sm backdrop-blur transition-colors hover:bg-background"
+            >
+              <ChevronRight size={18} strokeWidth={1.5} />
+            </button>
+            <span className="absolute bottom-4 right-4 z-10 rounded-full border border-border/60 bg-background/85 px-3 py-1 text-[10px] uppercase tracking-widest text-primary/60 backdrop-blur">
+              {selectedIndex + 1} / {imageCount}
+            </span>
+            <p className="sr-only" aria-live="polite">
+              Image {selectedIndex + 1} of {imageCount}
+            </p>
+          </>
+        )}
       </div>
 
-      {images.length > 1 && (
-        <section className="relative w-full" aria-roledescription="carousel">
+      {hasMultipleImages && (
+        <section
+          className="relative w-full shrink-0"
+          aria-roledescription="carousel"
+          aria-label="Product image thumbnails"
+        >
           <div className="overflow-hidden">
             <div className="flex -ml-4">
               {images.map((img, idx) => (
@@ -62,12 +99,15 @@ function ProductGallery({
                   className="min-w-0 shrink-0 grow-0 pl-4 basis-1/5"
                 >
                   <button
+                    type="button"
                     onClick={() => onSelect(idx)}
-                    className={`group flex h-full w-full items-center justify-center overflow-hidden rounded-lg border bg-card hover:border-ring transition-colors ${
+                    aria-label={`Show image ${idx + 1}`}
+                    aria-pressed={idx === selectedIndex}
+                    className={`group flex aspect-square w-full items-center justify-center overflow-hidden rounded-lg border bg-card hover:border-ring transition-colors ${
                       idx === selectedIndex ? "border-2 border-ring" : "border border-border/40"
                     }`}
                   >
-                    <div className="relative h-full w-full object-cover transition duration-300 ease-in-out group-hover:scale-105">
+                    <div className="relative size-full object-cover transition duration-300 ease-in-out group-hover:scale-105">
                       <Image
                         src={img.url}
                         alt={img.altText || `${productTitle} ${idx + 1}`}
@@ -325,17 +365,17 @@ function VerificationSection() {
 export function ProductPageClient({
   product,
   description,
-  mainImageUrl,
+  imageUrls = [],
   freeShippingText,
 }: {
   product: ShopifyProduct;
   description: string;
-  mainImageUrl?: string;
+  imageUrls?: string[];
   freeShippingText?: string;
 }) {
   const { addItem, buyNow } = useCart();
-  const images = mainImageUrl
-    ? [{ url: mainImageUrl, altText: null, width: 0, height: 0 }]
+  const images = imageUrls.length
+    ? imageUrls.map((url) => ({ url, altText: null, width: 0, height: 0 }))
     : getProductImages(product);
   const variants = getProductVariants(product);
 
