@@ -6,8 +6,9 @@ import {
   getProductShortName,
   getProductVariants,
   parseImageUrls,
+  transformProduct,
 } from "./product";
-import type { ShopifyProduct } from "./types";
+import type { ShopifyProduct, ShopifyProductRaw } from "./types";
 
 const product: ShopifyProduct = {
   id: "gid://shopify/Product/1",
@@ -97,6 +98,35 @@ describe("product helpers", () => {
 
   it("flattens variants", () => {
     expect(getProductVariants(product)).toHaveLength(1);
+  });
+});
+
+describe("transformProduct", () => {
+  it("parses variant Image URLs metafields", () => {
+    const raw: ShopifyProductRaw = {
+      ...product,
+      variants: {
+        edges: [
+          {
+            node: {
+              ...product.variants.edges[0].node,
+              imageUrlsMetafield: {
+                value: JSON.stringify(["https://example.com/20mg.jpg"]),
+              },
+            },
+          },
+        ],
+      },
+      fullNameMetafield: null,
+      shortNameMetafield: null,
+      imageUrlsMetafield: null,
+      summaryMetafield: null,
+    };
+
+    const transformed = transformProduct(raw);
+
+    expect(transformed.variants.edges[0].node.image_urls).toEqual(["https://example.com/20mg.jpg"]);
+    expect(transformed.variants.edges[0].node.imageUrlsMetafield).toBeUndefined();
   });
 });
 

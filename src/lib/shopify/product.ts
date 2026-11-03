@@ -54,7 +54,17 @@ export function transformProduct(raw: ShopifyProductRaw): ShopifyProduct {
     descriptionHtml: raw.descriptionHtml,
     productType: raw.productType,
     options: raw.options,
-    variants: raw.variants,
+    variants: {
+      edges: raw.variants.edges.map(({ node }) => {
+        const { imageUrlsMetafield, ...variant } = node;
+        return {
+          node: {
+            ...variant,
+            image_urls: parseImageUrls(imageUrlsMetafield?.value),
+          },
+        };
+      }),
+    },
     sellingPlanGroups: raw.sellingPlanGroups,
     images: raw.images,
     priceRange: raw.priceRange,

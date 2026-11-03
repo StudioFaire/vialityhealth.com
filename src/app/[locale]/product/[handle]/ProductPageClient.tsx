@@ -196,7 +196,9 @@ function BuyBox({
                   {option.values.map((value) => (
                     <button
                       key={value}
+                      type="button"
                       onClick={() => onSelectOption(option.name, value)}
+                      aria-pressed={selectedOptions[option.name] === value}
                       className={`px-4 py-2 text-xs uppercase tracking-widest transition-colors ${
                         selectedOptions[option.name] === value
                           ? "bg-primary text-primary-foreground"
@@ -374,12 +376,8 @@ export function ProductPageClient({
   freeShippingText?: string;
 }) {
   const { addItem, buyNow } = useCart();
-  const images = imageUrls.length
-    ? imageUrls.map((url) => ({ url, altText: null, width: 0, height: 0 }))
-    : getProductImages(product);
   const variants = getProductVariants(product);
 
-  const [selectedImageIndex, setSelectedImageIndex] = useState(0);
   const [selectedOptions, setSelectedOptions] = useState<Record<string, string>>(() => {
     const initial: Record<string, string> = {};
     product.options.forEach((opt) => {
@@ -387,12 +385,29 @@ export function ProductPageClient({
     });
     return initial;
   });
+  const [selectedImage, setSelectedImage] = useState<{ variantId?: string; index: number }>({
+    index: 0,
+  });
   const [quantity, setQuantity] = useState(1);
   const [isAdding, setIsAdding] = useState(false);
 
   const selectedVariant = variants.find((v) =>
     v.selectedOptions.every((opt) => selectedOptions[opt.name] === opt.value),
   );
+
+  const variantImageUrls = selectedVariant?.image_urls ?? [];
+  const galleryImageUrls = variantImageUrls.length > 0 ? variantImageUrls : imageUrls;
+  const images =
+    galleryImageUrls.length > 0
+      ? galleryImageUrls.map((url) => ({ url, altText: null, width: 0, height: 0 }))
+      : getProductImages(product);
+
+  const selectedImageIndex =
+    selectedImage.variantId === selectedVariant?.id ? selectedImage.index : 0;
+
+  const handleSelectImage = (index: number) => {
+    setSelectedImage({ variantId: selectedVariant?.id, index });
+  };
 
   const handleAdd = () => {
     if (!selectedVariant) return;
@@ -417,7 +432,7 @@ export function ProductPageClient({
         <ProductGallery
           images={images}
           selectedIndex={selectedImageIndex}
-          onSelect={setSelectedImageIndex}
+          onSelect={handleSelectImage}
           productTitle={product.title}
         />
 

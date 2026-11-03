@@ -29,6 +29,9 @@ const ProductFragment = /* GraphQL */ `
             name
             value
           }
+          imageUrlsMetafield: metafield(namespace: "custom", key: "image_urls") {
+            value
+          }
           sellingPlanAllocations(first: 5) {
             edges {
               node {

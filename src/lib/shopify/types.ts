@@ -32,6 +32,10 @@ export type ShopifyProductVariant = {
   price: ShopifyPrice;
   compareAtPrice: ShopifyPrice | null;
   selectedOptions: { name: string; value: string }[];
+  imageUrlsMetafield?: {
+    value: string;
+  } | null;
+  image_urls?: string[];
   sellingPlanAllocations: {
     edges: { node: ShopifySellingPlanAllocation }[];
   };
