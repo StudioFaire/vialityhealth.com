@@ -13,21 +13,22 @@ import { getProductImages, getProductVariants } from "@/lib/shopify/product";
 
 function ProductGallery({
   images,
-  selectedIndex,
-  onSelect,
+  initialIndex = 0,
   productTitle,
 }: {
   images: ShopifyImage[];
-  selectedIndex: number;
-  onSelect: (index: number) => void;
+  initialIndex?: number;
   productTitle: string;
 }) {
+  const [selectedIndex, setSelectedIndex] = useState(() =>
+    Math.min(Math.max(initialIndex, 0), Math.max(images.length - 1, 0)),
+  );
   const selectedImage = images[selectedIndex] ?? images[0] ?? null;
   const imageCount = images.length;
   const hasMultipleImages = imageCount > 1;
   const goToImage = (offset: number) => {
     if (!hasMultipleImages) return;
-    onSelect((selectedIndex + offset + imageCount) % imageCount);
+    setSelectedIndex((selectedIndex + offset + imageCount) % imageCount);
   };
 
   return (
@@ -100,7 +101,7 @@ function ProductGallery({
                 >
                   <button
                     type="button"
-                    onClick={() => onSelect(idx)}
+                    onClick={() => setSelectedIndex(idx)}
                     aria-label={`Show image ${idx + 1}`}
                     aria-pressed={idx === selectedIndex}
                     className={`group flex aspect-square w-full items-center justify-center overflow-hidden rounded-lg border bg-card hover:border-ring transition-colors ${
@@ -385,9 +386,6 @@ export function ProductPageClient({
     });
     return initial;
   });
-  const [selectedImage, setSelectedImage] = useState<{ variantId?: string; index: number }>({
-    index: 0,
-  });
   const [quantity, setQuantity] = useState(1);
   const [isAdding, setIsAdding] = useState(false);
 
@@ -395,18 +393,27 @@ export function ProductPageClient({
     v.selectedOptions.every((opt) => selectedOptions[opt.name] === opt.value),
   );
 
-  const variantImageUrls = selectedVariant?.image_urls ?? [];
+  // Keep every variant image and every product image in the gallery at all
+  // times. Changing size only moves the selected slide, so thumbnails never
+  // appear or disappear.
+  const allVariantImageUrls = Array.from(
+    new Set(variants.flatMap((variant) => variant.image_urls ?? [])),
+  );
   const productImageUrls =
     imageUrls.length > 0 ? imageUrls : getProductImages(product).map((image) => image.url);
-  const galleryImageUrls = Array.from(new Set([...variantImageUrls, ...productImageUrls]));
+  const galleryImageUrls = Array.from(new Set([...allVariantImageUrls, ...productImageUrls]));
   const images = galleryImageUrls.map((url) => ({ url, altText: null, width: 0, height: 0 }));
 
-  const selectedImageIndex =
-    selectedImage.variantId === selectedVariant?.id ? selectedImage.index : 0;
-
-  const handleSelectImage = (index: number) => {
-    setSelectedImage({ variantId: selectedVariant?.id, index });
-  };
+  const selectedVariantImage = selectedVariant?.image_urls?.[0];
+  const selectedVariantImageIndex = selectedVariantImage
+    ? galleryImageUrls.indexOf(selectedVariantImage)
+    : -1;
+  const productImageUrlSet = new Set(productImageUrls);
+  const firstProductImageIndex = galleryImageUrls.findIndex((url) => productImageUrlSet.has(url));
+  const initialImageIndex =
+    selectedVariantImageIndex >= 0
+      ? selectedVariantImageIndex
+      : Math.max(firstProductImageIndex, 0);
 
   const handleAdd = () => {
     if (!selectedVariant) return;
@@ -429,9 +436,9 @@ export function ProductPageClient({
     <div className="min-h-screen bg-background pt-18">
       <section className="grid grid-cols-1 lg:grid-cols-[1fr_480px] xl:grid-cols-[1fr_520px] min-h-[calc(100vh-72px)]">
         <ProductGallery
+          key={selectedVariant?.id ?? "default"}
           images={images}
-          selectedIndex={selectedImageIndex}
-          onSelect={handleSelectImage}
+          initialIndex={initialImageIndex}
           productTitle={product.title}
         />
 
