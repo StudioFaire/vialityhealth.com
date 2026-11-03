@@ -17,6 +17,33 @@ function safeDecrypt(value: string | null | undefined): string | undefined {
   }
 }
 
+function safeImageUrl(value: string): string | undefined {
+  const decrypted = safeDecrypt(value);
+  if (decrypted) return decrypted;
+  // Allow plain URLs too, so newly added list items do not need encryption.
+  return /^https?:\/\//i.test(value) ? value : undefined;
+}
+
+// Parse the Image URLs list metafield, decrypting encrypted entries and
+// keeping plain URL entries as-is.
+export function parseImageUrls(value: string | null | undefined): string[] | undefined {
+  if (!value) return undefined;
+
+  try {
+    const parsed: unknown = JSON.parse(value);
+    if (!Array.isArray(parsed)) return undefined;
+
+    const urls = parsed
+      .filter((item): item is string => typeof item === "string")
+      .map(safeImageUrl)
+      .filter((url): url is string => Boolean(url));
+
+    return urls.length > 0 ? urls : undefined;
+  } catch {
+    return undefined;
+  }
+}
+
 // Transform raw product data (with metafields) into ShopifyProduct.
 export function transformProduct(raw: ShopifyProductRaw): ShopifyProduct {
   return {
@@ -36,7 +63,7 @@ export function transformProduct(raw: ShopifyProductRaw): ShopifyProduct {
     publishedAt: raw.publishedAt,
     full_name: safeDecrypt(raw.fullNameMetafield?.value),
     short_name: safeDecrypt(raw.shortNameMetafield?.value),
-    full_image_url: safeDecrypt(raw.fullImageUrlMetafield?.value),
+    image_urls: parseImageUrls(raw.imageUrlsMetafield?.value),
     summary: raw.summaryMetafield?.value,
   };
 }
@@ -50,8 +77,9 @@ export function getProductShortName(product: ShopifyProduct): string | undefined
 }
 
 export function getProductImage(product: ShopifyProduct): ShopifyImage | null {
-  if (product.full_image_url) {
-    return { url: product.full_image_url, altText: null, width: 0, height: 0 };
+  const imageUrl = product.image_urls?.[0];
+  if (imageUrl) {
+    return { url: imageUrl, altText: null, width: 0, height: 0 };
   }
 
   return product.images.edges[0]?.node ?? null;

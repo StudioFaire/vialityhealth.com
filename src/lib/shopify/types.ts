@@ -82,7 +82,7 @@ export type ShopifyProductRaw = {
   shortNameMetafield?: {
     value: string;
   } | null;
-  fullImageUrlMetafield?: {
+  imageUrlsMetafield?: {
     value: string;
   } | null;
   summaryMetafield?: {
@@ -118,7 +118,7 @@ export type ShopifyProduct = {
   publishedAt: string;
   full_name?: string;
   short_name?: string;
-  full_image_url?: string;
+  image_urls?: string[];
   summary?: string;
 };
 

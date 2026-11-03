@@ -1,9 +1,11 @@
 import { describe, expect, it } from "vitest";
+import { encryptAndReverse } from "@/lib/crypto";
 import {
   getProductImage,
   getProductImages,
   getProductShortName,
   getProductVariants,
+  parseImageUrls,
 } from "./product";
 import type { ShopifyProduct } from "./types";
 
@@ -74,6 +76,15 @@ describe("product helpers", () => {
     expect(getProductImage(product)?.url).toBe("https://example.com/a.jpg");
   });
 
+  it("prefers the first Image URLs item", () => {
+    const withImageUrls: ShopifyProduct = {
+      ...product,
+      image_urls: ["https://example.com/hero.jpg", "https://example.com/second.jpg"],
+    };
+
+    expect(getProductImage(withImageUrls)?.url).toBe("https://example.com/hero.jpg");
+  });
+
   it("returns undefined for missing short name", () => {
     expect(getProductShortName(product)).toBeUndefined();
   });
@@ -86,5 +97,38 @@ describe("product helpers", () => {
 
   it("flattens variants", () => {
     expect(getProductVariants(product)).toHaveLength(1);
+  });
+});
+
+describe("parseImageUrls", () => {
+  it("parses plain URLs from the list metafield", () => {
+    expect(
+      parseImageUrls(
+        JSON.stringify(["https://example.com/hero.jpg", "https://example.com/second.jpg"]),
+      ),
+    ).toEqual(["https://example.com/hero.jpg", "https://example.com/second.jpg"]);
+  });
+
+  it("decrypts encrypted list items", () => {
+    const key = "a".repeat(64);
+    const encrypted = encryptAndReverse("https://example.com/hero.jpg", key);
+    const previousKey = process.env.SC_ENCRYPTION_KEY;
+    process.env.SC_ENCRYPTION_KEY = key;
+
+    try {
+      expect(parseImageUrls(JSON.stringify([encrypted]))).toEqual(["https://example.com/hero.jpg"]);
+    } finally {
+      if (previousKey === undefined) {
+        delete process.env.SC_ENCRYPTION_KEY;
+      } else {
+        process.env.SC_ENCRYPTION_KEY = previousKey;
+      }
+    }
+  });
+
+  it("drops values that are neither encrypted nor URLs", () => {
+    expect(parseImageUrls(JSON.stringify(["not-a-url"]))).toBeUndefined();
+    expect(parseImageUrls("not json")).toBeUndefined();
+    expect(parseImageUrls("[]")).toBeUndefined();
   });
 });

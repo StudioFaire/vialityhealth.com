@@ -129,7 +129,7 @@ const ProductFragment = /* GraphQL */ `
     shortNameMetafield: metafield(namespace: "custom", key: "short_name") {
       value
     }
-    fullImageUrlMetafield: metafield(namespace: "custom", key: "full_image_url") {
+    imageUrlsMetafield: metafield(namespace: "custom", key: "image_urls") {
       value
     }
     summaryMetafield: metafield(namespace: "custom", key: "summary") {
