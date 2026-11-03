@@ -396,11 +396,10 @@ export function ProductPageClient({
   );
 
   const variantImageUrls = selectedVariant?.image_urls ?? [];
-  const galleryImageUrls = variantImageUrls.length > 0 ? variantImageUrls : imageUrls;
-  const images =
-    galleryImageUrls.length > 0
-      ? galleryImageUrls.map((url) => ({ url, altText: null, width: 0, height: 0 }))
-      : getProductImages(product);
+  const productImageUrls =
+    imageUrls.length > 0 ? imageUrls : getProductImages(product).map((image) => image.url);
+  const galleryImageUrls = Array.from(new Set([...variantImageUrls, ...productImageUrls]));
+  const images = galleryImageUrls.map((url) => ({ url, altText: null, width: 0, height: 0 }));
 
   const selectedImageIndex =
     selectedImage.variantId === selectedVariant?.id ? selectedImage.index : 0;
