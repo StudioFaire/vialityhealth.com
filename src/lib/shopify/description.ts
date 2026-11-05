@@ -1,7 +1,7 @@
 import type { ShopifyProduct } from "@/lib/shopify/types";
 
 const STATIC_REPLACEMENTS: [string, string][] = [
-  ["{{m}}", "melanocortin"],
+  ["{{m}}", "Melanocortin"],
   ["{{np}}", "neuropeptide"],
   ["{{MC_3_and_4_R}}", "MC3R and MC4R"],
   ["{{p}}", "peptide"],
