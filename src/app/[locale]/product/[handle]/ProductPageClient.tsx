@@ -258,6 +258,18 @@ function BuyBox({
         </button>
       </div>
 
+      <a className="mx-auto" href="https://wa.me/61416505437">
+        <Image
+          src="/images/ChatOnWhatsAppButton/WhiteTheme/WhatsAppButtonWhiteSmall.svg"
+          alt="Chat on WhatsApp"
+          className="w-48"
+          height={72}
+          sizes="(max-width: 1440px) 1440px, (max-width: 1024px) 1024px, (max-width: 768px) 768px"
+          priority
+          width={320}
+        />
+      </a>
+
       <div className="grid grid-cols-2 gap-3 border-t border-border/40 pt-6">
         <div className="flex items-center gap-2 text-xs uppercase tracking-widest text-primary/45">
           <div className="size-3.5 border border-primary/20 flex items-center justify-center shrink-0">

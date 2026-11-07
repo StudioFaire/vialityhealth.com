@@ -11,7 +11,7 @@ import { displaymenu, menuItems } from "./menu";
 const EMPTY_URLS: string[] = [];
 
 const footerMenu = (menu: ShopifyMenu | null) => (
-  <section className="lg:col-span-2">
+  <section className="lg:col-span-2 mb-8">
     {menu?.title && (
       <h4 className="font-medium text-sm tracking-widest uppercase mb-6 opacity-70">
         {menu.title}
@@ -42,7 +42,7 @@ export function Footer({
   return (
     <footer className="bg-primary text-primary-foreground pt-16 pb-8 px-4 sm:px-6 lg:px-8">
       <div className="container mx-auto">
-        <div className="grid grid-cols-full lg:grid-cols-12 gap-12 lg:gap-8 mb-16">
+        <div className="grid grid-cols-full lg:grid-cols-12 gap-12 lg:gap-8 mb-8">
           {/* Brand Column */}
           <div className="lg:col-span-4 grid justify-center lg:justify-start">
             <Link className="relative block h-8 md:h-10 lg:h-12 aspect-15/4" href="/">
@@ -64,6 +64,18 @@ export function Footer({
                 urls={followUsUrls}
               />
             )}
+
+            <a className="self-end" href="https://wa.me/61416505437">
+              <Image
+                src="/images/ChatOnWhatsAppButton/WhiteTheme/WhatsAppButtonWhiteSmall.svg"
+                alt="Chat on WhatsApp"
+                className="w-48"
+                height={72}
+                sizes="(max-width: 1440px) 1440px, (max-width: 1024px) 1024px, (max-width: 768px) 768px"
+                priority
+                width={320}
+              />
+            </a>
           </div>
 
           {footerMenu(shopMenu)}
